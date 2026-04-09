@@ -1,0 +1,9 @@
+# Autoriser tous les robots sur le site principal
+User-agent: *
+Allow: /
+
+# Bloquer le sous-domaine WordPress (éviter duplicate content)
+# Note: Ce fichier s'applique à anthonyrusso.fr
+# Pour wp.anthonyrusso.fr, créer un robots.txt dédié qui bloque tout
+
+Sitemap: https://anthonyrusso.fr/sitemap-index.xml

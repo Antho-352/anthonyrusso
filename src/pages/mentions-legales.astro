@@ -1,0 +1,123 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+
+export const prerender = true;
+
+const title = 'Mentions légales';
+const description = 'Mentions légales du site anthonyrusso.fr';
+---
+
+<PageLayout title={title} description={description} noIndex={true}>
+  <section class="section">
+    <div class="container-narrow">
+      <h1>Mentions légales</h1>
+
+      <div class="legal-content">
+        <section class="legal-section">
+          <h2>Éditeur du site</h2>
+          <p>
+            <strong>Directeur de la publication :</strong> Anthony Russo<br />
+            <strong>Contact :</strong> <a href="mailto:contact@anthonyrusso.fr">contact@anthonyrusso.fr</a>
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>Hébergement</h2>
+          <p>
+            Le site anthonyrusso.fr est hébergé par :<br />
+            <strong>[Nom de l'hébergeur]</strong><br />
+            [Adresse de l'hébergeur]<br />
+            [Téléphone de l'hébergeur]
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>Propriété intellectuelle</h2>
+          <p>
+            L'ensemble du contenu de ce site (textes, images, vidéos, logos) est la propriété exclusive d'Anthony Russo, sauf mention contraire.
+            Toute reproduction, distribution, modification, adaptation, retransmission ou publication de ces différents éléments est strictement interdite sans l'accord express d'Anthony Russo.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>Données personnelles</h2>
+          <p>
+            Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification, de suppression et d'opposition aux données personnelles vous concernant.
+          </p>
+          <p>
+            Les données collectées via les formulaires de contact ou de prise de rendez-vous sont utilisées uniquement dans le cadre de la relation commerciale et ne sont jamais cédées à des tiers.
+          </p>
+          <p>
+            Pour exercer vos droits, contactez : <a href="mailto:contact@anthonyrusso.fr">contact@anthonyrusso.fr</a>
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>Cookies</h2>
+          <p>
+            Ce site utilise des cookies pour améliorer votre expérience de navigation et analyser le trafic. Vous pouvez configurer votre navigateur pour refuser les cookies.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>Limitation de responsabilité</h2>
+          <p>
+            Anthony Russo s'efforce d'assurer l'exactitude et la mise à jour des informations diffusées sur ce site, mais ne peut garantir l'absence d'erreurs ou d'omissions.
+          </p>
+          <p>
+            L'utilisateur reconnaît utiliser ces informations sous sa responsabilité exclusive.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>Liens hypertextes</h2>
+          <p>
+            Le site anthonyrusso.fr peut contenir des liens vers des sites externes. Anthony Russo n'exerce aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu.
+          </p>
+        </section>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .legal-content {
+    margin-top: var(--space-2xl);
+  }
+
+  .legal-section {
+    margin-bottom: var(--space-3xl);
+    padding-bottom: var(--space-2xl);
+    border-bottom: 1px solid var(--color-divider);
+  }
+
+  .legal-section:last-child {
+    border-bottom: none;
+  }
+
+  .legal-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-lg);
+    color: var(--color-text);
+  }
+
+  .legal-section p {
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-bottom: var(--space-md);
+  }
+
+  .legal-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  .legal-section a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .legal-section a:hover {
+    color: var(--color-primary-hover);
+  }
+</style>

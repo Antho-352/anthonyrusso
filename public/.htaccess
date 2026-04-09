@@ -1,0 +1,9 @@
+# Block direct access to WordPress subdomain (except admin/login/API)
+# Redirect all wp.anthonyrusso.fr requests to main domain
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^wp\.anthonyrusso\.fr$ [NC]
+RewriteCond %{REQUEST_URI} !^/wp-admin
+RewriteCond %{REQUEST_URI} !^/wp-login\.php
+RewriteCond %{REQUEST_URI} !^/wp-json
+RewriteCond %{REQUEST_URI} !^/wp-includes
+RewriteRule ^(.*)$ https://anthonyrusso.fr/ [R=301,L]

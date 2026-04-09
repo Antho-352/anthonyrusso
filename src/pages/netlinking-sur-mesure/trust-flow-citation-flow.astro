@@ -1,0 +1,712 @@
+---
+export const prerender = true;
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'Trust Flow & Citation Flow : comprendre et relativiser les métriques Majestic';
+const description = 'TF, CF, DR, DA… Ces scores sont partout dans les rapports netlinking. Mais sont-ils vraiment fiables ? Définition, lecture du ratio TF/CF et vision d\'expert sur leurs vraies limites.';
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Trust Flow et Citation Flow : ce que ces métriques disent vraiment d\'un site donneur',
+  description: 'Guide complet sur le Trust Flow et le Citation Flow : définition, lecture du ratio TF/CF, limites de ces métriques et vrais critères de qualité d\'un site donneur.',
+  author: {
+    '@type': 'Person',
+    name: 'Anthony Russo',
+    url: 'https://anthonyrusso.fr'
+  },
+  publisher: {
+    '@type': 'Person',
+    name: 'Anthony Russo',
+    url: 'https://anthonyrusso.fr'
+  },
+  mainEntityOfPage: 'https://anthonyrusso.fr/netlinking-sur-mesure/trust-flow-citation-flow/'
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Un TF de 20 est-il suffisant pour un bon site donneur ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'C\'est un indicateur, pas une garantie. Un TF de 20 avec un trafic organique solide et un contenu éditorial de qualité peut être un excellent site donneur. Un TF de 40 sans aucun trafic réel est probablement un site dont la métrique a été gonflée artificiellement.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Peut-on manipuler son Trust Flow artificiellement ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Oui. Des réseaux de sites construits pour se linker mutuellement en s\'appuyant sur des domaines proches des sites de confiance de Majestic permettent de gonfler le TF sans valeur éditoriale réelle.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'TF/CF sont-ils les seuls critères pour choisir un site donneur ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Non. TF et CF sont des filtres d\'entrée utiles pour écarter rapidement les mauvais sites. Ils ne remplacent pas une analyse manuelle du trafic réel, de la qualité éditoriale, de la cohérence thématique et du profil de liens entrants.'
+      }
+    }
+  ]
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://anthonyrusso.fr' },
+    { '@type': 'ListItem', position: 2, name: 'Netlinking sur mesure', item: 'https://anthonyrusso.fr/netlinking-sur-mesure/' },
+    { '@type': 'ListItem', position: 3, name: 'Trust Flow & Citation Flow', item: 'https://anthonyrusso.fr/netlinking-sur-mesure/trust-flow-citation-flow/' }
+  ]
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <div class="page-container">
+    <article class="page-content">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Accueil</a></li>
+          <li><a href="/netlinking-sur-mesure">Netlinking sur mesure</a></li>
+          <li aria-current="page">Trust Flow & Citation Flow</li>
+        </ol>
+      </nav>
+
+      <!-- Header -->
+      <header class="page-header">
+        <h1>Trust Flow et Citation Flow : ce que ces métriques disent vraiment d'un site donneur</h1>
+      </header>
+
+      <!-- Introduction -->
+      <section class="intro">
+        <p>
+          Quand on évalue un site donneur pour une campagne de netlinking, deux métriques Majestic reviennent systématiquement : le <strong>Trust Flow</strong> et le <strong>Citation Flow</strong>. On les cite souvent ensemble — mais elles ne mesurent pas la même chose, et les confondre mène à de mauvaises décisions.
+        </p>
+        <p>
+          Ce qu'on vous dit moins souvent : ces métriques ont des limites sérieuses. Les connaître, c'est éviter de payer pour des liens qui ne valent rien — malgré des scores rassurants sur le papier.
+        </p>
+      </section>
+
+      <!-- Encadré résumé -->
+      <div class="summary-box">
+        <h2 class="summary-title">Ce que vous retenez de cette page :</h2>
+        <ul>
+          <li><strong>Trust Flow (TF)</strong> = qualité estimée des liens reçus par un site, de 0 à 100</li>
+          <li><strong>Citation Flow (CF)</strong> = volume de liens reçus, sans critère de qualité</li>
+          <li>Le <strong>ratio TF/CF</strong> est plus révélateur que chaque métrique isolée</li>
+          <li>TF, DR et DA sont <strong>manipulables</strong> — un bon score ne garantit rien sur la valeur réelle d'un site</li>
+          <li>Le vrai critère de qualité d'un site donneur, c'est son <strong>trafic organique réel</strong> et sa cohérence éditoriale</li>
+        </ul>
+      </div>
+
+      <!-- Content sections -->
+      <section class="content-section">
+        <h2>Qu'est-ce que le Trust Flow ?</h2>
+        <p>
+          Le Trust Flow est une métrique propriétaire créée par Majestic. Elle mesure la qualité estimée du profil de backlinks d'un site en se basant sur la proximité avec un ensemble de "sites de confiance" sélectionnés manuellement par Majestic — des sites considérés comme fiables et éditorialement solides.
+        </p>
+        <p>
+          L'échelle va de 0 à 100. Elle n'est pas linéaire : passer de 5 à 15 est relativement accessible, passer de 30 à 40 demande un profil de liens déjà solide. Un TF de 20 n'est pas "deux fois moins bon" qu'un TF de 40 — la progression est exponentielle.
+        </p>
+        <p>
+          En résumé : le TF tente de mesurer la réputation d'un site aux yeux de Majestic. Plus un site est cité par des sources que Majestic considère comme fiables, plus son TF est élevé.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Qu'est-ce que le Citation Flow ?</h2>
+        <p>
+          Le Citation Flow mesure le volume brut de liens reçus par un site, indépendamment de leur qualité. Un site qui accumule des milliers de liens de faible valeur peut afficher un CF élevé avec un TF très bas.
+        </p>
+        <p>
+          C'est une métrique de popularité brute — pas de réputation. Un CF élevé seul ne dit rien de positif sur un site. Il dit juste qu'il reçoit beaucoup de liens.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Le ratio TF/CF : la vraie lecture</h2>
+        <p>
+          Prises séparément, les deux métriques sont insuffisantes. C'est leur rapport qui devient intéressant.
+        </p>
+        <p>
+          Un site avec un TF élevé et un CF raisonnable a un profil de liens concentré sur des sources de qualité — c'est le profil d'un site éditorialement sérieux. Un site avec un CF très élevé par rapport à son TF a accumulé massivement des liens de faible valeur — signal d'alerte immédiat.
+        </p>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Profil</th>
+                <th>TF</th>
+                <th>CF</th>
+                <th>Ratio TF/CF</th>
+                <th>Interprétation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Idéal</td>
+                <td>35</td>
+                <td>40</td>
+                <td>0,87</td>
+                <td>Profil naturel, autorité réelle</td>
+              </tr>
+              <tr>
+                <td>Gonflé artificiellement</td>
+                <td>15</td>
+                <td>60</td>
+                <td>0,25</td>
+                <td>Volume sans qualité</td>
+              </tr>
+              <tr>
+                <td>Suspect</td>
+                <td>40</td>
+                <td>85</td>
+                <td>0,47</td>
+                <td>Achat de liens en masse probable</td>
+              </tr>
+              <tr>
+                <td>Site jeune sain</td>
+                <td>12</td>
+                <td>15</td>
+                <td>0,80</td>
+                <td>Petit mais propre</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          Un ratio TF/CF supérieur à 0,5 est généralement sain. En dessous de 0,3, le profil mérite une analyse approfondie avant d'utiliser ce site comme donneur.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Le Topical Trust Flow</h2>
+        <p>
+          Le Topical Trust Flow décompose le TF global par thématique. Il indique dans quelle catégorie éditoriale Majestic considère le site comme fiable.
+        </p>
+        <p>Exemple :</p>
+
+        <pre><code>Site X — TF global : 28
+├── Business / Marketing    : 24
+├── Computers / Internet    : 18
+└── Recreation / Travel     :  6</code></pre>
+
+        <p>
+          Ce que ça change pour le netlinking : un lien d'un site avec un Topical TF fort dans votre thématique vaut plus qu'un lien d'un site généraliste de même TF global. La cohérence thématique renforce la pertinence du signal envoyé à Google — et le Topical TF en est un bon indicateur, à condition de ne pas s'y fier aveuglément.
+        </p>
+        <p>
+          → Comment utiliser le Topical TF pour sélectionner les sites donneurs : <a href="/netlinking-sur-mesure/evaluer-site-donneur/">Évaluer un site donneur</a>
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>TF/CF vs Domain Rating vs Domain Authority</h2>
+        <p>
+          Ces trois métriques coexistent dans les outils et sont souvent confondues.
+        </p>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Métrique</th>
+                <th>Outil</th>
+                <th>Ce qu'elle mesure</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Trust Flow (TF)</td>
+                <td>Majestic</td>
+                <td>Qualité estimée des liens reçus</td>
+              </tr>
+              <tr>
+                <td>Citation Flow (CF)</td>
+                <td>Majestic</td>
+                <td>Volume de liens reçus</td>
+              </tr>
+              <tr>
+                <td>Domain Rating (DR)</td>
+                <td>Ahrefs</td>
+                <td>Force du profil de backlinks global</td>
+              </tr>
+              <tr>
+                <td>Domain Authority (DA)</td>
+                <td>Moz</td>
+                <td>Prédiction de ranking — la moins fiable</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          Aucune de ces métriques ne reflète le PageRank réel de Google. Ce sont des approximations construites par des outils tiers à partir de leur propre index — partiel, incomplet, et différent de celui de Google. Les scores varient d'un outil à l'autre sur le même site pour cette raison.
+        </p>
+        <p>
+          → Comprendre la différence entre DR et DA : <a href="/netlinking-sur-mesure/domain-rating-domain-authority/">Domain Rating vs Domain Authority</a>
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Ces métriques sont-elles vraiment fiables ?</h2>
+        <p>
+          C'est la question que trop peu de gens se posent. La réponse directe : <strong>non, pas suffisamment pour en faire le seul critère de décision</strong> dans une campagne de netlinking.
+        </p>
+
+        <h3>Comment ces scores sont réellement calculés</h3>
+        <p>
+          TF, CF, DR et DA sont tous calculés par des crawlers tiers qui explorent le web et construisent leur propre index de liens. Ce ne sont pas des données Google — ce sont des modèles statistiques basés sur des données partielles. Majestic ne crawle pas le même web qu'Ahrefs, qui ne crawle pas le même web que Google. C'est pour cette raison qu'un même site peut avoir un DR de 45 sur Ahrefs et un TF de 12 sur Majestic — les deux outils ont indexé des portions différentes du même profil de liens.
+        </p>
+
+        <h3>Pourquoi ces métriques sont manipulables</h3>
+        <p>
+          Le secteur du netlinking a très bien compris comment ces scores fonctionnent — et comment les gonfler.
+        </p>
+        <p>
+          Le TF de Majestic se manipule en obtenant des liens de sites eux-mêmes proches des "sites de confiance" de Majestic. Des réseaux entiers ont été construits dans ce but : obtenir des liens sur quelques sites à fort TF pour faire monter le score d'un domaine, sans que ce domaine ait la moindre valeur éditoriale réelle.
+        </p>
+        <p>
+          Le DR d'Ahrefs se manipule en obtenant des liens de sites à fort DR, même si ces sites n'ont aucun trafic organique. Un site peut atteindre un DR 50 en achetant des liens sur d'autres sites à DR élevé — tout ça dans un système circulaire qui ne reflète rien de la réalité.
+        </p>
+        <p>
+          Le DA de Moz est aujourd'hui largement considéré comme le moins fiable des trois. Son modèle de calcul est moins transparent et sa corrélation avec le positionnement réel est la plus faible.
+        </p>
+
+        <h3>La réalité du terrain</h3>
+        <p>
+          Voici ce que l'expérience terrain enseigne après des centaines de campagnes analysées : un TF ou un DR élevé ne présage en rien de la valeur réelle d'un site pour une campagne de netlinking.
+        </p>
+        <p>
+          Des sites avec un Trust Flow supérieur à 40 qui ne génèrent aucun trafic organique. Des sites avec un TF inférieur à 10 qui reçoivent plusieurs milliers de visiteurs mensuels qualifiés. Les deux existent, et les deux se retrouvent régulièrement dans des catalogues de vente de liens.
+        </p>
+        <p>
+          Un prestataire qui vous sélectionne des sites uniquement sur la base du TF ou du DR vous vend du confort administratif — pas une stratégie de netlinking.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Ce qu'il faut vraiment regarder</h2>
+        <p>
+          Si les métriques tierces ne suffisent pas, quels sont les vrais signaux de qualité d'un site donneur ?
+        </p>
+
+        <h3>Le trafic organique réel</h3>
+        <p>
+          C'est le critère numéro un. Un site que Google indexe, crawle régulièrement et affiche dans ses résultats de recherche est un site auquel Google fait confiance. Ce signal est beaucoup plus difficile à simuler durablement qu'un TF gonflé. On le vérifie sur Ahrefs ou Semrush — et on regarde l'évolution dans le temps, pas juste la valeur instantanée.
+        </p>
+
+        <h3>L'évolution du trafic dans le temps</h3>
+        <p>
+          Un site en croissance régulière vaut plus qu'un site dont le trafic s'effondre depuis 6 mois malgré un bon DR. La tendance dit beaucoup sur la confiance de Google envers ce domaine.
+        </p>
+
+        <h3>La qualité éditoriale</h3>
+        <p>
+          Le contenu est-il rédigé par des humains ? Est-il original, régulièrement mis à jour, structuré avec soin ? Un site dont les articles sont clairement générés automatiquement ou copiés depuis d'autres sources n'a pas de valeur éditoriale — peu importe son TF.
+        </p>
+
+        <h3>La cohérence thématique</h3>
+        <p>
+          Le site traite-t-il vraiment de votre sujet, ou est-ce un blog généraliste qui publie sur tout et n'importe quoi pour vendre des liens ? La cohérence thématique est un signal de pertinence que Google évalue — et que le Topical TF approche, sans la garantir.
+        </p>
+
+        <h3>Le profil de liens entrants du site donneur</h3>
+        <p>
+          Est-ce que les sites qui linkent ce site donneur ont eux-mêmes du trafic réel ? Un site avec un bon DR mais dont tous les backlinks viennent d'autres sites sans trafic est un signal d'alarme — il s'inscrit probablement dans un réseau circulaire.
+        </p>
+
+        <h3>L'absence de footprint de vente de liens</h3>
+        <p>
+          Un site référencé sur 5 marketplaces de liens, qui publie 3 articles sponsorisés par jour, avec des liens sortants vers des dizaines de thématiques différentes — Google le voit. Ce type de site perd progressivement sa capacité à transmettre de la valeur, quelle que soit sa métrique affichée.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Comment utiliser TF/CF dans une campagne : la bonne approche</h2>
+        <p>
+          Les métriques restent utiles — à condition de savoir ce qu'elles valent vraiment.
+        </p>
+        <p>
+          Le TF et le DR servent à éliminer rapidement les sites manifestement mauvais dans un premier filtre. Un site avec un TF inférieur à 10 et un DR inférieur à 15 mérite une analyse approfondie avant utilisation. Ce n'est pas une règle absolue — c'est un signal d'alerte pour aller regarder plus loin.
+        </p>
+        <p>Les seuils pratiques d'un premier filtre :</p>
+        <ul>
+          <li>TF minimum indicatif : 15 à 20 selon le secteur</li>
+          <li>Ratio TF/CF minimum : 0,5</li>
+          <li>DR minimum indicatif : 20</li>
+        </ul>
+        <p>
+          Mais ce filtre ne suffit pas. Il est suivi systématiquement d'une vérification manuelle : trafic organique réel, qualité éditoriale, cohérence thématique, profil de liens entrants.
+        </p>
+        <p>
+          C'est ce double niveau d'analyse — métriques + vérification humaine — qui fait la différence entre une sélection de sites donneurs solide et une liste générée automatiquement depuis un catalogue.
+        </p>
+        <p>
+          → Comment ce process s'intègre dans une campagne complète : <a href="/netlinking-sur-mesure/">Netlinking sur mesure</a><br>
+          → L'audit qui précède chaque sélection de sites : <a href="/audit-netlinking/">Audit Netlinking</a>
+        </p>
+      </section>
+
+      <!-- FAQ -->
+      <section class="faq-section">
+        <h2>Questions fréquentes</h2>
+
+        <details class="faq-item">
+          <summary>Un TF de 20 est-il suffisant pour un bon site donneur ?</summary>
+          <div class="faq-content">
+            <p>
+              C'est un indicateur, pas une garantie. Un TF de 20 avec un trafic organique solide et un contenu éditorial de qualité peut être un excellent site donneur. Un TF de 40 sans aucun trafic réel est probablement un site dont la métrique a été gonflée artificiellement. Le TF seul ne répond pas à la question.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Peut-on manipuler son Trust Flow artificiellement ?</summary>
+          <div class="faq-content">
+            <p>
+              Oui, et c'est largement pratiqué. Des réseaux de sites construits pour se linker mutuellement en s'appuyant sur des domaines proches des "sites de confiance" de Majestic permettent de gonfler le TF sans valeur éditoriale réelle. C'est une des raisons pour lesquelles cette métrique ne peut pas être le seul critère d'évaluation.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Majestic met-il à jour ses métriques en temps réel ?</summary>
+          <div class="faq-content">
+            <p>
+              Non. Majestic met à jour ses métriques de façon périodique, pas en continu. Le TF et le CF que vous voyez aujourd'hui reflètent un état du profil de liens à un moment donné — pas nécessairement l'état actuel. Un site qui a perdu des liens récemment peut encore afficher un TF élevé.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Pourquoi mon TF est-il différent selon les outils ?</summary>
+          <div class="faq-content">
+            <p>
+              Parce que chaque outil construit son propre index en crawlant le web de façon indépendante. Majestic, Ahrefs et Moz n'ont pas le même index, ne crawlent pas les mêmes pages au même moment et n'utilisent pas le même modèle de calcul. Des variations importantes entre outils sur un même domaine sont normales.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Le Trust Flow d'une page compte-t-il plus que celui du domaine ?</summary>
+          <div class="faq-content">
+            <p>
+              Les deux ont de la valeur. Le TF de domaine donne une vue globale de l'autorité du site. Le TF de la page spécifique qui va contenir le lien est plus précis — une page bien linkée au sein d'un domaine modeste peut transmettre plus de valeur qu'une page oubliée d'un site à fort TF global. Quand c'est possible, vérifiez les deux.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>TF/CF sont-ils les seuls critères pour choisir un site donneur ?</summary>
+          <div class="faq-content">
+            <p>
+              Non — et c'est le message central de cette page. TF et CF sont des filtres d'entrée utiles pour écarter rapidement les sites manifestement mauvais. Ils ne remplacent pas une analyse manuelle du trafic réel, de la qualité éditoriale, de la cohérence thématique et du profil de liens entrants du site donneur.
+            </p>
+          </div>
+        </details>
+      </section>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-container {
+    width: 100%;
+    max-width: var(--max-width-md);
+    margin: 0 auto;
+    padding: var(--space-2xl) var(--space-md) var(--space-4xl);
+  }
+
+  .page-content {
+    width: 100%;
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    margin-bottom: var(--space-xl);
+  }
+
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    list-style: none;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .breadcrumb li:not(:last-child)::after {
+    content: "→";
+    margin-left: var(--space-sm);
+    color: var(--color-text-faint);
+  }
+
+  .breadcrumb a {
+    color: var(--color-text-muted);
+    transition: color var(--transition-fast);
+  }
+
+  .breadcrumb a:hover {
+    color: var(--color-primary);
+  }
+
+  /* Header */
+  .page-header {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .page-header h1 {
+    margin-bottom: 0;
+  }
+
+  /* Introduction */
+  .intro {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--color-text);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .intro p {
+    margin-bottom: var(--space-lg);
+  }
+
+  /* Summary box */
+  .summary-box {
+    background: var(--color-surface-2);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-3xl);
+    box-shadow: var(--shadow-md), var(--glow-primary);
+  }
+
+  .summary-title {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-lg);
+    color: var(--color-primary);
+  }
+
+  .summary-box ul {
+    list-style: none;
+    margin: 0;
+  }
+
+  .summary-box li {
+    padding-left: var(--space-lg);
+    margin-bottom: var(--space-md);
+    position: relative;
+  }
+
+  .summary-box li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  .summary-box li:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Content sections */
+  .content-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .content-section h2 {
+    margin-top: var(--space-3xl);
+    margin-bottom: var(--space-lg);
+  }
+
+  .content-section h3 {
+    font-size: 1.25rem;
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-md);
+    font-weight: 700;
+  }
+
+  .content-section p {
+    margin-bottom: var(--space-lg);
+    line-height: 1.75;
+  }
+
+  .content-section ul {
+    margin-bottom: var(--space-lg);
+    padding-left: var(--space-xl);
+  }
+
+  .content-section li {
+    margin-bottom: var(--space-sm);
+  }
+
+  .content-section a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .content-section a:hover {
+    color: var(--color-primary-hover);
+  }
+
+  /* Code blocks */
+  pre {
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    overflow-x: auto;
+    margin: var(--space-xl) 0;
+  }
+
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  /* Tables */
+  .table-wrapper {
+    overflow-x: auto;
+    margin: var(--space-xl) 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  th, td {
+    padding: var(--space-md) var(--space-lg);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  th {
+    background: var(--color-surface-offset);
+    font-weight: 700;
+    color: var(--color-text);
+    font-size: 0.9375rem;
+  }
+
+  td {
+    font-size: 0.9375rem;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* FAQ */
+  .faq-section {
+    margin-top: var(--space-4xl);
+  }
+
+  .faq-section h2 {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .faq-item {
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-md);
+    transition: border-color var(--transition-fast);
+  }
+
+  .faq-item:hover {
+    border-color: var(--color-primary);
+  }
+
+  .faq-item summary {
+    padding: var(--space-lg);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item summary::after {
+    content: "+";
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    transition: transform var(--transition-fast);
+  }
+
+  .faq-item[open] summary::after {
+    transform: rotate(45deg);
+  }
+
+  .faq-content {
+    padding: 0 var(--space-lg) var(--space-lg);
+  }
+
+  .faq-content p {
+    margin: 0;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+  }
+
+  /* Responsive */
+  @media (min-width: 640px) {
+    .page-container {
+      padding: var(--space-3xl) var(--space-lg) var(--space-4xl);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .summary-box {
+      padding: var(--space-lg);
+    }
+
+    table {
+      font-size: 0.875rem;
+    }
+
+    th, td {
+      padding: var(--space-sm) var(--space-md);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .breadcrumb ol {
+      font-size: 0.8125rem;
+    }
+
+    .faq-item summary {
+      font-size: 1rem;
+      padding: var(--space-md);
+    }
+
+    .faq-content {
+      padding: 0 var(--space-md) var(--space-md);
+    }
+  }
+</style>

@@ -1,0 +1,853 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPosts, getPostPath } from '../lib/wordpress';
+import { decodeHtml } from '../lib/html';
+
+// SSR pour afficher les 3 derniers articles WordPress en temps réel
+export const prerender = false;
+
+const title = 'Accueil';
+const description = 'Expert Netlinking — Backlinks sur-mesure pour entreprises, agences et freelances. Réseau direct d\'éditeurs, accompagnement opérationnel de bout en bout.';
+
+// Récupérer les 3 derniers articles du blog
+let latestPosts: any[] = [];
+try {
+  const result = await getPosts(1, 3);
+  latestPosts = result.posts;
+} catch (error) {
+  console.error('Failed to fetch latest posts:', error);
+}
+
+function extractExcerpt(html: string, maxLength = 120): string {
+  const text = html.replace(/<[^>]*>/g, '');
+  return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+}
+
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat('fr-FR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(date);
+}
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="page-content">
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="container-narrow">
+          <h1>Expert Netlinking — Backlinks sur-mesure pour entreprises, agences et freelances</h1>
+          <p class="hero-text">
+            J'aide les entreprises, agences et consultants SEO à construire des campagnes de netlinking plus efficaces, plus souples et plus durables. Réseau direct d'éditeurs, sélection des meilleurs spots, validation SEO des pages à pousser et accompagnement opérationnel de bout en bout.
+          </p>
+          <div class="hero-cta">
+            <a
+              href="https://calendly.com/anthony-russo-digital/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary btn-lg"
+            >
+              Réserver un audit netlinking
+            </a>
+            <a href="#processus" class="btn btn-secondary btn-lg">
+              Découvrir mon approche
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pour qui Section -->
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">Un accompagnement pensé pour 3 profils</h2>
+          <div class="profiles-grid">
+            <div class="card profile-card">
+              <div class="profile-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                </svg>
+              </div>
+              <h3>Entreprise</h3>
+              <p>
+                Vous voulez accélérer vos positions SEO sans internaliser toute la partie netlinking.
+              </p>
+            </div>
+
+            <div class="card profile-card">
+              <div class="profile-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </div>
+              <h3>Agence</h3>
+              <p>
+                Vous cherchez un partenaire fiable pour déléguer le netlinking de vos clients sans perdre la main sur la stratégie.
+              </p>
+            </div>
+
+            <div class="card profile-card">
+              <div class="profile-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+              </div>
+              <h3>Freelance SEO</h3>
+              <p>
+                Vous gérez la technique, le contenu, le conseil… mais vous voulez déléguer l'acquisition de liens à un spécialiste.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Avantages Section -->
+      <section class="section advantages-section">
+        <div class="container">
+          <h2 class="section-title">Pourquoi passer par moi plutôt que par une plateforme seule ?</h2>
+
+          <div class="advantages-grid">
+            <div class="advantage-item">
+              <div class="advantage-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </div>
+              <h3>Réseau direct d'éditeurs de confiance</h3>
+              <p>Accès à des spots rares, sans gestionnaire intermédiaire.</p>
+            </div>
+
+            <div class="advantage-item">
+              <div class="advantage-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                </svg>
+              </div>
+              <h3>Visibilité sur le vrai trafic GSC</h3>
+              <p>Je vous montre les données Search Console réelles des sites.</p>
+            </div>
+
+            <div class="advantage-item">
+              <div class="advantage-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+              </div>
+              <h3>Souplesse sur les ancres, contenus et publications</h3>
+              <p>Ajustement possible si la stratégie évolue.</p>
+            </div>
+
+            <div class="advantage-item">
+              <div class="advantage-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+              <h3>Expertise SEO avant de pousser les pages</h3>
+              <p>Validation on-page complète avant d'investir en backlinks.</p>
+            </div>
+
+            <div class="advantage-item">
+              <div class="advantage-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="7" height="7"/>
+                  <rect x="14" y="3" width="7" height="7"/>
+                  <rect x="14" y="14" width="7" height="7"/>
+                  <rect x="3" y="14" width="7" height="7"/>
+                </svg>
+              </div>
+              <h3>Capacité à créer / éditer des sites si besoin</h3>
+              <p>Je peux développer des sites sur-mesure pour votre stratégie.</p>
+            </div>
+
+            <div class="advantage-item">
+              <div class="advantage-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
+              <h3>Mix réseau direct + plateformes + sites propres</h3>
+              <p>Le meilleur des trois mondes pour maximiser les résultats.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Régie directe Section -->
+      <section class="section regie-section">
+        <div class="container-narrow">
+          <h2>Une régie netlinking plus souple, plus transparente, plus durable</h2>
+          <p class="regie-text">
+            Je m'appuie sur un réseau direct d'éditeurs, des plateformes maîtrisées et mes propres sites selon le besoin. Cela permet plus de flexibilité sur les ancres, une meilleure maîtrise du contenu, une visibilité plus claire sur la qualité réelle des sites et une meilleure durée de vie des publications.
+          </p>
+          <a href="/mon-reseau" class="btn btn-secondary">
+            Découvrir ma régie →
+          </a>
+        </div>
+      </section>
+
+      <!-- Leviers Section -->
+      <section class="section leviers-section">
+        <div class="container">
+          <h2 class="section-title">Les leviers que j'utilise pour construire un profil de liens naturel</h2>
+          <p class="section-intro">
+            Le netlinking ne se limite pas aux plateformes. Selon le besoin, j'intègre aussi des leviers complémentaires pour diversifier les sources, renforcer la crédibilité du profil de liens et améliorer la durabilité de la stratégie.
+          </p>
+
+          <div class="leviers-grid">
+            <div class="levier-item">
+              <h3>Liens éditoriaux et plateformes maîtrisées</h3>
+              <p>Sites thématiques de qualité, trafic réel, contenus contextualisés. Réseau direct + accès plateformes premium.</p>
+            </div>
+
+            <div class="levier-item">
+              <h3>UGC et contenus contextuels</h3>
+              <p>Commentaires utiles, discussions spécialisées, forums, blogs de niche. Leviers naturels à forte cohérence thématique.</p>
+            </div>
+
+            <div class="levier-item">
+              <h3>Sites propres et partenariats éditoriaux</h3>
+              <p>Création ou acquisition de sites sur-mesure pour votre stratégie. Maîtrise complète du contenu et des ancres.</p>
+            </div>
+
+            <div class="levier-item">
+              <h3>Diversité des ancres et régularité</h3>
+              <p>Équilibre entre ancres optimisées, semi-optimisées et génériques. Rythme de publication naturel et durable.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Processus Section -->
+      <section class="section" id="processus">
+        <div class="container">
+          <h2 class="section-title">Comment je travaille</h2>
+
+          <div class="process-steps">
+            <div class="process-step">
+              <div class="step-number">01</div>
+              <div class="step-content">
+                <h3>Audit netlinking</h3>
+                <p>Analyse du profil de liens actuel, benchmark concurrentiel, identification des opportunités.</p>
+              </div>
+            </div>
+
+            <div class="process-step">
+              <div class="step-number">02</div>
+              <div class="step-content">
+                <h3>Définition des pages à pousser</h3>
+                <p>Sélection des pages prioritaires avec le meilleur potentiel ROI.</p>
+              </div>
+            </div>
+
+            <div class="process-step">
+              <div class="step-number">03</div>
+              <div class="step-content">
+                <h3>Sélection des spots et des ancres</h3>
+                <p>Choix des sites d'insertion et stratégie d'ancrage optimisée.</p>
+              </div>
+            </div>
+
+            <div class="process-step">
+              <div class="step-number">04</div>
+              <div class="step-content">
+                <h3>Publication, suivi, ajustements</h3>
+                <p>Mise en ligne, vérification de l'indexation, reporting et optimisations continues.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Résultats Section -->
+      <section class="section results-section">
+        <div class="container-narrow">
+          <h2>Une approche orientée performance, pas volume</h2>
+          <p class="results-text">
+            Le but n'est pas d'accumuler des liens. Le but est de pousser les bonnes pages avec le bon niveau d'autorité. Des campagnes ciblées sur les pages qui ont le plus de potentiel ROI.
+          </p>
+          <a href="/resultats" class="btn btn-secondary">
+            Voir les résultats obtenus →
+          </a>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="section faq-section">
+        <div class="container-narrow">
+          <h2>Questions fréquentes</h2>
+
+          <div class="faq-list">
+            <details class="faq-item">
+              <summary class="faq-question">
+                <span>Quelle différence entre backlinks organiques et stratégie netlinking sur-mesure ?</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p>
+                  Les backlinks organiques (échanges de liens, linkbaiting, articles invités, ninja linking) peuvent compléter une stratégie, mais ils ne remplacent pas un netlinking construit autour de bons spots, de bons contenus et d'une vraie logique d'autorité.
+                </p>
+                <p>
+                  Dans certains cas, ils servent à diversifier le profil de liens ou à tester une première dynamique. Dans d'autres, ils doivent rester secondaires face à une stratégie plus structurée. Sur des marchés très concurrentiels, combiner les méthodes organiques avec des liens éditoriaux de qualité optimise les résultats.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary class="faq-question">
+                <span>Est-ce qu'un audit netlinking sert à choisir les bons leviers ?</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p>
+                  Oui. L'audit permet de comprendre où vous en êtes, ce qui fonctionne déjà, ce qui manque et où investir en priorité. C'est la base pour construire une stratégie de netlinking efficace et rentable.
+                </p>
+                <p>
+                  En croisant vos données GSC avec l'analyse off-page, on identifie les pages à "quelques liens" de ranker en top 3, les types de liens à acquérir, les ancres à utiliser et les sites à cibler en priorité.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary class="faq-question">
+                <span>Utilisez-vous aussi des leviers UGC / forums / commentaires ?</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p>
+                  Oui, selon le besoin. Ces leviers permettent de diversifier le profil de liens, d'ajouter des signaux naturels et de renforcer la crédibilité globale. Je les utilise en complément des liens éditoriaux premium, pas en remplacement.
+                </p>
+                <p>
+                  L'objectif est de construire un profil de liens varié, crédible et durable, en mixant différents types de sources selon la stratégie.
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary class="faq-question">
+                <span>Combien de temps faut-il pour voir des résultats ?</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p>
+                  Les premiers signaux apparaissent généralement entre 4 et 12 semaines selon la concurrence, l'état du site et la qualité des liens. Sur des pages proches du top 10, l'impact peut être plus rapide.
+                </p>
+                <p>
+                  Le netlinking est une stratégie de moyen terme. Les résultats durables se construisent campagne après campagne, en ajustant la stratégie en fonction des performances observées.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- Blog Section -->
+      {latestPosts.length > 0 && (
+        <section class="section blog-section">
+          <div class="container">
+            <h2 class="section-title">Derniers articles du blog</h2>
+            <div class="blog-grid">
+              {latestPosts.map((post) => {
+                const excerpt = extractExcerpt(post.excerpt.rendered);
+                const featuredImage = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+                const category = post._embedded?.['wp:term']?.[0]?.[0];
+
+                return (
+                  <article class="card blog-card-home">
+                    {featuredImage && (
+                      <a href={getPostPath(post)} class="blog-image-home">
+                        <img
+                          src={featuredImage}
+                          alt={post._embedded?.['wp:featuredmedia']?.[0]?.alt_text || post.title.rendered}
+                          loading="lazy"
+                        />
+                      </a>
+                    )}
+
+                    <div class="blog-content-home">
+                      {category && (
+                        <span class="badge badge-success">{category.name}</span>
+                      )}
+
+                      <h3 class="blog-title-home">
+                        <a href={getPostPath(post)}>
+                          {decodeHtml(post.title.rendered)}
+                        </a>
+                      </h3>
+
+                      <div class="blog-meta-home">
+                        <time datetime={post.date}>{formatDate(post.date)}</time>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+
+            <div class="blog-cta">
+              <a href="/blog" class="btn btn-secondary">
+                Voir tous les articles →
+              </a>
+            </div>
+          </div>
+        </section>
+      )}
+
+      <!-- CTA Final -->
+      <section class="section cta-final-section">
+        <div class="container-narrow">
+          <div class="cta-final-card">
+            <h2>Vous cherchez un expert netlinking pour structurer votre campagne ?</h2>
+            <a
+              href="https://calendly.com/anthony-russo-digital/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary btn-lg"
+            >
+              Planifier un rendez-vous
+            </a>
+          </div>
+        </div>
+      </section>
+  </div>
+</BaseLayout>
+
+<style>
+  /* Page Layout - Full Width */
+  .page-content {
+    width: 100%;
+    padding-bottom: var(--space-4xl);
+  }
+
+  /* Hero Section */
+  .hero-section {
+    padding: var(--space-4xl) var(--space-lg);
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-surface) 100%);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .hero-section h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.2;
+    margin-bottom: var(--space-xl);
+  }
+
+  .hero-text {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+  }
+
+  /* Section title */
+  .section-title {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  /* Profiles grid */
+  .profiles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .profile-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    align-items: flex-start;
+  }
+
+  .profile-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    background: var(--color-primary-highlight);
+    color: var(--color-primary);
+    border-radius: var(--radius-lg);
+  }
+
+  .profile-card h3 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  .profile-card p {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
+  /* Advantages Section */
+  .advantages-section {
+    background: var(--color-surface);
+  }
+
+  .advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-2xl);
+  }
+
+  .advantage-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .advantage-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: var(--color-success-highlight);
+    color: var(--color-success);
+    border-radius: var(--radius-md);
+  }
+
+  .advantage-item h3 {
+    font-size: 1.125rem;
+    margin: 0;
+  }
+
+  .advantage-item p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+  }
+
+  /* Régie Section */
+  .regie-section {
+    background: var(--color-surface-2);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .regie-section h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: var(--space-lg);
+  }
+
+  .regie-text {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-xl);
+  }
+
+  /* Process Steps */
+  .process-steps {
+    display: grid;
+    gap: var(--space-2xl);
+  }
+
+  .process-step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  .step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--color-primary);
+    background: var(--color-primary-highlight);
+    border-radius: var(--radius-lg);
+    flex-shrink: 0;
+  }
+
+  .step-content h3 {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .step-content p {
+    margin: 0;
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 768px) {
+    .process-step {
+      grid-template-columns: 1fr;
+    }
+
+    .step-number {
+      width: 48px;
+      height: 48px;
+      font-size: 1.25rem;
+    }
+  }
+
+  /* Leviers Section */
+  .leviers-section {
+    background: var(--color-bg);
+  }
+
+  .section-intro {
+    text-align: center;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: 800px;
+    margin: 0 auto var(--space-3xl);
+  }
+
+  .leviers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-2xl);
+  }
+
+  .levier-item {
+    padding: var(--space-xl);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-fast);
+  }
+
+  .levier-item:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+  }
+
+  .levier-item h3 {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-sm);
+    color: var(--color-text);
+  }
+
+  .levier-item p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  /* Results Section */
+  .results-section {
+    background: var(--color-surface);
+  }
+
+  .results-section h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: var(--space-lg);
+  }
+
+  .results-text {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-xl);
+  }
+
+  /* FAQ Section */
+  .faq-section {
+    background: var(--color-bg);
+  }
+
+  .faq-section h2 {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .faq-item {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    padding: var(--space-lg) var(--space-xl);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.0625rem;
+    color: var(--color-text);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    transition: background var(--transition-fast);
+  }
+
+  .faq-question:hover {
+    background: var(--color-surface-2);
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question svg {
+    flex-shrink: 0;
+    color: var(--color-primary);
+    transition: transform var(--transition-fast);
+  }
+
+  .faq-item[open] .faq-question svg {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    padding: 0 var(--space-xl) var(--space-xl);
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .faq-answer p {
+    margin-bottom: var(--space-md);
+  }
+
+  .faq-answer p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* CTA Final Section */
+  .cta-final-section {
+    background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
+  }
+
+  .cta-final-card {
+    text-align: center;
+    padding: var(--space-3xl);
+    background: var(--color-surface-2);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg), var(--glow-primary);
+  }
+
+  .cta-final-card h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: var(--space-xl);
+  }
+
+  /* Blog Section */
+  .blog-section {
+    background: var(--color-bg);
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-2xl);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .blog-card-home {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all var(--transition-base);
+  }
+
+  .blog-card-home:hover {
+    transform: translateY(-4px);
+  }
+
+  .blog-image-home {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--color-surface-offset);
+  }
+
+  .blog-image-home img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .blog-card-home:hover .blog-image-home img {
+    transform: scale(1.05);
+  }
+
+  .blog-content-home {
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    flex: 1;
+  }
+
+  .blog-title-home {
+    font-size: 1.125rem;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .blog-title-home a {
+    color: var(--color-text);
+    transition: color var(--transition-fast);
+  }
+
+  .blog-title-home a:hover {
+    color: var(--color-primary);
+  }
+
+  .blog-excerpt-home {
+    color: var(--color-text-muted);
+    margin: 0;
+    flex: 1;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .blog-meta-home {
+    font-size: 0.875rem;
+    color: var(--color-text-faint);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--color-divider);
+  }
+
+  .blog-cta {
+    text-align: center;
+  }
+</style>

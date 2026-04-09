@@ -1,0 +1,297 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPosts, getCategories, getPostPath } from '../../lib/wordpress';
+import { decodeHtml } from '../../lib/html';
+
+// Force SSR pour récupérer les articles WordPress en temps réel
+export const prerender = false;
+
+const title = 'Blog Netlinking & SEO — Conseils, guides et bonnes pratiques';
+const description = 'Articles et guides sur le netlinking, les backlinks et le SEO off-page. Conseils pratiques pour entreprises, agences et consultants.';
+
+// Fetch categories
+let categories: any[] = [];
+try {
+  categories = await getCategories();
+} catch (error) {
+  console.error('Failed to fetch categories:', error);
+}
+
+// Get selected category from URL params
+const selectedCategory = Astro.url.searchParams.get('category');
+const categoryId = selectedCategory ? parseInt(selectedCategory) : undefined;
+
+// Fetch posts
+let posts: any[] = [];
+let total = 0;
+try {
+  const result = await getPosts(1, 9, categoryId);
+  posts = result.posts;
+  total = result.total;
+} catch (error) {
+  console.error('Failed to fetch posts:', error);
+}
+
+function extractExcerpt(html: string, maxLength = 160): string {
+  const text = html.replace(/<[^>]*>/g, '');
+  return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+}
+
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat('fr-FR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(date);
+}
+---
+
+<BaseLayout title={title} description={description}>
+  <!-- Hero -->
+  <section class="hero-section">
+    <div class="container">
+      <h1>Blog Netlinking & SEO</h1>
+      <p class="hero-subtitle">
+        Conseils pratiques, guides et retours d'expérience sur le netlinking et le SEO off-page.
+      </p>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  {categories.length > 0 && (
+    <section class="filters-section">
+      <div class="container">
+        <div class="category-filters">
+          <a
+            href="/blog"
+            class={!selectedCategory ? 'filter-btn active' : 'filter-btn'}
+          >
+            Tous
+          </a>
+          {categories.map((cat) => (
+            <a
+              href={`/blog?category=${cat.id}`}
+              class={selectedCategory === cat.id.toString() ? 'filter-btn active' : 'filter-btn'}
+            >
+              {cat.name}
+              <span class="filter-count">{cat.count}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Posts grid -->
+  <section class="section posts-section">
+    <div class="container">
+      {posts.length === 0 ? (
+        <div class="no-posts">
+          <p>Aucun article disponible pour le moment.</p>
+          <p class="text-muted">
+            Le blog WordPress n'est pas encore configuré ou aucun article n'a été publié.
+          </p>
+        </div>
+      ) : (
+        <div class="posts-grid">
+          {posts.map((post) => {
+            const excerpt = extractExcerpt(post.excerpt.rendered);
+            const featuredImage = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+            const category = post._embedded?.['wp:term']?.[0]?.[0];
+
+            return (
+              <article class="card blog-card">
+                {featuredImage && (
+                  <a href={getPostPath(post)} class="blog-image">
+                    <img
+                      src={featuredImage}
+                      alt={post._embedded?.['wp:featuredmedia']?.[0]?.alt_text || post.title.rendered}
+                      loading="lazy"
+                    />
+                  </a>
+                )}
+
+                <div class="blog-content">
+                  {category && (
+                    <span class="badge badge-success">{category.name}</span>
+                  )}
+
+                  <h2 class="blog-title">
+                    <a href={getPostPath(post)}>
+                      {decodeHtml(post.title.rendered)}
+                    </a>
+                  </h2>
+
+                  <div class="blog-meta">
+                    <time datetime={post.date}>{formatDate(post.date)}</time>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .hero-section {
+    padding: var(--space-3xl) var(--space-lg) var(--space-2xl);
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-surface) 100%);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .hero-section h1 {
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-subtitle {
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  /* Filters */
+  .filters-section {
+    padding: var(--space-xl) 0;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 73px;
+    z-index: var(--z-sticky);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .category-filters {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-lg);
+    background: var(--color-surface-2);
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+  }
+
+  .filter-btn:hover {
+    color: var(--color-text);
+    border-color: var(--color-primary);
+    background: var(--color-primary-highlight);
+  }
+
+  .filter-btn.active {
+    background: var(--color-primary);
+    color: #FFFFFF;
+    border-color: var(--color-primary);
+  }
+
+  .filter-count {
+    font-size: 0.8125rem;
+    opacity: 0.8;
+  }
+
+  /* Posts section */
+  .posts-section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .no-posts {
+    text-align: center;
+    padding: var(--space-4xl) var(--space-lg);
+  }
+
+  .no-posts p {
+    font-size: 1.125rem;
+  }
+
+  /* Posts grid */
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--space-2xl);
+  }
+
+  .blog-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all var(--transition-base);
+  }
+
+  .blog-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .blog-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--color-surface-offset);
+  }
+
+  .blog-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .blog-card:hover .blog-image img {
+    transform: scale(1.05);
+  }
+
+  .blog-content {
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    flex: 1;
+  }
+
+  .blog-title {
+    font-size: 1.25rem;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .blog-title a {
+    color: var(--color-text);
+    transition: color var(--transition-fast);
+  }
+
+  .blog-title a:hover {
+    color: var(--color-primary);
+  }
+
+  .blog-excerpt {
+    color: var(--color-text-muted);
+    margin: 0;
+    flex: 1;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .blog-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    font-size: 0.875rem;
+    color: var(--color-text-faint);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-divider);
+  }
+</style>

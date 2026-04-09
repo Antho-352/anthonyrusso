@@ -1,0 +1,694 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Timeline from '../components/Timeline.astro';
+
+export const prerender = true;
+
+const title = 'Netlinking sur mesure — Spécialiste en acquisition de liens | Anthony Russo';
+const description = 'Audit concurrentiel, sélection rigoureuse des sites donneurs, ancres personnalisées. Une approche netlinking sur mesure depuis 5 ans — loin des plateformes low-cost.';
+
+const timelineSteps = [
+  {
+    number: '1',
+    title: 'Audit',
+    description: 'Analyse du profil existant + étude des concurrents'
+  },
+  {
+    number: '2',
+    title: 'Stratégie',
+    description: 'Plan de netlinking : pages cibles, ancres, volume, calendrier'
+  },
+  {
+    number: '3',
+    title: 'Sélection',
+    description: 'Choix des sites donneurs selon la stratégie définie'
+  },
+  {
+    number: '4',
+    title: 'Production',
+    description: 'Rédaction des contenus (si guest posting) ou brief éditorial'
+  },
+  {
+    number: '5',
+    title: 'Placement',
+    description: 'Publication et vérification des liens'
+  },
+  {
+    number: '6',
+    title: 'Rapport',
+    description: 'Récapitulatif des liens placés, métriques, prochaines étapes'
+  }
+];
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Netlinking sur mesure',
+    description: 'Stratégie de netlinking personnalisée avec audit préalable, sélection manuelle des sites donneurs et ancres personnalisées.',
+    provider: {
+      '@type': 'Person',
+      name: 'Anthony Russo',
+      url: 'https://anthonyrusso.fr'
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'France'
+    },
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'EUR',
+      price: '500',
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        billingDuration: 'P1M'
+      }
+    }
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Quelle différence entre netlinking sur mesure et une plateforme de liens ?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Sur une plateforme, vous choisissez un site dans un catalogue sans analyse préalable. Le netlinking sur mesure part d\'un audit pour construire une stratégie cohérente avant de placer le premier lien.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'Combien de temps avant de voir des résultats ?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Les effets du netlinking sont rarement immédiats. On observe généralement des premiers signaux positifs entre 6 et 12 semaines après le démarrage d\'une campagne.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'Quel est le tarif d\'une campagne de netlinking sur mesure ?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Les campagnes démarrent à 500€/mois. Le budget précis est défini après un premier appel.'
+        }
+      }
+    ]
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Accueil',
+        item: 'https://anthonyrusso.fr'
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Netlinking sur mesure',
+        item: 'https://anthonyrusso.fr/netlinking-sur-mesure'
+      }
+    ]
+  }
+];
+---
+
+<PageLayout title={title} description={description} schema={schema}>
+  <!-- Introduction -->
+  <section class="section">
+    <div class="container-narrow">
+      <h1>Netlinking sur mesure : une stratégie de liens pensée pour votre site</h1>
+      
+      <div class="intro-text">
+        <p>Le netlinking, ça ne s'improvise pas. Pourtant, la majorité des campagnes se résument à la même chose : aller sur une plateforme, commander des liens, et attendre. Sans audit préalable. Sans analyse des concurrents. Sans réflexion sur les ancres, les pages à pousser ou le calendrier de diffusion.</p>
+        <p><strong>Ce n'est pas du netlinking. C'est du bruit.</strong></p>
+      </div>
+
+      <!-- Encadré résumé -->
+      <div class="summary-box">
+        <h2 class="summary-title">Ce que vous retenez de cette page :</h2>
+        <ul class="summary-list">
+          <li>Chaque campagne commence par un audit de votre site et de vos concurrents</li>
+          <li>Les sites donneurs sont sélectionnés selon des critères éditoriaux stricts — pas choisis dans une liste déroulante</li>
+          <li>Les ancres sont personnalisées selon votre stratégie, pas imposées par un catalogue</li>
+          <li>Accès à 50+ sites en propre, des centaines de partenaires exclusifs, et outreach direct si nécessaire</li>
+          <li>Campagnes à partir de 500€/mois — sur devis selon vos objectifs</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- H2 — Une prestation qui commence par un audit -->
+  <section class="section">
+    <div class="container-narrow">
+      <h2>Une prestation qui commence par un audit, pas par des liens</h2>
+      <p>Avant de placer le moindre lien, il y a une phase d'analyse. Toujours.</p>
+      <p>On regarde votre profil de backlinks existant : quels liens vous avez déjà, leur qualité, les ancres utilisées, les pages qui reçoivent déjà de l'autorité. Puis on analyse vos principaux concurrents en positionnement : combien de liens, sur quels types de sites, avec quelles ancres, vers quelles pages.</p>
+      <p>Ce travail préliminaire permet de définir un plan précis : quelles pages pousser en priorité, quel mix d'ancres utiliser, quel volume de liens viser, et sur quels types de supports. Rien n'est laissé au hasard ou à la routine.</p>
+      <p class="link-arrow"><a href="/audit-netlinking/">→ En savoir plus sur la méthodologie d'audit</a></p>
+    </div>
+  </section>
+
+  <!-- H2 — Un catalogue de sites soigneusement sélectionnés -->
+  <section class="section bg-surface">
+    <div class="container-narrow">
+      <h2>Un catalogue de sites soigneusement sélectionnés</h2>
+      <p>Pas de filet large. Pas de liste générée automatiquement.</p>
+      <p>Les sites utilisés dans les campagnes sont sélectionnés manuellement selon des critères éditoriaux précis : ancienneté du domaine, trafic organique réel, thématique cohérente, qualité rédactionnelle, absence de footprint de réseau. Un bon site donneur, c'est un site que Google considère comme fiable — pas un blog créé pour vendre des liens.</p>
+
+      <div class="table-wrapper">
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th>Type de support</th>
+              <th>Exemples</th>
+              <th>Critères principaux</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sites thématiques en propre</td>
+              <td>Blogs niche, médias spécialisés</td>
+              <td>TF élevé, trafic organique, éditorial soigné</td>
+            </tr>
+            <tr>
+              <td>Partenaires exclusifs</td>
+              <td>Sites hors plateforme</td>
+              <td>Liens rares, ancres flexibles, forte cohérence thématique</td>
+            </tr>
+            <tr>
+              <td>Plateformes sélectionnées</td>
+              <td>Seedlink, Getfluence, etc.</td>
+              <td>Utilisées ponctuellement, sites triés manuellement</td>
+            </tr>
+            <tr>
+              <td>Outreach direct</td>
+              <td>Prise de contact site à site</td>
+              <td>Pour les placements stratégiques à fort impact</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="highlight-box"><strong>En chiffres :</strong> 50+ sites en propre, des centaines de partenaires exclusifs, et la possibilité d'aller chercher directement des placements sur des sites ciblés quand la situation le justifie.</p>
+    </div>
+  </section>
+
+  <!-- H2 — Des ancres adaptées à votre stratégie -->
+  <section class="section">
+    <div class="container-narrow">
+      <h2>Des ancres adaptées à votre stratégie, pas imposées</h2>
+      <p>L'ancre d'un lien, c'est l'un des signaux les plus puissants que vous envoyez à Google. Utiliser systématiquement le même mot-clé exact, c'est le meilleur moyen de déclencher un signal artificiel. À l'inverse, ne jamais utiliser d'ancres optimisées, c'est passer à côté d'un levier important.</p>
+      <p>L'équilibre est précis — et il est différent pour chaque site.</p>
+
+      <div class="table-wrapper">
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th>Type d'ancre</th>
+              <th>Exemple</th>
+              <th>Quand l'utiliser</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Exact match</td>
+              <td>"consultant SEO Paris"</td>
+              <td>À doser, pour les pages prioritaires</td>
+            </tr>
+            <tr>
+              <td>Semi-exact</td>
+              <td>"expertise en référencement naturel"</td>
+              <td>Bonne fréquence, naturel</td>
+            </tr>
+            <tr>
+              <td>Brandée</td>
+              <td>"Anthony Russo SEO"</td>
+              <td>Renforce l'autorité de marque</td>
+            </tr>
+            <tr>
+              <td>Naked URL</td>
+              <td>"anthonyrusso.fr"</td>
+              <td>Diversification du profil</td>
+            </tr>
+            <tr>
+              <td>Générique</td>
+              <td>"cliquez ici", "en savoir plus"</td>
+              <td>Pour diluer et naturiser</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Dans chaque campagne, le plan d'ancres est défini avant le démarrage — et ajustable en cours de route.</p>
+    </div>
+  </section>
+
+  <!-- H2 — Le déroulé d'une campagne -->
+  <section class="section bg-surface">
+    <div class="container-narrow">
+      <h2>Le déroulé d'une campagne</h2>
+      <p>Pas de boîte noire. Voici exactement comment ça se passe :</p>
+
+      <Timeline steps={timelineSteps} />
+
+      <p>Les campagnes sont mensuelles. Un rapport est fourni à chaque fin de cycle.</p>
+    </div>
+  </section>
+
+  <!-- H2 — Pour qui ? -->
+  <section class="section">
+    <div class="container-narrow">
+      <h2>Pour qui ?</h2>
+
+      <div class="profiles-grid">
+        <div class="profile-card">
+          <h3>Agences SEO</h3>
+          <p>Vous gérez des clients qui ont besoin de netlinking mais ce n'est pas votre cœur de métier ? Externalisation en marque blanche, livrables propres, discrétion totale. Vos clients ne savent pas que ce n'est pas vous qui le faites.</p>
+        </div>
+
+        <div class="profile-card">
+          <h3>Freelances SEO</h3>
+          <p>Vous voulez renforcer votre offre sans monter un réseau de sites vous-même ? Accès à un catalogue de sites opérationnel, campagnes à la carte, facturation simple.</p>
+        </div>
+
+        <div class="profile-card">
+          <h3>Entreprises & e-commerces</h3>
+          <p>Vous avez compris que votre visibilité Google dépend aussi de votre autorité de domaine, mais vous ne savez pas par où commencer ? On pose un diagnostic, on explique, on exécute.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- H2 — Ce qui change vraiment par rapport à une plateforme -->
+  <section class="section bg-surface">
+    <div class="container-narrow">
+      <h2>Ce qui change vraiment par rapport à une plateforme</h2>
+      <p>La plupart des prestataires qui "font du netlinking" commandent des liens sur les mêmes plateformes que vous pourriez utiliser vous-même. Ils choisissent un site dans une liste, sélectionnent une ancre, et valident. C'est du volume, pas de la stratégie.</p>
+
+      <div class="table-wrapper">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Critère</th>
+              <th>Plateforme en self-service</th>
+              <th>Netlinking sur mesure</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Audit préalable du site</td>
+              <td class="no">✗</td>
+              <td class="yes">✓</td>
+            </tr>
+            <tr>
+              <td>Analyse des concurrents</td>
+              <td class="no">✗</td>
+              <td class="yes">✓</td>
+            </tr>
+            <tr>
+              <td>Sélection manuelle des sites</td>
+              <td>Partielle</td>
+              <td class="yes">✓ Systématique</td>
+            </tr>
+            <tr>
+              <td>Ancres personnalisées</td>
+              <td>Imposées ou limitées</td>
+              <td class="yes">✓ Totalement libres</td>
+            </tr>
+            <tr>
+              <td>Sites hors catalogue (outreach)</td>
+              <td class="no">✗</td>
+              <td class="yes">✓</td>
+            </tr>
+            <tr>
+              <td>Sites en propre</td>
+              <td class="no">✗</td>
+              <td class="yes">✓ 50+</td>
+            </tr>
+            <tr>
+              <td>Plan de netlinking documenté</td>
+              <td class="no">✗</td>
+              <td class="yes">✓</td>
+            </tr>
+            <tr>
+              <td>Rapport mensuel</td>
+              <td class="no">✗</td>
+              <td class="yes">✓</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>La différence, c'est qu'on sait pourquoi on place chaque lien — sur quelle page, avec quelle ancre, pour quel objectif. Ce n'est pas la même chose que de remplir un panier.</p>
+    </div>
+  </section>
+
+  <!-- H2 — Tarifs -->
+  <section class="section">
+    <div class="container-narrow">
+      <h2>Tarifs</h2>
+      <p class="tarif-highlight">Les campagnes de netlinking sur mesure démarrent à <strong>500€/mois</strong>.</p>
+      <p>Le budget exact dépend de votre secteur, de vos objectifs et de l'état de votre profil de backlinks actuel. Un premier appel permet de cadrer les besoins et de proposer un plan adapté.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section faq-section">
+    <div class="container-narrow">
+      <h2>Questions fréquentes</h2>
+
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Quelle différence entre netlinking sur mesure et une plateforme de liens ?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Sur une plateforme, vous choisissez un site dans un catalogue, vous saisissez une ancre, et le lien est placé. Il n'y a aucune analyse préalable de votre site ou de vos concurrents, aucune réflexion sur les ancres à utiliser ni sur les pages à pousser. Le netlinking sur mesure part d'un audit pour construire une stratégie cohérente avant de placer le premier lien.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Combien de temps avant de voir des résultats ?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Les effets du netlinking sont rarement immédiats. On observe généralement des premiers signaux positifs entre 6 et 12 semaines après le démarrage d'une campagne. L'impact réel dépend du secteur, de la concurrence et de l'état initial du site.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Vous travaillez sur tous les secteurs d'activité ?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Oui, avec quelques exceptions sur les thématiques très sensibles ou les marchés trop restreints. Le premier appel permet de valider la faisabilité avant tout engagement.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Puis-je choisir les sites sur lesquels mes liens sont placés ?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Vous pouvez exprimer des préférences et des critères. La sélection finale est faite selon la stratégie définie, pour s'assurer que chaque site a un sens par rapport à vos objectifs. On vous soumet les supports avant publication si vous le souhaitez.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Est-ce que vous faites du guest posting ou uniquement des liens en dur ?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Les deux. Le format dépend du site donneur et de la stratégie. Certains placements nécessitent un article complet (guest post), d'autres s'intègrent dans des contenus existants (liens en dur éditoriaux).</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Comment sont choisis les sites donneurs ?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Plusieurs critères entrent en jeu : ancienneté du domaine, trafic organique vérifié, cohérence thématique, qualité rédactionnelle, absence de footprint de réseau de liens, et métriques d'autorité (Trust Flow, DR). Aucun site n'est utilisé uniquement parce qu'il a un bon score — le contexte éditorial compte autant.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Proposez-vous de la marque blanche pour les agences ?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Oui. Livrables neutres, facturation B2B, discrétion totale sur l'identité du prestataire.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Quel est le tarif d'une campagne de netlinking sur mesure ?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Les campagnes démarrent à 500€/mois. Le budget précis est défini après un premier appel qui permet de cerner vos objectifs, votre secteur et l'état de votre profil de backlinks existant.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  /* Introduction */
+  .intro-text {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    margin: var(--space-2xl) 0;
+  }
+
+  .intro-text p {
+    margin-bottom: var(--space-lg);
+  }
+
+  /* Summary Box */
+  .summary-box {
+    background: var(--color-primary-highlight);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl);
+    margin: var(--space-3xl) 0;
+  }
+
+  .summary-title {
+    font-size: 1.25rem;
+    margin: 0 0 var(--space-lg);
+    color: var(--color-primary);
+  }
+
+  .summary-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .summary-list li {
+    padding-left: var(--space-xl);
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .summary-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 900;
+    font-size: 1.25rem;
+  }
+
+  /* Sections */
+  .section h2 {
+    font-size: 1.75rem;
+    margin-bottom: var(--space-xl);
+  }
+
+  .section p {
+    margin-bottom: var(--space-lg);
+    line-height: 1.7;
+  }
+
+  .bg-surface {
+    background: var(--color-surface);
+  }
+
+  /* Tables */
+  .table-wrapper {
+    overflow-x: auto;
+    margin: var(--space-2xl) 0;
+  }
+
+  .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+
+  .styled-table thead {
+    background: var(--color-surface-2);
+  }
+
+  .styled-table th {
+    padding: var(--space-md) var(--space-lg);
+    text-align: left;
+    font-weight: 700;
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .styled-table td {
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--color-divider);
+  }
+
+  .styled-table tbody tr:hover {
+    background: var(--color-surface-offset);
+  }
+
+  .comparison-table .yes {
+    color: var(--color-success);
+    font-weight: 700;
+  }
+
+  .comparison-table .no {
+    color: var(--color-text-faint);
+  }
+
+  /* Highlight Box */
+  .highlight-box {
+    background: var(--color-surface-2);
+    border-left: 4px solid var(--color-primary);
+    padding: var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  /* Profiles Grid */
+  .profiles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-xl);
+    margin: var(--space-2xl) 0;
+  }
+
+  .profile-card {
+    background: var(--color-surface-2);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+  }
+
+  .profile-card h3 {
+    font-size: 1.25rem;
+    margin: 0 0 var(--space-md);
+    color: var(--color-primary);
+  }
+
+  .profile-card p {
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Tarif */
+  .tarif-highlight {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  /* Links */
+  .link-arrow a {
+    color: var(--color-primary);
+    font-weight: 600;
+    transition: color var(--transition-fast);
+  }
+
+  .link-arrow a:hover {
+    color: var(--color-primary-hover);
+  }
+
+  /* FAQ (réutilise styles existants de index.astro) */
+  .faq-section {
+    background: var(--color-bg);
+  }
+
+  .faq-section h2 {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .faq-item {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    padding: var(--space-lg) var(--space-xl);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.0625rem;
+    color: var(--color-text);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    transition: background var(--transition-fast);
+  }
+
+  .faq-question:hover {
+    background: var(--color-surface-2);
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question svg {
+    flex-shrink: 0;
+    color: var(--color-primary);
+    transition: transform var(--transition-fast);
+  }
+
+  .faq-item[open] .faq-question svg {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    padding: 0 var(--space-xl) var(--space-xl);
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .faq-answer p {
+    margin-bottom: var(--space-md);
+  }
+
+  .faq-answer p:last-child {
+    margin-bottom: 0;
+  }
+</style>

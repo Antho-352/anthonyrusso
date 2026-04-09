@@ -1,0 +1,427 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = "Audit Netlinking — Analyse complète de votre profil de backlinks";
+const description = "Analyse de votre profil de backlinks, étude des concurrents, détection des liens toxiques. L'audit netlinking qui pose les bases d'une stratégie efficace — sur devis.";
+
+// Structured Data
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Audit Netlinking',
+  description: 'Analyse complète du profil de backlinks, étude des concurrents et détection des liens toxiques. Base de toute stratégie netlinking sur mesure.',
+  provider: {
+    '@type': 'Person',
+    name: 'Anthony Russo',
+    url: 'https://anthonyrusso.fr'
+  },
+  areaServed: {
+    '@type': 'Country',
+    name: 'France'
+  },
+  isPartOf: {
+    '@type': 'Service',
+    name: 'Netlinking sur mesure',
+    url: 'https://anthonyrusso.fr/netlinking-sur-mesure/'
+  }
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'L\'audit est-il vendu séparément de la prestation netlinking ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Non. Il est systématiquement inclus dans toute campagne de netlinking sur mesure. C\'est la condition de base pour construire une stratégie cohérente.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Quels outils utilisez-vous pour l\'audit ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Principalement Ahrefs et Majestic pour l\'analyse des backlinks et la vérification des métriques. Google Search Console est utilisée en complément pour les données propriétaires.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Combien de temps dure un audit netlinking ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Entre 2 et 5 jours selon la taille du site, le nombre de concurrents à analyser et la profondeur du profil de backlinks existant.'
+      }
+    }
+  ]
+};
+
+export const prerender = true;
+---
+
+<BaseLayout title={title} description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  <article class="container-narrow section">
+    <h1>Audit Netlinking : l'analyse qui précède chaque stratégie de liens</h1>
+
+    <div class="intro">
+      <p>La majorité des campagnes de netlinking qui échouent ont un point commun : elles ont démarré sans diagnostic. On commande des liens, on choisit des ancres au feeling, et on espère que ça monte. Ce n'est pas une stratégie, c'est un pari.</p>
+      <p>Avant de placer le moindre lien, il faut savoir où vous en êtes — et où en sont vos concurrents.</p>
+    </div>
+
+    <div class="summary-box">
+      <h2>Ce que vous retenez de cette page :</h2>
+      <ul>
+        <li>L'audit est la base de toute campagne — pas une option ou un extra facturé</li>
+        <li>On analyse votre profil existant ET celui de vos concurrents</li>
+        <li>Résultat : un plan d'action concret, pas un rapport de métriques brutes</li>
+        <li>Inclus systématiquement dans toute prestation de netlinking sur mesure</li>
+        <li>Campagnes à partir de 500€/mois — moins cher qu'une agence, plus efficace qu'un généraliste</li>
+      </ul>
+    </div>
+
+    <section>
+      <h2>Ce qu'on analyse exactement</h2>
+      <p>Un audit netlinking ne se limite pas à compter vos backlinks. Il y a quatre axes d'analyse distincts, chacun avec un objectif précis.</p>
+
+      <h3>Votre profil de backlinks existant</h3>
+      <p>Combien de domaines référents, quelle qualité, quelle répartition des ancres. Quelles pages reçoivent de l'autorité aujourd'hui — et lesquelles sont sous-alimentées alors qu'elles devraient être prioritaires. Les liens récemment perdus qu'il faudrait récupérer.</p>
+
+      <h3>Le profil de vos concurrents</h3>
+      <p>Quels sites linkent vos concurrents directs en positionnement. Avec quelles ancres, vers quelles pages. Ce qu'ils ont construit que vous n'avez pas encore. Les sources communes à aller chercher, les opportunités qu'ils ont exploitées avant vous.</p>
+
+      <h3>Les liens toxiques</h3>
+      <p>Domaines suspects, réseaux de liens artificiels, ancres sur-optimisées qui tirent votre profil vers le bas. Détection de ce qui mérite un désaveu — avec le fichier prêt à soumettre dans Google Search Console si nécessaire.</p>
+
+      <h3>Les opportunités inexploitées</h3>
+      <p>Pages à fort potentiel qui manquent de liens. Thématiques de sites à cibler. Types d'ancres absentes ou sous-représentées dans votre profil. C'est ici que se construit la feuille de route.</p>
+    </section>
+
+    <section>
+      <h2>Ce que vous recevez à la fin</h2>
+      <p>Pas un PDF de 40 pages rempli de graphiques que vous ne relirez jamais. Un plan d'action concret et directement exploitable :</p>
+
+      <ul>
+        <li>Liste des pages prioritaires à pousser en premier</li>
+        <li>Mix d'ancres recommandé par page cible</li>
+        <li>Types de sites à cibler (thématique, généraliste, presse, blogs)</li>
+        <li>Liens toxiques identifiés + fichier de désaveu si nécessaire</li>
+        <li>Benchmark concurrentiel synthétique (ce que vos concurrents ont fait, ce qu'il faut combler)</li>
+        <li>Calendrier de campagne sur 3 à 6 mois</li>
+      </ul>
+
+      <p>C'est ce document qui sert de base à toute la campagne. Chaque lien placé par la suite a une raison d'être précise dans ce plan.</p>
+    </section>
+
+    <section>
+      <h2>Quand faire un audit netlinking ?</h2>
+      <p>Quatre situations où l'audit est indispensable :</p>
+
+      <h3>Avant de lancer une première campagne</h3>
+      <p>Vous n'avez pas encore de backlinks, ou très peu. L'audit pose les bases : quelles pages travailler, quelles ancres utiliser, quels concurrents surveiller.</p>
+
+      <h3>Quand une campagne existante plafonne</h3>
+      <p>Vous avez déjà acheté des liens mais ça ne bouge pas. L'audit permet de comprendre pourquoi — mauvaise répartition, ancres déséquilibrées, pages mal choisies — et de corriger le tir.</p>
+
+      <h3>Après une chute de trafic inexpliquée</h3>
+      <p>Une mise à jour Google, un profil de liens qui a évolué dans le mauvais sens, des liens toxiques accumulés. L'audit permet de diagnostiquer rapidement ce qui s'est passé.</p>
+
+      <h3>Pour benchmarker un concurrent qui vous devance</h3>
+      <p>Il est systématiquement devant vous sur vos mots-clés cibles. L'audit de son profil de liens explique souvent pourquoi — et donne un plan clair pour le rattraper.</p>
+    </section>
+
+    <section>
+      <h2>Agence, salarié ou freelance spécialisé ?</h2>
+      <p>C'est une question légitime. Voici ce que ça donne concrètement.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Critère</th>
+            <th>Agence SEO</th>
+            <th>Salarié dédié</th>
+            <th>Freelance spécialisé</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Coût mensuel</td>
+            <td>1 500€ à 5 000€+</td>
+            <td>2 500€ à 4 000€ (charges incluses)</td>
+            <td>À partir de 500€/mois</td>
+          </tr>
+          <tr>
+            <td>Spécialisation netlinking</td>
+            <td>Rarement — service parmi d'autres</td>
+            <td>Souvent polyvalent SEO global</td>
+            <td>Expertise unique, rien d'autre</td>
+          </tr>
+          <tr>
+            <td>Audit préalable systématique</td>
+            <td>Rare</td>
+            <td>Dépend du profil</td>
+            <td>Toujours</td>
+          </tr>
+          <tr>
+            <td>Flexibilité et réactivité</td>
+            <td>Lente (account manager, process)</td>
+            <td>Bonne en interne</td>
+            <td>Directe</td>
+          </tr>
+          <tr>
+            <td>Catalogue de sites</td>
+            <td>Limité ou plateformes génériques</td>
+            <td>Aucun en propre</td>
+            <td>50+ sites + partenaires exclusifs</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Une agence va vous faire du netlinking parce que c'est dans le contrat — pas parce que c'est son cœur de métier. Un salarié polyvalent va gérer le technique, le contenu et le netlinking en même temps : rien ne sera vraiment bien fait. Un freelance spécialisé, c'est un interlocuteur unique qui ne fait que ça — depuis 5 ans.</p>
+
+      <p>Les campagnes démarrent à <strong>500€/mois</strong>. Le budget exact est défini après un premier appel selon vos objectifs, votre secteur et l'état de votre profil actuel.</p>
+
+      <div class="internal-links">
+        <p>→ Voir la prestation complète : <a href="/netlinking-sur-mesure/">Netlinking sur mesure</a></p>
+      </div>
+    </section>
+
+    <section>
+      <h2>L'audit est inclus dans toute campagne</h2>
+      <p>L'audit netlinking n'est pas un produit vendu séparément. Il est systématiquement intégré au démarrage de chaque prestation de netlinking sur mesure — parce que travailler sans diagnostic, c'est simplement travailler mal.</p>
+      <p>C'est ce qui différencie une vraie stratégie d'un simple achat de liens en volume.</p>
+    </section>
+
+    <section class="faq">
+      <h2>FAQ</h2>
+
+      <details>
+        <summary>Quels outils utilisez-vous pour l'audit ?</summary>
+        <p>Principalement Ahrefs et Majestic pour l'analyse des backlinks et la vérification des métriques (DR, Trust Flow, Citation Flow, trafic organique). Google Search Console est utilisée en complément pour les données propriétaires de votre site.</p>
+      </details>
+
+      <details>
+        <summary>Combien de temps dure un audit netlinking ?</summary>
+        <p>Entre 2 et 5 jours selon la taille du site, le nombre de concurrents à analyser et la profondeur du profil de backlinks existant. Le plan d'action est livré en même temps que le rapport.</p>
+      </details>
+
+      <details>
+        <summary>L'audit est-il vendu séparément de la prestation netlinking ?</summary>
+        <p>Non. Il est systématiquement inclus dans toute campagne de netlinking sur mesure. C'est la condition de base pour construire une stratégie cohérente et éviter de gaspiller du budget sur des liens inutiles.</p>
+      </details>
+
+      <details>
+        <summary>Vous analysez aussi le netlinking de mes concurrents ?</summary>
+        <p>Oui, c'est une partie centrale de l'audit. On analyse les profils de backlinks de vos principaux concurrents en positionnement pour identifier leurs sources, leurs ancres et les opportunités à aller chercher.</p>
+      </details>
+
+      <details>
+        <summary>Que se passe-t-il si vous détectez des liens toxiques ?</summary>
+        <p>On les liste clairement dans le rapport avec le niveau de risque estimé. Si le désaveu est recommandé, on prépare le fichier directement soumissible dans Google Search Console.</p>
+      </details>
+
+      <details>
+        <summary>L'audit est-il refait à chaque nouvelle campagne ?</summary>
+        <p>Un audit complet est fait en début de prestation. Ensuite, une mise à jour légère est réalisée à chaque début de nouveau cycle mensuel pour ajuster le plan si nécessaire.</p>
+      </details>
+
+      <details>
+        <summary>Quelle différence entre un audit netlinking et un audit SEO technique ?</summary>
+        <p>Un audit SEO technique analyse la structure du site, la vitesse, le balisage, l'indexation. Un audit netlinking analyse uniquement le profil de backlinks — les liens entrants, leur qualité, leur provenance et leur impact sur votre autorité de domaine. Ce sont deux diagnostics complémentaires mais totalement distincts.</p>
+      </details>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .intro {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    margin-bottom: var(--space-2xl);
+    color: var(--color-text);
+  }
+
+  .summary-box {
+    background: var(--color-surface-2);
+    border-left: 4px solid var(--color-primary);
+    padding: var(--space-xl);
+    margin: var(--space-2xl) 0;
+    border-radius: var(--radius-md);
+  }
+
+  .summary-box h2 {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-md);
+    color: var(--color-text);
+  }
+
+  .summary-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .summary-box li {
+    padding-left: var(--space-lg);
+    margin-bottom: var(--space-sm);
+    position: relative;
+    line-height: 1.7;
+  }
+
+  .summary-box li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--color-success);
+    font-weight: 700;
+  }
+
+  section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  h2 {
+    margin-top: var(--space-3xl);
+    margin-bottom: var(--space-xl);
+    color: var(--color-text);
+  }
+
+  h3 {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-md);
+    font-size: 1.25rem;
+    color: var(--color-text);
+  }
+
+  p {
+    margin-bottom: var(--space-lg);
+    line-height: 1.7;
+  }
+
+  ul, ol {
+    margin-bottom: var(--space-lg);
+    padding-left: var(--space-xl);
+  }
+
+  li {
+    margin-bottom: var(--space-sm);
+    line-height: 1.7;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-xl) 0;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  thead {
+    background: var(--color-surface-offset);
+  }
+
+  th {
+    padding: var(--space-md) var(--space-lg);
+    text-align: left;
+    font-weight: 700;
+    color: var(--color-text);
+    border-bottom: 2px solid var(--color-border);
+    font-size: 0.9375rem;
+  }
+
+  td {
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  tbody tr:hover {
+    background: var(--color-surface-offset);
+  }
+
+  .internal-links {
+    background: var(--color-primary-highlight);
+    border-left: 4px solid var(--color-primary);
+    padding: var(--space-lg);
+    margin: var(--space-2xl) 0;
+    border-radius: var(--radius-md);
+  }
+
+  .internal-links p {
+    margin-bottom: var(--space-sm);
+    font-weight: 500;
+  }
+
+  .internal-links a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .internal-links a:hover {
+    color: var(--color-primary-hover);
+  }
+
+  .faq {
+    margin-top: var(--space-3xl);
+  }
+
+  .faq h2 {
+    margin-bottom: var(--space-xl);
+  }
+
+  details {
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-md);
+    cursor: pointer;
+  }
+
+  details:hover {
+    border-color: var(--color-primary);
+  }
+
+  summary {
+    font-weight: 700;
+    color: var(--color-text);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  summary::marker {
+    color: var(--color-primary);
+  }
+
+  details[open] summary {
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  details p {
+    margin-bottom: 0;
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 768px) {
+    table {
+      font-size: 0.875rem;
+    }
+
+    th, td {
+      padding: var(--space-sm) var(--space-md);
+    }
+  }
+</style>

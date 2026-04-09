@@ -1,0 +1,115 @@
+---
+interface Step {
+  number: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  steps: Step[];
+}
+
+const { steps } = Astro.props;
+---
+
+<div class="timeline">
+  {steps.map((step, index) => (
+    <div class="timeline-step">
+      <div class="timeline-marker">
+        <span class="timeline-number">{step.number}</span>
+      </div>
+      <div class="timeline-content">
+        <h3 class="timeline-title">{step.title}</h3>
+        <p class="timeline-description">{step.description}</p>
+      </div>
+      {index < steps.length - 1 && <div class="timeline-connector"></div>}
+    </div>
+  ))}
+</div>
+
+<style>
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    margin: var(--space-2xl) 0;
+  }
+
+  .timeline-step {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  .timeline-marker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 4px var(--color-primary-highlight);
+  }
+
+  .timeline-number {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: white;
+  }
+
+  .timeline-content {
+    padding-top: var(--space-sm);
+  }
+
+  .timeline-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin: 0 0 var(--space-xs);
+    color: var(--color-text);
+  }
+
+  .timeline-description {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
+  .timeline-connector {
+    position: absolute;
+    left: 27px;
+    top: 56px;
+    width: 2px;
+    height: calc(100% + var(--space-xl));
+    background: var(--color-border);
+  }
+
+  .timeline-step:last-child .timeline-connector {
+    display: none;
+  }
+
+  @media (max-width: 640px) {
+    .timeline-step {
+      grid-template-columns: auto 1fr;
+      gap: var(--space-md);
+    }
+
+    .timeline-marker {
+      width: 48px;
+      height: 48px;
+    }
+
+    .timeline-number {
+      font-size: 1.125rem;
+    }
+
+    .timeline-connector {
+      left: 23px;
+      top: 48px;
+    }
+  }
+</style>

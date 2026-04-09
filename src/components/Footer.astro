@@ -1,0 +1,310 @@
+---
+// Footer avec vrais liens sociaux et structure optimale
+const currentYear = new Date().getFullYear();
+
+const footerLinks = {
+  pages: [
+    { name: 'Accueil', href: '/' },
+    { name: 'Netlinking sur-mesure', href: '/netlinking-sur-mesure' },
+    { name: 'Audit netlinking', href: '/audit-netlinking' },
+    { name: 'Mon réseau', href: '/mon-reseau' },
+    { name: 'Résultats', href: '/resultats' },
+    { name: 'Blog', href: '/blog' },
+  ],
+  contact: [
+    { name: 'Prendre rendez-vous', href: 'https://calendly.com/anthony-russo-digital/30min', external: true },
+    { name: 'Email', href: 'mailto:anthony@anthonyrusso.fr', external: false },
+  ],
+  external: [
+    { name: 'Linkttp.com', href: 'https://linkttp.com', external: true, description: 'Mon catalogue de sites partenaires' },
+  ],
+};
+
+const socialLinks = [
+  {
+    name: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/anthony-russo/',
+    icon: `<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>`
+  },
+  {
+    name: 'X / Twitter',
+    href: 'https://x.com/antho_russo',
+    icon: `<path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>`
+  },
+];
+---
+
+<footer class="footer">
+  <div class="footer-container">
+    <!-- Col 1: Positionnement + Socials -->
+    <div class="footer-col footer-brand">
+      <a href="/" class="footer-logo" aria-label="Retour à l'accueil">
+        <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="8" y="8" width="32" height="32" rx="6" stroke="currentColor" stroke-width="2"/>
+          <path d="M16 20L20 24L16 28" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M24 20H32" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M24 28H32" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span>Anthony Russo</span>
+      </a>
+      <p class="footer-description">
+        Expert en netlinking sur-mesure. J'aide les entreprises, agences et freelances à construire des campagnes de backlinks plus durables, plus souples et plus performantes.
+      </p>
+      <div class="social-links">
+        {socialLinks.map((social) => (
+          <a
+            href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link"
+            aria-label={social.name}
+            title={social.name}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={social.icon} />
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Col 2: Navigation -->
+    <div class="footer-col">
+      <h3 class="footer-title">Navigation</h3>
+      <ul class="footer-links" role="list">
+        {footerLinks.pages.map((link) => (
+          <li>
+            <a href={link.href} class="footer-link">{link.name}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Col 3: Prise de rendez-vous -->
+    <div class="footer-col">
+      <h3 class="footer-title">Contact</h3>
+      <ul class="footer-links" role="list">
+        {footerLinks.contact.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="footer-link"
+              {...(link.external && { target: '_blank', rel: 'noopener noreferrer' })}
+            >
+              {link.name}
+              {link.external && (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="external-icon">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Col 4: Réseau / Catalogue -->
+    <div class="footer-col">
+      <h3 class="footer-title">Réseau</h3>
+      <ul class="footer-links" role="list">
+        {footerLinks.external.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="footer-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {link.name}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="external-icon">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+            </a>
+            {link.description && (
+              <p class="footer-link-description">{link.description}</p>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="footer-bottom">
+    <div class="footer-container">
+      <p class="footer-copyright">
+        © {currentYear} Anthony Russo. Tous droits réservés.
+      </p>
+      <p class="footer-legal">
+        <a href="/mentions-legales" class="footer-link-inline">Mentions légales</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-bg);
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    margin-top: auto;
+  }
+
+  .footer-container {
+    max-width: var(--max-width-xl);
+    margin: 0 auto;
+    padding: var(--space-3xl) var(--space-lg);
+  }
+
+  .footer-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+
+  /* Brand column */
+  .footer-brand {
+    max-width: 320px;
+  }
+
+  .footer-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-md);
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.125rem;
+    margin-bottom: var(--space-md);
+    transition: color var(--transition-fast);
+  }
+
+  .footer-logo:hover {
+    color: var(--color-primary);
+  }
+
+  .footer-description {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-lg);
+    color: var(--color-text-muted);
+  }
+
+  .social-links {
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+  }
+
+  .social-link:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    background: var(--color-primary-highlight);
+  }
+
+  /* Footer columns */
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer-title {
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-text);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-lg);
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .footer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    transition: color var(--transition-fast);
+  }
+
+  .footer-link:hover {
+    color: var(--color-primary);
+  }
+
+  .external-icon {
+    flex-shrink: 0;
+    opacity: 0.5;
+  }
+
+  .footer-link-description {
+    font-size: 0.8125rem;
+    color: var(--color-text-faint);
+    margin-top: var(--space-xs);
+    line-height: 1.4;
+  }
+
+  /* Bottom bar */
+  .footer-bottom {
+    border-top: 1px solid var(--color-divider);
+  }
+
+  .footer-bottom .footer-container {
+    padding: var(--space-xl) var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-copyright,
+  .footer-legal {
+    font-size: 0.875rem;
+    color: var(--color-text-faint);
+    margin: 0;
+  }
+
+  .footer-link-inline {
+    color: var(--color-text-muted);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color var(--transition-fast);
+  }
+
+  .footer-link-inline:hover {
+    color: var(--color-primary);
+  }
+
+  /* Desktop layout */
+  @media (min-width: 768px) {
+    .footer-container {
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    }
+
+    .footer-bottom .footer-container {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+    }
+  }
+</style>

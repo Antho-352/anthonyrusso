@@ -1,0 +1,443 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+export const prerender = true;
+
+const title = 'Ma régie de netlinking — Réseau d\'éditeurs en accès direct';
+const description = 'Accédez à un réseau d\'éditeurs de confiance pour des backlinks contextuels, flexibles et permanents. Découvrez les avantages du direct vs les plateformes.';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Anthony Russo',
+    jobTitle: 'Expert Netlinking',
+    description: description,
+    url: 'https://anthonyrusso.fr',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Anthony Russo Netlinking',
+    description: 'Régie de netlinking et réseau d\'éditeurs en accès direct',
+    url: 'https://anthonyrusso.fr',
+  },
+];
+---
+
+<PageLayout title={title} description={description} schema={schema}>
+  <!-- Hero -->
+  <section class="hero-section">
+    <div class="container-narrow">
+      <h1>Ma régie de netlinking — Des spots rares, en accès direct, sans intermédiaire</h1>
+      <p class="hero-chapeau text-large">
+        J'ai passé des années sur les plateformes de netlinking. J'en connais les avantages et les limites. Alors j'ai construit ce que je n'y trouvais pas : un réseau d'éditeurs de confiance, gérés en direct, où vous avez une vraie visibilité et une vraie flexibilité. Bienvenue dans le netlinking de demain.
+      </p>
+    </div>
+  </section>
+
+  <!-- Problème plateformes -->
+  <section class="section">
+    <div class="container">
+      <h2>Ce que les plateformes ne vous diront pas</h2>
+
+      <div class="content-block">
+        <p>
+          Les plateformes ont démocratisé le netlinking. C'est bien. Mais elles ont introduit des frictions que vous payez :
+        </p>
+
+        <ul class="problems-list">
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="15" y1="9" x2="9" y2="15"/>
+              <line x1="9" y1="9" x2="15" y2="15"/>
+            </svg>
+            <span>Un gestionnaire entre vous et l'éditeur (qui peut être en vacances, en arrêt, ou partir demain)</span>
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="15" y1="9" x2="9" y2="15"/>
+              <line x1="9" y1="9" x2="15" y2="15"/>
+            </svg>
+            <span>Des métriques partielles — vous ne voyez pas le vrai trafic GSC du site</span>
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="15" y1="9" x2="9" y2="15"/>
+              <line x1="9" y1="9" x2="15" y2="15"/>
+            </svg>
+            <span>Des ancres figées dans le bon de commande — impossible d'ajuster si la stratégie change</span>
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="15" y1="9" x2="9" y2="15"/>
+              <line x1="9" y1="9" x2="15" y2="15"/>
+            </svg>
+            <span>Des sites qui n'ont pas publié depuis 6 mois — les articles commandés s'y retrouvent noyés</span>
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="15" y1="9" x2="9" y2="15"/>
+              <line x1="9" y1="9" x2="15" y2="15"/>
+            </svg>
+            <span>Des liens "supprimés pour raisons éditoriales" 18 mois après — sans préavis ni remboursement</span>
+          </li>
+        </ul>
+
+        <p class="highlight-text">
+          Je ne dis pas que les plateformes sont mauvaises. Je les utilise. Mais combinées à un réseau direct, vous obtenez le meilleur des deux mondes.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Les 7 avantages -->
+  <section class="section" style="background: var(--color-surface);">
+    <div class="container">
+      <h2>Pourquoi mon réseau change la donne</h2>
+
+      <div class="advantages-grid">
+        <div class="card advantage-card">
+          <div class="advantage-number">01</div>
+          <h3>Pas d'intermédiaire qui disparaît</h3>
+          <p>
+            Vous traitez avec moi, directement. Je connais chaque éditeur de mon réseau personnellement. Pas de ticket support, pas d'account manager touriste.
+          </p>
+        </div>
+
+        <div class="card advantage-card">
+          <div class="advantage-number">02</div>
+          <h3>Visibilité sur le vrai trafic</h3>
+          <p>
+            Je vous montre les données GSC réelles des sites avant sélection. Vous savez exactement ce que vous achetez.
+          </p>
+        </div>
+
+        <div class="card advantage-card">
+          <div class="advantage-number">03</div>
+          <h3>Ancres flexibles</h3>
+          <p>
+            La stratégie SEO évolue. L'ancre qui était parfaite il y a 6 mois ne l'est peut-être plus. Dans mon réseau, on peut ajuster.
+          </p>
+        </div>
+
+        <div class="card advantage-card">
+          <div class="advantage-number">04</div>
+          <h3>Contenu frais et constant</h3>
+          <p>
+            Les sites de mon réseau publient régulièrement. Vos articles s'insèrent dans un flux éditorial actif → indexation naturelle et plus rapide.
+          </p>
+        </div>
+
+        <div class="card advantage-card">
+          <div class="advantage-number">05</div>
+          <h3>Liens permanents garantis</h3>
+          <p>
+            Les articles restent. Pas de suppression arbitraire. Pas de "désolé, le site a changé de propriétaire". Je garantis la durée de vie des publications dans mon réseau propre.
+          </p>
+        </div>
+
+        <div class="card advantage-card">
+          <div class="advantage-number">06</div>
+          <h3>Positions variées (Home & articles)</h3>
+          <p>
+            Selon votre budget et vos objectifs, vous pouvez obtenir des liens en position Home (autorité maximale) ou dans des articles internes (plus naturel, plus accessible). Un mix stratégique des deux optimise le rapport qualité/prix.
+          </p>
+        </div>
+
+        <div class="card advantage-card">
+          <div class="advantage-number">07</div>
+          <h3>Thématiques couvertes</h3>
+          <p>
+            Mon réseau couvre plusieurs verticals : tech, business, finance, lifestyle, santé, auto, habitat, e-commerce, marketing digital. La proximité thématique avec votre secteur est assurée.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Linkttp -->
+  <section class="section linkttp-section">
+    <div class="container-narrow">
+      <div class="linkttp-card">
+        <div class="linkttp-content">
+          <h2>Linkttp.com — Mon catalogue de liens en accès direct</h2>
+          <p>
+            J'ai développé Linkttp.com, une plateforme qui centralise mon catalogue de sites partenaires. Vous pouvez y consulter les sites disponibles, leurs métriques, leurs thématiques et leurs tarifs.
+          </p>
+
+          <h3>Les avantages de Linkttp pour vos campagnes :</h3>
+          <ul class="checklist">
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              Visibilité complète sur le catalogue avant achat
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              Tarifs directs — sans markup de plateforme intermédiaire
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              Commande simplifiée pour les campagnes récurrentes
+            </li>
+          </ul>
+
+          <a
+            href="https://linkttp.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary btn-lg"
+          >
+            Accéder au catalogue Linkttp.com
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chiffres du réseau -->
+  <section class="section" style="background: var(--color-surface);">
+    <div class="container">
+      <h2>Mon réseau en chiffres</h2>
+
+      <div class="network-stats">
+        <div class="stat-card">
+          <div class="stat-value">150+</div>
+          <div class="stat-label">Sites partenaires dans le réseau</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">12</div>
+          <div class="stat-label">Thématiques couvertes</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">8 ans</div>
+          <div class="stat-label">Expérience SEO & netlinking</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">Centaines</div>
+          <div class="stat-label">Backlinks posés avec suivi GSC</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="section cta-section">
+    <div class="container-narrow">
+      <div class="cta-card">
+        <h2>Intéressé par un accès direct à mon réseau ?</h2>
+        <p class="text-large">
+          Réservez un appel de 30 minutes. Je vous présente les sites disponibles dans votre thématique, les tarifs directs, et on définit ensemble le plan d'action.
+        </p>
+        <a
+          href="https://calendly.com/anthony-russo-digital/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-primary btn-lg"
+        >
+          Prendre un RDV →
+        </a>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  /* Hero */
+  .hero-section {
+    padding: var(--space-4xl) var(--space-lg) var(--space-3xl);
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-surface) 100%);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .hero-chapeau {
+    color: var(--color-text-muted);
+    margin: var(--space-xl) 0 0;
+  }
+
+  /* Content block */
+  .content-block p {
+    margin-bottom: var(--space-lg);
+  }
+
+  /* Problems list */
+  .problems-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    margin: var(--space-2xl) 0;
+  }
+
+  .problems-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+  }
+
+  .problems-list svg {
+    flex-shrink: 0;
+    color: var(--color-error);
+    margin-top: 2px;
+  }
+
+  .highlight-text {
+    padding: var(--space-lg);
+    background: var(--color-primary-highlight);
+    border-left: 4px solid var(--color-primary);
+    border-radius: var(--radius-md);
+    color: var(--color-text);
+    font-weight: 500;
+    margin-top: var(--space-xl);
+  }
+
+  /* Advantages grid */
+  .advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-xl);
+    margin-top: var(--space-2xl);
+  }
+
+  .advantage-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .advantage-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: var(--color-primary);
+    background: var(--color-primary-highlight);
+    border-radius: var(--radius-md);
+  }
+
+  .advantage-card h3 {
+    margin: 0;
+    font-size: 1.125rem;
+  }
+
+  .advantage-card p {
+    margin: 0;
+    color: var(--color-text-muted);
+  }
+
+  /* Linkttp section */
+  .linkttp-section {
+    background: linear-gradient(135deg, var(--color-primary-highlight) 0%, transparent 100%);
+  }
+
+  .linkttp-card {
+    background: var(--color-surface-2);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-xl);
+    padding: var(--space-3xl);
+    box-shadow: var(--shadow-lg), var(--glow-primary);
+  }
+
+  .linkttp-content h2 {
+    margin-bottom: var(--space-lg);
+  }
+
+  .linkttp-content p {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-xl);
+  }
+
+  .linkttp-content h3 {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-lg);
+  }
+
+  .checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+  }
+
+  .checklist svg {
+    flex-shrink: 0;
+    color: var(--color-success);
+    margin-top: 2px;
+  }
+
+  /* Network stats */
+  .network-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-2xl);
+    margin-top: var(--space-2xl);
+  }
+
+  .stat-card {
+    text-align: center;
+    padding: var(--space-xl);
+  }
+
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    color: var(--color-primary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .stat-label {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
+  }
+
+  .cta-card {
+    text-align: center;
+    padding: var(--space-3xl);
+    background: var(--color-surface-2);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg), var(--glow-primary);
+  }
+
+  .cta-card h2 {
+    margin-bottom: var(--space-lg);
+  }
+
+  .cta-card p {
+    margin-bottom: var(--space-xl);
+    color: var(--color-text-muted);
+  }
+</style>

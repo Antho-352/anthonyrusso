@@ -1,0 +1,533 @@
+---
+// Navigation principale avec CTA RDV
+const navItems = [
+  {
+    name: 'Netlinking sur-mesure',
+    href: '/netlinking-sur-mesure',
+    submenu: [
+      { name: 'PageRank', href: '/netlinking-sur-mesure/pagerank' },
+      { name: 'Backlink', href: '/netlinking-sur-mesure/backlink' },
+      { name: 'Texte d\'ancre', href: '/netlinking-sur-mesure/texte-ancre' },
+      { name: 'Trust Flow & Citation Flow', href: '/netlinking-sur-mesure/trust-flow-citation-flow' },
+      { name: 'Dofollow & Nofollow', href: '/netlinking-sur-mesure/dofollow-nofollow' },
+      { name: 'Domain Rating & Domain Authority', href: '/netlinking-sur-mesure/domain-rating-domain-authority' },
+      { name: 'Évaluer un spot', href: '/netlinking-sur-mesure/evaluer-un-spot' },
+    ]
+  },
+  { name: 'Audit netlinking', href: '/audit-netlinking' },
+  { name: 'Mon réseau', href: '/mon-reseau' },
+  { name: 'Résultats', href: '/resultats' },
+  { name: 'Blog', href: '/blog' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="nav" aria-label="Navigation principale">
+  <div class="nav-container">
+    <!-- Logo -->
+    <a href="/" class="nav-logo" aria-label="Retour à l'accueil">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="8" y="8" width="32" height="32" rx="6" stroke="currentColor" stroke-width="2"/>
+        <path d="M16 20L20 24L16 28" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M24 20H32" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <path d="M24 28H32" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span class="nav-logo-text">Anthony Russo</span>
+    </a>
+
+    <!-- Menu desktop -->
+    <ul class="nav-menu" role="list">
+      {navItems.map((item) => (
+        <li class={item.submenu ? 'nav-item-dropdown' : ''}>
+          {item.submenu ? (
+            <div class="dropdown">
+              <button type="button" class="nav-link dropdown-toggle" aria-expanded="false">
+                {item.name}
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href={item.href} class="dropdown-link">
+                    {item.name}
+                  </a>
+                </li>
+                {item.submenu.map((subitem) => (
+                  <li>
+                    <a
+                      href={subitem.href}
+                      class={currentPath === subitem.href ? 'dropdown-link active' : 'dropdown-link'}
+                    >
+                      {subitem.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <a
+              href={item.href}
+              class={currentPath === item.href ? 'nav-link active' : 'nav-link'}
+              aria-current={currentPath === item.href ? 'page' : undefined}
+            >
+              {item.name}
+            </a>
+          )}
+        </li>
+      ))}
+    </ul>
+
+    <!-- CTA + Theme Toggle -->
+    <div class="nav-actions">
+      <button
+        type="button"
+        id="theme-toggle"
+        class="theme-toggle"
+        aria-label="Basculer le thème"
+        title="Basculer entre mode sombre et clair"
+      >
+        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+
+      <a
+        href="https://calendly.com/anthony-russo-digital/30min"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary nav-cta"
+      >
+        Prendre rendez-vous
+      </a>
+    </div>
+
+    <!-- Mobile menu toggle -->
+    <button type="button" id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <svg class="icon-menu" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+      <svg class="icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <ul role="list">
+      {navItems.map((item) => (
+        <>
+          <li>
+            <a
+              href={item.href}
+              class={currentPath === item.href ? 'mobile-link active' : 'mobile-link'}
+            >
+              {item.name}
+            </a>
+          </li>
+          {item.submenu && item.submenu.map((subitem) => (
+            <li class="mobile-submenu-item">
+              <a
+                href={subitem.href}
+                class={currentPath === subitem.href ? 'mobile-link active' : 'mobile-link'}
+              >
+                {subitem.name}
+              </a>
+            </li>
+          ))}
+        </>
+      ))}
+    </ul>
+    <a
+      href="https://calendly.com/anthony-russo-digital/30min"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn btn-primary btn-lg mobile-cta"
+    >
+      Prendre rendez-vous →
+    </a>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: var(--max-width-xl);
+    margin: 0 auto;
+    padding: var(--space-md) var(--space-lg);
+    gap: var(--space-xl);
+  }
+
+  /* Logo */
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.125rem;
+    transition: color var(--transition-fast);
+  }
+
+  .nav-logo:hover {
+    color: var(--color-primary);
+  }
+
+  .nav-logo svg {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+  }
+
+  .nav-logo-text {
+    white-space: nowrap;
+  }
+
+  /* Menu desktop */
+  .nav-menu {
+    display: none;
+    list-style: none;
+    gap: var(--space-md);
+    align-items: center;
+  }
+
+  .nav-link {
+    display: block;
+    padding: var(--space-sm) var(--space-md);
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--color-primary);
+    background: var(--color-primary-highlight);
+  }
+
+  /* Dropdown */
+  .nav-item-dropdown {
+    position: relative;
+  }
+
+  .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .dropdown-toggle svg {
+    transition: transform var(--transition-fast);
+  }
+
+  .dropdown-toggle[aria-expanded="true"] svg {
+    transform: rotate(180deg);
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 200px;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    margin-top: var(--space-sm);
+    padding: var(--space-sm);
+    list-style: none;
+    z-index: var(--z-dropdown);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity var(--transition-fast), transform var(--transition-fast), visibility var(--transition-fast);
+  }
+
+  /* Desktop hover */
+  @media (min-width: 1024px) {
+    .nav-item-dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+
+  /* Mobile/tablet click/touch */
+  .nav-item-dropdown.active .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .dropdown-link {
+    display: block;
+    padding: var(--space-sm) var(--space-md);
+    color: var(--color-text);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+  }
+
+  .dropdown-link:hover,
+  .dropdown-link.active {
+    color: var(--color-primary);
+    background: var(--color-primary-highlight);
+  }
+
+  /* Actions (theme + CTA) */
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: var(--color-text-muted);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+  }
+
+  .theme-toggle:hover {
+    color: var(--color-primary);
+    background: var(--color-primary-highlight);
+  }
+
+  .icon-moon {
+    display: none;
+  }
+
+  [data-theme="light"] .icon-sun {
+    display: none;
+  }
+
+  [data-theme="light"] .icon-moon {
+    display: block;
+  }
+
+  .nav-cta {
+    display: none;
+  }
+
+  /* Mobile menu toggle */
+  .mobile-menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: var(--color-text);
+  }
+
+  .icon-close {
+    display: none;
+  }
+
+  .mobile-menu-toggle[aria-expanded="true"] .icon-menu {
+    display: none;
+  }
+
+  .mobile-menu-toggle[aria-expanded="true"] .icon-close {
+    display: block;
+  }
+
+  /* Mobile menu */
+  .mobile-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-xl) var(--space-lg);
+  }
+
+  .mobile-menu ul {
+    list-style: none;
+    margin-bottom: var(--space-xl);
+  }
+
+  .mobile-link {
+    display: block;
+    padding: var(--space-md) 0;
+    color: var(--color-text);
+    font-size: 1.125rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--color-divider);
+    transition: color var(--transition-fast);
+  }
+
+  .mobile-submenu-item .mobile-link {
+    font-size: 1rem;
+    font-weight: 500;
+    padding-left: var(--space-lg);
+    color: var(--color-text-muted);
+  }
+
+  .mobile-link:hover,
+  .mobile-link.active {
+    color: var(--color-primary);
+  }
+
+  .mobile-cta {
+    width: 100%;
+  }
+
+  /* Tablet adjustments */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .nav-container {
+      gap: var(--space-lg);
+    }
+
+    .nav-logo {
+      font-size: 1rem;
+    }
+  }
+
+  /* Mobile spacing */
+  @media (max-width: 640px) {
+    .nav-container {
+      padding: var(--space-sm) var(--space-md);
+      gap: var(--space-md);
+    }
+
+    .nav-logo {
+      font-size: 0.9375rem;
+    }
+
+    .nav-logo svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  /* Desktop breakpoint */
+  @media (min-width: 1024px) {
+    .nav-menu {
+      display: flex;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+    }
+
+    .mobile-menu-toggle,
+    .mobile-menu {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // Theme toggle
+  const themeToggle = document.getElementById('theme-toggle');
+  const html = document.documentElement;
+
+  // Init theme from localStorage or default to dark
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  html.setAttribute('data-theme', savedTheme);
+
+  themeToggle?.addEventListener('click', () => {
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  });
+
+  // Dropdown menus - touch/click for mobile/tablet, hover for desktop
+  const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+
+  dropdownToggles.forEach(toggle => {
+    toggle.addEventListener('click', (e) => {
+      // Only handle click on mobile/tablet (< 1024px)
+      if (window.innerWidth >= 1024) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      const parent = toggle.closest('.nav-item-dropdown');
+      const isActive = parent?.classList.contains('active');
+
+      // Close all other dropdowns
+      document.querySelectorAll('.nav-item-dropdown').forEach(item => {
+        if (item !== parent) {
+          item.classList.remove('active');
+        }
+      });
+
+      // Toggle current dropdown
+      parent?.classList.toggle('active', !isActive);
+    });
+  });
+
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', (e) => {
+    if (window.innerWidth >= 1024) return;
+
+    const target = e.target as HTMLElement;
+    if (!target.closest('.nav-item-dropdown')) {
+      document.querySelectorAll('.nav-item-dropdown').forEach(item => {
+        item.classList.remove('active');
+      });
+    }
+  });
+
+  // Mobile menu toggle
+  const mobileToggle = document.getElementById('mobile-menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  mobileToggle?.addEventListener('click', () => {
+    const isExpanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+    mobileToggle.setAttribute('aria-expanded', (!isExpanded).toString());
+    mobileMenu?.toggleAttribute('hidden');
+  });
+
+  // Close mobile menu on link click
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileToggle?.setAttribute('aria-expanded', 'false');
+      mobileMenu?.setAttribute('hidden', '');
+    });
+  });
+</script>

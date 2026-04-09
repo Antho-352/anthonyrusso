@@ -1,0 +1,218 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  noIndex?: boolean;
+}
+
+const {
+  title,
+  description,
+  ogImage = '/og-default.jpg',
+  noIndex = false,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const fullTitle = title === 'Accueil' ? 'Anthony Russo — Expert Netlinking Freelance' : `${title} — Anthony Russo`;
+---
+
+<!doctype html>
+<html lang="fr" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Meta Tags -->
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+    <meta property="og:locale" content="fr_FR" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- Fonts preconnect -->
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+
+    <!-- Theme color -->
+    <meta name="theme-color" content="#020A32" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#F5F7FF" media="(prefers-color-scheme: light)" />
+
+    <!-- Prevent theme flicker -->
+    <script is:inline>
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+  </head>
+  <body>
+    <Nav />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+
+    <!-- CTA Sticky Bottom -->
+    <div class="cta-sticky">
+      <div class="cta-sticky-content">
+        <span class="cta-sticky-text">Parlons de votre stratégie netlinking</span>
+        <a
+          href="https://calendly.com/anthony-russo-digital/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-primary"
+        >
+          Réserver un rendez-vous →
+        </a>
+      </div>
+    </div>
+
+    <!-- Schema.org JSON-LD for Person (homepage) -->
+    {Astro.url.pathname === '/' && (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: 'Anthony Russo',
+        jobTitle: 'Expert Netlinking Freelance',
+        description: 'Expert en netlinking et stratégie de backlinks. Accès direct à une régie de sites éditeurs pour des campagnes sur-mesure.',
+        url: Astro.site,
+        sameAs: [
+          'https://linkedin.com/in/anthonyrusso',
+          'https://twitter.com/anthonyrusso',
+          'https://linkttp.com',
+        ],
+        knowsAbout: ['SEO', 'Netlinking', 'Link Building', 'Backlinks', 'Référencement naturel'],
+      })} />
+    )}
+  </body>
+</html>
+
+<style is:global>
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Body layout */
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  main {
+    flex: 1;
+  }
+
+  /* Focus visible styles for accessibility */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  /* Selection styles */
+  ::selection {
+    background: var(--color-primary-highlight);
+    color: var(--color-primary);
+  }
+
+  /* Scrollbar styles (webkit browsers) */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-surface-offset);
+    border-radius: 6px;
+    border: 3px solid var(--color-bg);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
+  }
+
+  /* CTA Sticky Bottom */
+  .cta-sticky {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-primary);
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    padding: var(--space-md) var(--space-md);
+  }
+
+  .cta-sticky-content {
+    max-width: var(--max-width-lg);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+  }
+
+  .cta-sticky-text {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--color-text);
+  }
+
+  /* Tablet adjustments */
+  @media (max-width: 768px) {
+    .cta-sticky {
+      padding: var(--space-sm) var(--space-md);
+    }
+
+    .cta-sticky-text {
+      font-size: 1rem;
+    }
+  }
+
+  /* Mobile stacking */
+  @media (max-width: 640px) {
+    .cta-sticky-content {
+      flex-direction: column;
+      text-align: center;
+      gap: var(--space-md);
+    }
+
+    .cta-sticky-text {
+      font-size: 0.9375rem;
+    }
+
+    .cta-sticky .btn {
+      width: 100%;
+    }
+  }
+</style>

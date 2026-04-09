@@ -1,0 +1,686 @@
+---
+export const prerender = true;
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'Domain Rating vs Domain Authority : différences, limites et utilisation';
+const description = 'DR d\'Ahrefs ou DA de Moz ? Ces deux métriques sont partout dans les rapports SEO mais ne mesurent pas la même chose — et toutes deux se manipulent. Guide complet avec nuances d\'expert.';
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Domain Rating et Domain Authority : ce que ces scores mesurent vraiment — et ce qu\'ils ne voient pas',
+  description: 'Guide complet sur le Domain Rating (Ahrefs) et le Domain Authority (Moz) : différences, limites, manipulation et utilisation correcte dans une stratégie de netlinking.',
+  author: {
+    '@type': 'Person',
+    name: 'Anthony Russo',
+    url: 'https://anthonyrusso.fr'
+  },
+  publisher: {
+    '@type': 'Person',
+    name: 'Anthony Russo',
+    url: 'https://anthonyrusso.fr'
+  },
+  mainEntityOfPage: 'https://anthonyrusso.fr/netlinking-sur-mesure/domain-rating-domain-authority/'
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Google utilise-t-il le DR ou le DA dans son algorithme ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Non. Les Google Leaks de 2024 le confirment : Google n\'utilise pas les métriques tierces comme le DR ou le DA dans son algorithme de ranking. Ces scores sont des constructions externes qui approximent des signaux que Google calcule lui-même différemment.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Un bon DR garantit-il un bon positionnement ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Non. La corrélation entre DR et positionnement réel est imparfaite. Il existe des domaines à fort DR qui se positionnent mal, et des sites à DR modeste qui performent très bien sur des niches précises grâce à un contenu pertinent et des liens ciblés.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Faut-il viser des spots avec un DR supérieur au sien ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Pas nécessairement. Un spot avec un DR légèrement inférieur mais un trafic organique fort et une thématique cohérente peut être plus précieux qu\'un spot à fort DR sans trafic. Ce qui compte, c\'est la qualité réelle du spot — pas le rapport entre les deux scores.'
+      }
+    }
+  ]
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://anthonyrusso.fr' },
+    { '@type': 'ListItem', position: 2, name: 'Netlinking sur mesure', item: 'https://anthonyrusso.fr/netlinking-sur-mesure/' },
+    { '@type': 'ListItem', position: 3, name: 'Domain Rating & Domain Authority', item: 'https://anthonyrusso.fr/netlinking-sur-mesure/domain-rating-domain-authority/' }
+  ]
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <div class="page-container">
+    <article class="page-content">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Accueil</a></li>
+          <li><a href="/netlinking-sur-mesure">Netlinking sur mesure</a></li>
+          <li aria-current="page">Domain Rating & Domain Authority</li>
+        </ol>
+      </nav>
+
+      <!-- Header -->
+      <header class="page-header">
+        <h1>Domain Rating et Domain Authority : ce que ces scores mesurent vraiment — et ce qu'ils ne voient pas</h1>
+      </header>
+
+      <!-- Introduction -->
+      <section class="intro">
+        <p>
+          DR. DA. Deux acronymes qu'on retrouve dans quasiment tous les rapports SEO, toutes les présentations de spots, toutes les offres de netlinking. Deux chiffres rassurants sur le papier.
+        </p>
+        <p>
+          Le problème, c'est que beaucoup de gens — prestataires inclus — s'arrêtent là. Un DR élevé devient automatiquement un gage de qualité. Un DA fort devient une garantie de résultat. C'est une erreur. Pas parce que ces métriques sont inutiles — mais parce qu'elles ne mesurent pas ce qu'on croit qu'elles mesurent, et parce qu'on sait très bien aujourd'hui comment les gonfler.
+        </p>
+      </section>
+
+      <!-- Encadré résumé -->
+      <div class="summary-box">
+        <h2 class="summary-title">Ce que vous retenez de cette page :</h2>
+        <ul>
+          <li><strong>DR</strong> = Domain Rating, métrique Ahrefs, mesure la force du profil de backlinks d'un domaine</li>
+          <li><strong>DA</strong> = Domain Authority, métrique Moz, tente de prédire le potentiel de ranking — moins fiable</li>
+          <li>Ni l'un ni l'autre ne reflète le <strong>PageRank réel de Google</strong> — ce sont des approximations tierces</li>
+          <li>Les deux sont <strong>manipulables</strong> de façon documentée, et largement manipulés</li>
+          <li>Un DR élevé sans trafic réel ne vaut rien pour une campagne de netlinking sérieuse</li>
+        </ul>
+      </div>
+
+      <!-- Content sections -->
+      <section class="content-section">
+        <h2>Qu'est-ce que le Domain Rating ?</h2>
+        <p>
+          Le Domain Rating est une métrique propriétaire créée par Ahrefs. Elle mesure la force du profil de backlinks d'un domaine — c'est-à-dire la quantité et la qualité des domaines qui pointent vers lui, telles qu'Ahrefs les voit dans son propre index de liens.
+        </p>
+        <p>
+          L'échelle va de 0 à 100. Elle n'est pas linéaire — passer de 10 à 20 est relativement accessible, passer de 60 à 70 demande un profil de liens déjà très solide. Un DR de 50 n'est pas "deux fois plus fort" qu'un DR de 25. C'est une progression exponentielle, comme pour le Trust Flow de Majestic.
+        </p>
+        <p>
+          Ce que le DR mesure bien : la force relative du profil de backlinks d'un domaine dans l'index Ahrefs. Ce qu'il ne dit pas : si ces backlinks viennent de sites réels, si le domaine génère du trafic, si son contenu a de la valeur éditoriale, ou si Google lui fait confiance.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Qu'est-ce que le Domain Authority ?</h2>
+        <p>
+          Le Domain Authority est une métrique créée par Moz. Là où le DR mesure un profil de liens, le DA tente quelque chose d'un peu différent : <strong>prédire la capacité d'un domaine à se positionner</strong> dans les résultats de recherche Google.
+        </p>
+        <p>
+          C'est un modèle prédictif. Pas une mesure directe. Moz prend en compte plusieurs signaux — dont le profil de liens — pour construire un score censé corréler avec les performances de ranking réelles.
+        </p>
+        <p>
+          En théorie, c'est ambitieux. En pratique, ça pose un problème fondamental : Moz ne crawle pas le même web qu'Ahrefs, et encore moins le même web que Google. Son index est plus limité, ses données moins fraîches. Un modèle prédictif construit sur des données partielles produit des prédictions partielles. C'est pour cette raison que le DA de Moz est aujourd'hui largement considéré dans la communauté SEO comme la moins fiable des grandes métriques tierces.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Ce qui les distingue vraiment</h2>
+        <div class="table-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Critère</th>
+                <th>Domain Rating (DR)</th>
+                <th>Domain Authority (DA)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Outil</td>
+                <td>Ahrefs</td>
+                <td>Moz</td>
+              </tr>
+              <tr>
+                <td>Ce qu'il mesure</td>
+                <td>Force du profil de backlinks</td>
+                <td>Potentiel de ranking prédit</td>
+              </tr>
+              <tr>
+                <td>Base de calcul</td>
+                <td>Index de liens Ahrefs</td>
+                <td>Index de liens Moz</td>
+              </tr>
+              <tr>
+                <td>Fiabilité relative</td>
+                <td>Meilleure des deux</td>
+                <td>Plus faible</td>
+              </tr>
+              <tr>
+                <td>Manipulable</td>
+                <td>Oui</td>
+                <td>Oui, plus facilement</td>
+              </tr>
+              <tr>
+                <td>Corrélation avec ranking réel</td>
+                <td>Moyenne</td>
+                <td>Faible</td>
+              </tr>
+              <tr>
+                <td>Fréquence de mise à jour</td>
+                <td>Régulière</td>
+                <td>Moins fréquente</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          <strong>La différence fondamentale :</strong> le DR est une mesure, le DA est une prédiction. Une mesure peut être fausse parce que les données sont manipulées. Une prédiction peut être fausse parce que le modèle est imparfait — et c'est le cas du DA.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Comment DR et DA se manipulent</h2>
+        <p>
+          C'est la partie que peu de guides abordent franchement. Et pourtant, c'est la plus importante pour comprendre pourquoi ces métriques ne suffisent pas.
+        </p>
+        <p>
+          Le DR Ahrefs se gonfle en obtenant des liens de domaines à fort DR — même si ces domaines ont zéro trafic réel, zéro valeur éditoriale, et ont eux-mêmes été créés dans le seul but de vendre des liens. Le système est circulaire : des sites à fort DR se linkent mutuellement pour faire monter les scores d'autres sites. Des services commerciaux existent explicitement pour ça. J'en vois passer régulièrement dans les catalogues de spots.
+        </p>
+        <p>
+          Le DA de Moz est encore plus simple à manipuler. Son index étant moins complet et moins mis à jour qu'Ahrefs, il suffit d'obtenir quelques liens sur des domaines bien représentés dans l'index Moz pour faire monter significativement le score. Les effets sont parfois visibles en quelques semaines.
+        </p>
+        <p>
+          Le résultat concret : un spot peut afficher un DR à 45 et un DA à 50 en étant parfaitement inutile pour une campagne de netlinking. Pas de trafic, pas de contenu réel, pas d'entité derrière. Juste des métriques gonflées pour être vendable sur les plateformes.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Ce que les Google Leaks de 2024 confirment</h2>
+        <p>
+          Les documents internes de Google rendus publics en 2024 sont clairs sur un point : <strong>Google ne base pas son algorithme de ranking sur le DR d'Ahrefs ni sur le DA de Moz.</strong> Ces métriques sont des constructions tierces — Google les ignore complètement dans ses calculs.
+        </p>
+        <p>
+          Ce que Google utilise à la place, ce sont ses propres signaux internes. Le PageRank, dont on a parlé dans une autre page de ce hub, reste central. Mais aussi des signaux comportementaux via NavBoost — les clics, l'engagement, le temps passé. Et la notion d'"entité" : Google évalue de plus en plus si un site existe vraiment dans le monde réel, s'il a une réputation, une présence, une cohérence dans le temps.
+        </p>
+        <p>
+          Aucune de ces dimensions n'est capturée par le DR ou le DA. C'est structurellement impossible pour des métriques tierces construites uniquement sur l'analyse de liens.
+        </p>
+        <p>
+          → Comprendre le fonctionnement du PageRank Google : <a href="/netlinking-sur-mesure/pagerank/">PageRank</a>
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>La grille de lecture que j'utilise</h2>
+        <p>
+          Plutôt que de m'arrêter au DR ou au DA, je croise toujours plusieurs signaux pour évaluer un spot. Voici comment j'interprète les combinaisons les plus courantes :
+        </p>
+
+        <div class="table-wrapper">
+          <table class="evaluation-grid">
+            <thead>
+              <tr>
+                <th>DR</th>
+                <th>Trafic organique</th>
+                <th>Qualité éditoriale</th>
+                <th>Mon interprétation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-success">
+                <td>50+</td>
+                <td>10 000+/mois</td>
+                <td>Contenu humain, auteurs identifiables</td>
+                <td><span class="badge badge-success">✅ Excellent spot</span></td>
+              </tr>
+              <tr class="row-danger">
+                <td>50+</td>
+                <td>&lt; 500/mois</td>
+                <td>Contenu générique ou automatique</td>
+                <td><span class="badge badge-danger">🔴 Score gonflé — à éviter</span></td>
+              </tr>
+              <tr class="row-success">
+                <td>20-35</td>
+                <td>5 000+/mois</td>
+                <td>Niche pertinente, ligne éditoriale claire</td>
+                <td><span class="badge badge-success">✅ Bon spot malgré DR modeste</span></td>
+              </tr>
+              <tr class="row-danger">
+                <td>20-35</td>
+                <td>&lt; 300/mois</td>
+                <td>Pas d'auteur, thématiques incohérentes</td>
+                <td><span class="badge badge-danger">🔴 À écarter</span></td>
+              </tr>
+              <tr class="row-warning">
+                <td>&lt; 15</td>
+                <td>En croissance</td>
+                <td>Site jeune, contenu sérieux</td>
+                <td><span class="badge badge-warning">🟡 À évaluer au cas par cas</span></td>
+              </tr>
+              <tr class="row-danger">
+                <td>&lt; 15</td>
+                <td>Stable et faible</td>
+                <td>Pas d'entité réelle visible</td>
+                <td><span class="badge badge-danger">🔴 À écarter</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          Cette grille n'est pas une règle absolue. C'est un cadre de lecture — chaque spot mérite son propre jugement. Mais elle illustre bien pourquoi un DR élevé seul ne signifie rien, et pourquoi un DR modeste avec du trafic réel peut être un très bon choix.
+        </p>
+        <p>
+          → Le process complet d'évaluation d'un spot : <a href="/netlinking-sur-mesure/evaluer-un-spot/">Évaluer un spot</a><br>
+          → Comprendre pourquoi TF et DR sont manipulables : <a href="/netlinking-sur-mesure/trust-flow-citation-flow/">Trust Flow & Citation Flow</a>
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Peut-on augmenter son propre DR — et faut-il le vouloir ?</h2>
+        <p>
+          Oui, on peut augmenter son DR. Obtenir des liens de qualité sur des spots sérieux fait naturellement monter le score. C'est une conséquence d'une bonne stratégie de netlinking — pas un objectif en soi.
+        </p>
+        <p>
+          Le piège, c'est d'optimiser pour faire monter son DR plutôt que pour améliorer son positionnement réel. Les deux ne sont pas toujours la même chose. Un DR qui monte parce que vous avez obtenu des liens sur des sites pertinents avec du trafic réel — parfait. Un DR qui monte parce que vous avez acheté des liens sur des réseaux de sites créés pour gonfler les métriques — c'est du temps et de l'argent perdus, avec un risque en prime.
+        </p>
+        <p>
+          <strong>Le DR est un indicateur de résultat. Pas un objectif de campagne.</strong>
+        </p>
+        <p>
+          → Comment une campagne de netlinking est construite pour améliorer les vrais signaux : <a href="/netlinking-sur-mesure/">Netlinking sur mesure</a><br>
+          → L'audit qui analyse votre profil de backlinks existant : <a href="/audit-netlinking/">Audit Netlinking</a>
+        </p>
+      </section>
+
+      <!-- FAQ -->
+      <section class="faq-section">
+        <h2>Questions fréquentes</h2>
+
+        <details class="faq-item">
+          <summary>DR et DA sont-ils mis à jour en temps réel ?</summary>
+          <div class="faq-content">
+            <p>
+              Non. Ahrefs met à jour le DR régulièrement, mais pas en continu — un nouveau lien obtenu aujourd'hui peut prendre plusieurs semaines à se refléter dans le score. Moz met à jour le DA moins fréquemment encore. Les deux métriques sont donc toujours un reflet légèrement décalé de la réalité.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Mon DR est 30 sur Ahrefs mais 45 sur un autre outil — lequel est juste ?</summary>
+          <div class="faq-content">
+            <p>
+              Les deux. Chaque outil construit son propre index en crawlant le web indépendamment. Ils ne voient pas les mêmes liens au même moment, et n'utilisent pas le même modèle de calcul. Des écarts importants entre outils sur le même domaine sont normaux — c'est une des raisons pour lesquelles ces métriques sont des approximations, pas des vérités absolues.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Un bon DR garantit-il un bon positionnement ?</summary>
+          <div class="faq-content">
+            <p>
+              Non. La corrélation entre DR et positionnement réel est réelle mais imparfaite. Il existe des domaines à fort DR qui se positionnent mal — parce que leur contenu est faible, leur structure technique mauvaise, ou leurs liens de mauvaise qualité malgré un score élevé. Et des sites à DR modeste qui se positionnent très bien sur des niches précises grâce à un contenu pertinent et des liens ciblés.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Faut-il viser des spots avec un DR supérieur au sien ?</summary>
+          <div class="faq-content">
+            <p>
+              Pas nécessairement. Un lien d'un spot avec un DR légèrement inférieur au vôtre mais un trafic organique fort et une thématique cohérente peut être plus précieux qu'un lien d'un spot à fort DR sans trafic. Ce qui compte, c'est la qualité réelle du spot — pas le rapport entre vos deux scores.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Google utilise-t-il le DR ou le DA dans son algorithme ?</summary>
+          <div class="faq-content">
+            <p>
+              Non. Les Google Leaks de 2024 le confirment : Google n'utilise pas les métriques tierces comme le DR ou le DA dans son algorithme de ranking. Ces scores sont des constructions externes qui tentent d'approximer des signaux que Google calcule lui-même différemment. Google utilise son propre PageRank interne, des signaux comportementaux, et des indicateurs d'entité que ces métriques ne capturent pas.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Quelle métrique est la plus fiable entre DR et TF de Majestic ?</summary>
+          <div class="faq-content">
+            <p>
+              Les deux ont leurs forces. Le DR d'Ahrefs est généralement considéré comme plus robuste grâce à l'index plus complet d'Ahrefs. Le Trust Flow de Majestic apporte une dimension qualitative intéressante via la notion de "sites de confiance". En pratique, je les utilise ensemble comme premier filtre — aucun des deux seul ne suffit, et le trafic organique réel reste le signal le plus fiable.
+            </p>
+          </div>
+        </details>
+      </section>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-container {
+    width: 100%;
+    max-width: var(--max-width-md);
+    margin: 0 auto;
+    padding: var(--space-2xl) var(--space-md) var(--space-4xl);
+  }
+
+  .page-content {
+    width: 100%;
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    margin-bottom: var(--space-xl);
+  }
+
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    list-style: none;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .breadcrumb li:not(:last-child)::after {
+    content: "→";
+    margin-left: var(--space-sm);
+    color: var(--color-text-faint);
+  }
+
+  .breadcrumb a {
+    color: var(--color-text-muted);
+    transition: color var(--transition-fast);
+  }
+
+  .breadcrumb a:hover {
+    color: var(--color-primary);
+  }
+
+  /* Header */
+  .page-header {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .page-header h1 {
+    margin-bottom: 0;
+  }
+
+  /* Introduction */
+  .intro {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--color-text);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .intro p {
+    margin-bottom: var(--space-lg);
+  }
+
+  /* Summary box */
+  .summary-box {
+    background: var(--color-surface-2);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-3xl);
+    box-shadow: var(--shadow-md), var(--glow-primary);
+  }
+
+  .summary-title {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-lg);
+    color: var(--color-primary);
+  }
+
+  .summary-box ul {
+    list-style: none;
+    margin: 0;
+  }
+
+  .summary-box li {
+    padding-left: var(--space-lg);
+    margin-bottom: var(--space-md);
+    position: relative;
+  }
+
+  .summary-box li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  .summary-box li:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Content sections */
+  .content-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .content-section h2 {
+    margin-top: var(--space-3xl);
+    margin-bottom: var(--space-lg);
+  }
+
+  .content-section p {
+    margin-bottom: var(--space-lg);
+    line-height: 1.75;
+  }
+
+  .content-section a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .content-section a:hover {
+    color: var(--color-primary-hover);
+  }
+
+  /* Tables */
+  .table-wrapper {
+    overflow-x: auto;
+    margin: var(--space-xl) 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  th, td {
+    padding: var(--space-md) var(--space-lg);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  th {
+    background: var(--color-surface-offset);
+    font-weight: 700;
+    color: var(--color-text);
+    font-size: 0.9375rem;
+  }
+
+  td {
+    font-size: 0.9375rem;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* Evaluation grid with colored rows */
+  .evaluation-grid tbody tr {
+    transition: transform var(--transition-fast);
+  }
+
+  .evaluation-grid tbody tr:hover {
+    transform: translateX(4px);
+  }
+
+  .row-success {
+    background: rgba(3, 163, 136, 0.08);
+    border-left: 3px solid var(--color-success);
+  }
+
+  .row-danger {
+    background: rgba(204, 51, 102, 0.08);
+    border-left: 3px solid var(--color-error);
+  }
+
+  .row-warning {
+    background: rgba(255, 193, 7, 0.08);
+    border-left: 3px solid #FFC107;
+  }
+
+  /* Badges for evaluation */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-md);
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+  }
+
+  .badge-success {
+    background: var(--color-success-highlight);
+    color: var(--color-success);
+    border: 1px solid var(--color-success);
+  }
+
+  .badge-danger {
+    background: var(--color-error-highlight);
+    color: var(--color-error);
+    border: 1px solid var(--color-error);
+  }
+
+  .badge-warning {
+    background: rgba(255, 193, 7, 0.12);
+    color: #FFC107;
+    border: 1px solid #FFC107;
+  }
+
+  /* FAQ */
+  .faq-section {
+    margin-top: var(--space-4xl);
+  }
+
+  .faq-section h2 {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .faq-item {
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-md);
+    transition: border-color var(--transition-fast);
+  }
+
+  .faq-item:hover {
+    border-color: var(--color-primary);
+  }
+
+  .faq-item summary {
+    padding: var(--space-lg);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item summary::after {
+    content: "+";
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    transition: transform var(--transition-fast);
+  }
+
+  .faq-item[open] summary::after {
+    transform: rotate(45deg);
+  }
+
+  .faq-content {
+    padding: 0 var(--space-lg) var(--space-lg);
+  }
+
+  .faq-content p {
+    margin: 0;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+  }
+
+  /* Responsive */
+  @media (min-width: 640px) {
+    .page-container {
+      padding: var(--space-3xl) var(--space-lg) var(--space-4xl);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .summary-box {
+      padding: var(--space-lg);
+    }
+
+    table {
+      font-size: 0.875rem;
+    }
+
+    th, td {
+      padding: var(--space-sm) var(--space-md);
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 2px var(--space-sm);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .breadcrumb ol {
+      font-size: 0.8125rem;
+    }
+
+    .faq-item summary {
+      font-size: 1rem;
+      padding: var(--space-md);
+    }
+
+    .faq-content {
+      padding: 0 var(--space-md) var(--space-md);
+    }
+  }
+</style>

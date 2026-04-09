@@ -1,0 +1,42 @@
+---
+import BlogPostLayout from '../layouts/BlogPostLayout.astro';
+import { getPostByPath, getPosts, estimateReadingTime } from '../lib/wordpress';
+
+// Force SSR pour récupérer les articles WordPress en temps réel
+export const prerender = false;
+
+const { path } = Astro.params;
+
+// Construire le chemin complet depuis les segments
+const fullPath = path || '';
+
+// Fetch the post by full path
+let post: any = null;
+try {
+  post = await getPostByPath(fullPath);
+} catch (error) {
+  console.error(`Failed to fetch post at path ${fullPath}:`, error);
+}
+
+// If post not found, return 404
+if (!post) {
+  return Astro.redirect('/404');
+}
+
+// Calculate reading time
+const readingTime = estimateReadingTime(post.content.rendered);
+
+// Fetch related posts (same category, max 3)
+let relatedPosts: any[] = [];
+if (post.categories && post.categories.length > 0) {
+  try {
+    const result = await getPosts(1, 3, post.categories[0]);
+    // Filter out current post
+    relatedPosts = result.posts.filter((p: any) => p.id !== post.id).slice(0, 3);
+  } catch (error) {
+    console.error('Failed to fetch related posts:', error);
+  }
+}
+---
+
+<BlogPostLayout post={post} readingTime={readingTime} relatedPosts={relatedPosts} />

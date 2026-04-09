@@ -1,0 +1,464 @@
+/* ==========================================================================
+   Design System — anthonyrusso.fr
+   Expert Netlinking — Dark mode first
+   ========================================================================== */
+
+/* Fonts: Cabinet Grotesk (display) + Satoshi (body) */
+@import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,800,900&f[]=satoshi@400,500,700&display=swap');
+
+/* ==========================================================================
+   CSS Reset
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+
+body {
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ==========================================================================
+   Design Tokens — Dark Mode (default)
+   ========================================================================== */
+
+:root {
+  /* Surfaces dark */
+  --color-bg:              #020A32;        /* Blue2 — fond principal */
+  --color-surface:         #071040;        /* légèrement plus clair */
+  --color-surface-2:       #0c1a55;        /* cards, modales */
+  --color-surface-offset:  #0f1f64;        /* hover states */
+  --color-divider:         rgba(255,255,255,0.07);
+  --color-border:          rgba(255,255,255,0.10);
+
+  /* Texte */
+  --color-text:            #E8EAF2;        /* blanc légèrement bleuté */
+  --color-text-muted:      #8A90B0;
+  --color-text-faint:      #4A5075;
+  --color-text-inverse:    #020A32;
+
+  /* Accent primaire : Blue1 boosté pour dark */
+  --color-primary:         #4C75FF;        /* Blue1 #0038E0 allégé pour contrast */
+  --color-primary-hover:   #3360F0;
+  --color-primary-active:  #1E4AE0;
+  --color-primary-highlight: rgba(76,117,255,0.12);
+  --color-primary-cta:     #0038E0;        /* Blue1 original pour les gros CTA */
+
+  /* Vert (secondaire, badges, succès) */
+  --color-success:         #03A388;
+  --color-success-hover:   #028570;
+  --color-success-highlight: rgba(3,163,136,0.12);
+
+  /* Rouge (urgence, highlight) */
+  --color-error:           #CC3366;
+  --color-error-hover:     #AA2255;
+  --color-error-highlight: rgba(204,51,102,0.12);
+
+  /* Shadows sur fond sombre */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.5);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.6);
+
+  /* Glow effects (bleu électrique) */
+  --glow-primary: 0 0 24px rgba(76,117,255,0.25);
+  --glow-cta:     0 0 32px rgba(0,56,224,0.40);
+
+  /* Typography */
+  --font-display: 'Cabinet Grotesk', 'Helvetica Neue', sans-serif;
+  --font-body:    'Satoshi', 'Inter', sans-serif;
+
+  /* Spacing scale */
+  --space-xs:   0.25rem;  /* 4px */
+  --space-sm:   0.5rem;   /* 8px */
+  --space-md:   1rem;     /* 16px */
+  --space-lg:   1.5rem;   /* 24px */
+  --space-xl:   2rem;     /* 32px */
+  --space-2xl:  3rem;     /* 48px */
+  --space-3xl:  4rem;     /* 64px */
+  --space-4xl:  6rem;     /* 96px */
+
+  /* Border radius */
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+  --radius-xl:  16px;
+
+  /* Transitions */
+  --transition-fast:    150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base:    250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow:    350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Z-index scale */
+  --z-base:       0;
+  --z-dropdown:   1000;
+  --z-sticky:     1100;
+  --z-fixed:      1200;
+  --z-overlay:    1300;
+  --z-modal:      1400;
+  --z-popover:    1500;
+  --z-tooltip:    1600;
+
+  /* Max widths */
+  --max-width-xs:   640px;
+  --max-width-sm:   768px;
+  --max-width-md:   1024px;
+  --max-width-lg:   1280px;
+  --max-width-xl:   1440px;
+  --max-width-2xl:  1600px;
+
+  /* Breakpoints (for consistency) */
+  --bp-mobile:   375px;
+  --bp-mobile-lg: 640px;
+  --bp-tablet:   768px;
+  --bp-desktop:  1024px;
+  --bp-wide:     1280px;
+}
+
+/* ==========================================================================
+   Light Mode (optional toggle)
+   ========================================================================== */
+
+[data-theme="light"] {
+  --color-bg:              #F5F7FF;        /* blanc légèrement bleuté */
+  --color-surface:         #FFFFFF;
+  --color-surface-2:       #F0F2FA;
+  --color-surface-offset:  #E8EAF2;
+  --color-divider:         rgba(2,10,50,0.08);
+  --color-border:          rgba(2,10,50,0.12);
+
+  --color-text:            #020A32;        /* Blue2 devient le texte */
+  --color-text-muted:      #4A5075;
+  --color-text-faint:      #8A90B0;
+  --color-text-inverse:    #E8EAF2;
+
+  --color-primary:         #0038E0;        /* Blue1 direct */
+  --color-primary-hover:   #002BB8;
+  --color-primary-active:  #001F90;
+  --color-primary-highlight: rgba(0,56,224,0.08);
+  --color-primary-cta:     #0038E0;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.15);
+
+  --glow-primary: 0 0 24px rgba(0,56,224,0.15);
+  --glow-cta:     0 0 32px rgba(0,56,224,0.20);
+}
+
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
+
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--color-text);
+  margin-bottom: var(--space-md);
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+h4 {
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-weight: 700;
+}
+
+h5 {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+h6 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+p {
+  margin-bottom: var(--space-md);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-text);
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.text-faint {
+  color: var(--color-text-faint);
+}
+
+.text-large {
+  font-size: 1.125rem;
+  line-height: 1.75;
+}
+
+.text-small {
+  font-size: 0.875rem;
+}
+
+/* Layout */
+.container {
+  width: 100%;
+  max-width: var(--max-width-lg);
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.container-xl {
+  max-width: var(--max-width-xl);
+}
+
+.container-narrow {
+  width: 100%;
+  max-width: var(--max-width-md);
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.section {
+  padding: var(--space-2xl) 0;
+}
+
+.section-lg {
+  padding: var(--space-3xl) 0;
+}
+
+/* Responsive container & section spacing */
+@media (min-width: 640px) {
+  .container,
+  .container-narrow {
+    padding: 0 var(--space-lg);
+  }
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .section-lg {
+    padding: var(--space-4xl) 0;
+  }
+}
+
+/* Cards */
+.card {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+.card:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-xl);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--color-primary-cta);
+  color: #FFFFFF;
+  box-shadow: var(--glow-cta);
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 0 40px rgba(0,56,224,0.60);
+}
+
+.btn-primary:active {
+  background: var(--color-primary-active);
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+  background: var(--color-surface-offset);
+  border-color: var(--color-primary);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-primary);
+}
+
+.btn-ghost:hover {
+  background: var(--color-primary-highlight);
+}
+
+.btn-sm {
+  padding: var(--space-md) var(--space-lg);
+  font-size: 0.875rem;
+  min-height: 44px;
+}
+
+.btn-lg {
+  padding: var(--space-lg) var(--space-2xl);
+  font-size: 1.125rem;
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-xs) var(--space-md);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-success {
+  background: var(--color-success-highlight);
+  color: var(--color-success);
+}
+
+.badge-error {
+  background: var(--color-error-highlight);
+  color: var(--color-error);
+}
+
+.badge-primary {
+  background: var(--color-primary-highlight);
+  color: var(--color-primary);
+}
+
+/* Links */
+a {
+  color: var(--color-primary);
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+.link-underline {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Dividers */
+.divider {
+  height: 1px;
+  background: var(--color-divider);
+  border: none;
+  margin: var(--space-xl) 0;
+}
+
+/* Utilities */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

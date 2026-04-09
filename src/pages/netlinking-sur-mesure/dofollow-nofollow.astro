@@ -1,0 +1,712 @@
+---
+export const prerender = true;
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'Dofollow et Nofollow : différences, valeur SEO et quand les utiliser';
+const description = 'Dofollow, nofollow, sponsored, ugc… Ces attributs ne se valent pas en SEO. Définition, différences réelles, évolution depuis 2019, Google Leaks 2024 — et impact concret sur votre stratégie de liens.';
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Dofollow et Nofollow : ce que ces attributs changent vraiment pour votre netlinking',
+  description: 'Guide complet sur les liens dofollow et nofollow : définition, évolution depuis 2019, révélations des Google Leaks 2024 et impact réel sur une stratégie de netlinking.',
+  author: {
+    '@type': 'Person',
+    name: 'Anthony Russo',
+    url: 'https://anthonyrusso.fr'
+  },
+  publisher: {
+    '@type': 'Person',
+    name: 'Anthony Russo',
+    url: 'https://anthonyrusso.fr'
+  },
+  mainEntityOfPage: 'https://anthonyrusso.fr/netlinking-sur-mesure/dofollow-nofollow/'
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Google pénalise-t-il les liens dofollow achetés ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Oui, si le schéma est détectable. Les Google Leaks de 2024 confirment que Google identifie les patterns de vente de liens à grande échelle. Ce qui protège un lien acheté, c\'est sa qualité éditoriale : un article bien rédigé, sur un site cohérent thématiquement, avec du trafic organique réel.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Tous les liens achetés doivent-ils être en rel="sponsored" ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Officiellement, Google recommande rel="sponsored" sur tout lien commercial. En pratique, ce qui compte davantage c\'est la qualité éditoriale du placement — un contenu utile sur un site avec du trafic réel reste bien plus précieux qu\'un lien sponsored sur un site sans valeur.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Un lien nofollow sur un site très autoritaire vaut-il quand même quelque chose ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Indirectement, oui. Si le site a beaucoup de trafic qualifié et que le lien génère des clics réels, il produit des signaux comportementaux positifs documentés par les leaks de 2024 via NavBoost. Il ne transmet pas de PageRank direct mais contribue à la visibilité et à l\'autorité via des signaux comportementaux.'
+      }
+    }
+  ]
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://anthonyrusso.fr' },
+    { '@type': 'ListItem', position: 2, name: 'Netlinking sur mesure', item: 'https://anthonyrusso.fr/netlinking-sur-mesure/' },
+    { '@type': 'ListItem', position: 3, name: 'Dofollow & Nofollow', item: 'https://anthonyrusso.fr/netlinking-sur-mesure/dofollow-nofollow/' }
+  ]
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <div class="page-container">
+    <article class="page-content">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Accueil</a></li>
+          <li><a href="/netlinking-sur-mesure">Netlinking sur mesure</a></li>
+          <li aria-current="page">Dofollow & Nofollow</li>
+        </ol>
+      </nav>
+
+      <!-- Header -->
+      <header class="page-header">
+        <h1>Dofollow et Nofollow : ce que ces attributs changent vraiment pour votre netlinking</h1>
+      </header>
+
+      <!-- Introduction -->
+      <section class="intro">
+        <p>
+          Dans un rapport de backlinks, on parle souvent de liens "dofollow" et "nofollow" comme s'ils étaient opposés — l'un vaut tout, l'autre ne vaut rien. La réalité est plus nuancée, surtout depuis que Google a modifié les règles en 2019 et que les leaks internes de 2024 ont révélé ce que le moteur fait vraiment de ces attributs.
+        </p>
+        <p>
+          Comprendre cette distinction, c'est comprendre pourquoi tous les liens d'une campagne de netlinking ne se valent pas — et pourquoi certains prestataires vous vendent des liens qui ne transmettent rien.
+        </p>
+      </section>
+
+      <!-- Encadré résumé -->
+      <div class="summary-box">
+        <h2 class="summary-title">Ce que vous retenez de cette page :</h2>
+        <ul>
+          <li><strong>Dofollow</strong> = lien sans attribut restrictif, transmet du PageRank à la page cible</li>
+          <li><strong>Nofollow</strong> = attribut <code>rel="nofollow"</code>, officiellement non suivi par Google</li>
+          <li>Depuis 2019, nofollow est un <strong>"hint"</strong> — Google peut choisir de le prendre en compte</li>
+          <li>Deux nouveaux attributs depuis 2019 : <code>rel="sponsored"</code> et <code>rel="ugc"</code></li>
+          <li>Les Google Leaks de 2024 confirment que Google <strong>collecte et analyse</strong> les liens nofollow</li>
+          <li>Un profil 100% dofollow est aussi suspect qu'un profil rempli de spam</li>
+        </ul>
+      </div>
+
+      <!-- Content sections -->
+      <section class="content-section">
+        <h2>Qu'est-ce qu'un lien dofollow ?</h2>
+        <p>
+          Un lien dofollow n'est pas un attribut à ajouter — c'est l'état par défaut d'un lien HTML. Un lien sans attribut restrictif est dofollow. Google le suit, l'indexe et le prend en compte dans le calcul du PageRank de la page de destination.
+        </p>
+
+        <pre><code>&lt;!-- Lien dofollow — aucun attribut rel restrictif --&gt;
+&lt;a href="https://anthonyrusso.fr/netlinking-sur-mesure/"&gt;expert en netlinking&lt;/a&gt;</code></pre>
+
+        <p>
+          C'est le type de lien visé dans toute campagne de netlinking sérieuse. Il transmet de l'autorité, envoie un signal sémantique via le texte d'ancre, et contribue directement au positionnement de la page cible.
+        </p>
+        <p>
+          → Comprendre comment le PageRank se transfère via ces liens : <a href="/netlinking-sur-mesure/pagerank/">PageRank</a>
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Qu'est-ce qu'un lien nofollow ?</h2>
+        <p>
+          L'attribut <code>rel="nofollow"</code> a été créé par Google en 2005, à l'origine pour lutter contre le spam dans les sections commentaires des blogs. L'idée : permettre aux éditeurs de linker sans cautionner la page de destination, et sans lui transmettre de PageRank.
+        </p>
+
+        <pre><code>&lt;!-- Lien nofollow --&gt;
+&lt;a href="https://anthonyrusso.fr/" rel="nofollow"&gt;Anthony Russo&lt;/a&gt;</code></pre>
+
+        <p>
+          On le retrouve massivement sur : les commentaires de blogs, les profils de forums, les fiches Wikipedia, les réseaux sociaux, et une grande partie des annuaires.
+        </p>
+        <p>
+          Pendant des années, la règle semblait simple : nofollow = aucune valeur SEO. Puis 2019 est arrivé.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Ce qui a changé en 2019</h2>
+        <p>
+          En septembre 2019, Google a fait deux annonces qui ont rebattu les cartes.
+        </p>
+
+        <h3>Deux nouveaux attributs</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Attribut</th>
+                <th>Signification</th>
+                <th>Cas d'usage recommandé</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>rel="nofollow"</code></td>
+                <td>Lien non cautionné (usage général)</td>
+                <td>Tout lien qu'on ne veut pas valider</td>
+              </tr>
+              <tr>
+                <td><code>rel="sponsored"</code></td>
+                <td>Lien payant ou partenariat commercial</td>
+                <td>Liens achetés, affiliation, partenariats rémunérés</td>
+              </tr>
+              <tr>
+                <td><code>rel="ugc"</code></td>
+                <td>Contenu généré par les utilisateurs</td>
+                <td>Commentaires, forums, avis clients</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Nofollow devient un "hint"</h3>
+        <p>
+          C'est le changement le plus significatif. Google a officiellement annoncé traiter <code>rel="nofollow"</code> comme une indication — un indice — et non plus comme une directive absolue. Le moteur se réserve désormais le droit de suivre ces liens et d'en tenir compte dans certains contextes éditoriaux.
+        </p>
+        <p>
+          En clair : Google ne promet plus d'ignorer les liens nofollow. Il décide au cas par cas, selon des critères qu'il ne détaille pas publiquement.
+        </p>
+
+        <p><strong>Frise chronologique :</strong></p>
+        <pre><code>2005 → Création de rel="nofollow" par Google
+2009 → Fin du PageRank Sculpting (nofollow ne redistribue plus le jus)
+2019 → Nofollow devient un "hint" + création de sponsored et ugc
+2024 → Google Leaks confirment que nofollow est collecté et analysé</code></pre>
+      </section>
+
+      <section class="content-section">
+        <h2>Ce que les Google Leaks de 2024 changent sur le sujet</h2>
+        <p>
+          En mai 2024, des milliers de documents internes de Google ont fuité — issus de l'API Content Warehouse, le système de stockage de données utilisé par les équipes de ranking. Ces documents ont confirmé plusieurs éléments que Google n'avait jamais officiellement reconnus.
+        </p>
+
+        <h3>Google collecte et stocke les liens nofollow</h3>
+        <p>
+          Les documents internes révèlent que Google collecte des données sur les liens nofollow et les stocke dans ses systèmes. Ce qui suggère qu'ils entrent dans certains calculs internes, même s'ils ne transmettent pas de PageRank au sens traditionnel. Le moteur les utilise au minimum pour mieux comprendre la structure du web — et potentiellement pour pondérer d'autres signaux.
+        </p>
+
+        <h3>NavBoost et les signaux comportementaux</h3>
+        <p>
+          Les leaks confirment l'existence de <strong>NavBoost</strong> — un système qui utilise les signaux comportementaux des utilisateurs (clics, temps passé sur la page, taux de retour) pour influencer le ranking. Un lien nofollow sur un site à fort trafic qui génère des clics réels peut indirectement améliorer vos signaux de ranking, pas via le PageRank, mais via l'engagement utilisateur qu'il provoque.
+        </p>
+        <p>
+          Ce n'est pas une raison de viser les nofollow en priorité — c'est une raison de ne pas les considérer comme totalement nuls.
+        </p>
+
+        <h3>Les liens sponsorisés sont détectés avec précision</h3>
+        <p>
+          Les documents suggèrent que Google identifie les liens commerciaux avec une précision bien supérieure à ce qu'il annonce publiquement — y compris ceux qui ne sont pas déclarés en <code>rel="sponsored"</code>. Le moteur dispose de modèles capables de détecter les patterns de vente de liens à grande échelle : sites qui publient beaucoup de contenus sponsorisés, liens vers des thématiques incohérentes, ancres systématiquement optimisées.
+        </p>
+        <p>
+          Ce que ça change concrètement : un prestataire qui vous place des liens sur des sites clairement identifiés comme vendeurs de liens — peu importe leur TF ou leur DR — vous expose à un risque réel, avec ou sans attribut sponsored.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Un lien nofollow a-t-il vraiment zéro valeur SEO ?</h2>
+        <p>
+          Non — mais sa valeur est indirecte et limitée. Trois raisons pour lesquelles un nofollow n'est pas totalement inutile :
+        </p>
+
+        <h3>1. Diversification naturelle du profil</h3>
+        <p>
+          Un profil de backlinks 100% dofollow n'existe pas naturellement. Wikipedia, les réseaux sociaux, les forums, la presse en ligne — ces sources génèrent massivement des nofollow. Un profil sans aucun nofollow est un signal artificiel. Les avoir naturellement contribue à la crédibilité du profil global.
+        </p>
+
+        <h3>2. Trafic direct réel</h3>
+        <p>
+          Un lien nofollow placé sur un site à fort trafic qualifié envoie des visiteurs réels sur votre site. Ces visiteurs génèrent des signaux comportementaux positifs — ce que les Google Leaks de 2024 confirment comme un facteur de ranking via NavBoost.
+        </p>
+
+        <h3>3. Le "hint" de 2019 et les leaks de 2024</h3>
+        <p>
+          Dans des contextes éditoriaux forts, Google peut choisir de prendre en compte un lien nofollow. Ce n'est pas garanti, ce n'est pas actionnable directement — mais c'est réel.
+        </p>
+
+        <p>
+          En revanche : <strong>construire une campagne de netlinking en visant majoritairement des liens nofollow n'a aucun sens stratégique.</strong> Le dofollow éditorial reste l'objectif principal.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Quelle répartition dofollow/nofollow dans un profil sain ?</h2>
+        <p>
+          Il n'y a pas de ratio universel. Un profil naturel accumule mécaniquement des nofollow via les mentions sur les réseaux sociaux, les discussions de forums et les références Wikipedia. Les viser activement n'a pas d'intérêt direct, mais les avoir naturellement est un bon signe.
+        </p>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Type de source</th>
+                <th>Attribut habituel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Article de blog éditorial</td>
+                <td>Dofollow</td>
+              </tr>
+              <tr>
+                <td>Wikipedia</td>
+                <td>Nofollow</td>
+              </tr>
+              <tr>
+                <td>Réseaux sociaux (Facebook, LinkedIn)</td>
+                <td>Nofollow</td>
+              </tr>
+              <tr>
+                <td>Forums</td>
+                <td>Nofollow ou UGC</td>
+              </tr>
+              <tr>
+                <td>Presse en ligne</td>
+                <td>Dofollow ou Sponsored</td>
+              </tr>
+              <tr>
+                <td>Annuaires de qualité</td>
+                <td>Dofollow</td>
+              </tr>
+              <tr>
+                <td>Liens achetés déclarés</td>
+                <td>Sponsored</td>
+              </tr>
+              <tr>
+                <td>Commentaires de blogs</td>
+                <td>Nofollow ou UGC</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          Ce tableau illustre la réalité d'un profil naturel : les dofollow viennent principalement des placements éditoriaux actifs — guest posts, partenariats, netlinking sur mesure. Les nofollow s'accumulent naturellement via la présence en ligne.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Ce que ça change pour une campagne de netlinking</h2>
+        <p>
+          L'objectif d'une campagne de netlinking sur mesure est clair : obtenir des liens dofollow éditoriaux, placés dans le corps d'articles pertinents, sans attribut restrictif, sur des sites avec du trafic organique réel.
+        </p>
+
+        <p>Les implications concrètes des attributs dans une campagne :</p>
+        <ul>
+          <li><strong>Dofollow éditorial</strong> → objectif principal, transmet PageRank et signal sémantique</li>
+          <li><strong>Nofollow</strong> → acceptable naturellement, jamais ciblé activement</li>
+          <li><strong>Sponsored</strong> → à utiliser sur les liens payants si le site l'exige pour rester dans les règles Google — mais un site qui exige sponsored sur tous ses liens est moins précieux qu'un site éditorial propre</li>
+          <li><strong>UGC</strong> → aucun intérêt dans une campagne structurée</li>
+        </ul>
+
+        <p>
+          Un prestataire qui vous propose des liens sans vous préciser leur attribut — ou pire, qui vous vend des liens nofollow au même prix que des dofollow — ne fait pas son travail correctement.
+        </p>
+
+        <p>
+          → Comment les ancres complètent le signal envoyé par ces liens : <a href="/netlinking-sur-mesure/texte-ancre/">Texte d'ancre</a><br>
+          → Comment ces critères entrent dans la sélection des sites donneurs : <a href="/netlinking-sur-mesure/evaluer-site-donneur/">Évaluer un site donneur</a><br>
+          → Voir comment ces principes s'appliquent dans une campagne réelle : <a href="/netlinking-sur-mesure/">Netlinking sur mesure</a>
+        </p>
+      </section>
+
+      <!-- FAQ -->
+      <section class="faq-section">
+        <h2>Questions fréquentes</h2>
+
+        <details class="faq-item">
+          <summary>Tous les liens achetés doivent-ils être en rel="sponsored" ?</summary>
+          <div class="faq-content">
+            <p>
+              Officiellement, Google recommande d'utiliser <code>rel="sponsored"</code> sur tout lien issu d'un partenariat commercial. En pratique, les sites éditoriaux sérieux qui acceptent des guest posts de qualité ne le font pas systématiquement — et Google le sait. Ce qui compte davantage, c'est la qualité éditoriale du placement. Un contenu utile, contextualisé, sur un site avec du trafic réel reste bien plus précieux qu'un lien nofollow ou sponsored sur un site sans valeur.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Google pénalise-t-il les liens dofollow achetés ?</summary>
+          <div class="faq-content">
+            <p>
+              Oui, si le schéma est détectable. Les Google Leaks de 2024 confirment que Google identifie les patterns de vente de liens à grande échelle. Ce qui protège un lien acheté, c'est sa qualité éditoriale : un article bien rédigé, sur un site cohérent thématiquement, avec du trafic organique réel, sera traité comme un lien naturel. Un lien sur un site clairement identifié comme revendeur de liens en masse sera ignoré ou pénalisé, quel que soit son attribut.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Comment vérifier si un lien est dofollow ou nofollow ?</summary>
+          <div class="faq-content">
+            <p>
+              Trois méthodes : inspecter le code source de la page (clic droit → Inspecter → chercher la balise <code>&lt;a&gt;</code> concernée), utiliser une extension de navigateur comme MozBar ou Ahrefs SEO Toolbar, ou vérifier directement dans Ahrefs ou Majestic dans la colonne "Type" de votre profil de backlinks.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Un lien nofollow sur un site très autoritaire vaut-il quand même quelque chose ?</summary>
+          <div class="faq-content">
+            <p>
+              Indirectement, oui. Si le site a beaucoup de trafic qualifié et que le lien génère des clics réels, il produit des signaux comportementaux positifs documentés par les leaks de 2024 via NavBoost. Il ne transmet pas de PageRank direct — mais il contribue à votre visibilité et potentiellement à votre autorité via des signaux non directement liés aux liens.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Les liens des réseaux sociaux sont-ils tous nofollow ?</summary>
+          <div class="faq-content">
+            <p>
+              Pratiquement oui. Facebook, Instagram, Twitter/X, LinkedIn — tous appliquent <code>rel="nofollow"</code> ou <code>rel="ugc"</code> sur les liens externes. YouTube également. Ces liens ont une valeur de présence et de trafic direct, mais pas de transmission de PageRank au sens traditionnel.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Faut-il mettre ses liens sortants en nofollow sur son propre site ?</summary>
+          <div class="faq-content">
+            <p>
+              Non, pas systématiquement. L'idée de "protéger son PageRank" en mettant tous ses liens sortants en nofollow est une pratique datée issue du PageRank Sculpting — qui ne fonctionne plus depuis 2009. Linker vers des sources de qualité est un signal éditorial positif. Réservez le nofollow aux liens publicitaires, sponsorisés ou aux contenus générés par les utilisateurs.
+            </p>
+          </div>
+        </details>
+      </section>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-container {
+    width: 100%;
+    max-width: var(--max-width-md);
+    margin: 0 auto;
+    padding: var(--space-2xl) var(--space-md) var(--space-4xl);
+  }
+
+  .page-content {
+    width: 100%;
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    margin-bottom: var(--space-xl);
+  }
+
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    list-style: none;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .breadcrumb li:not(:last-child)::after {
+    content: "→";
+    margin-left: var(--space-sm);
+    color: var(--color-text-faint);
+  }
+
+  .breadcrumb a {
+    color: var(--color-text-muted);
+    transition: color var(--transition-fast);
+  }
+
+  .breadcrumb a:hover {
+    color: var(--color-primary);
+  }
+
+  /* Header */
+  .page-header {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .page-header h1 {
+    margin-bottom: 0;
+  }
+
+  /* Introduction */
+  .intro {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--color-text);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .intro p {
+    margin-bottom: var(--space-lg);
+  }
+
+  /* Summary box */
+  .summary-box {
+    background: var(--color-surface-2);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-3xl);
+    box-shadow: var(--shadow-md), var(--glow-primary);
+  }
+
+  .summary-title {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-lg);
+    color: var(--color-primary);
+  }
+
+  .summary-box ul {
+    list-style: none;
+    margin: 0;
+  }
+
+  .summary-box li {
+    padding-left: var(--space-lg);
+    margin-bottom: var(--space-md);
+    position: relative;
+  }
+
+  .summary-box li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  .summary-box li:last-child {
+    margin-bottom: 0;
+  }
+
+  .summary-box code {
+    background: var(--color-surface-offset);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    font-size: 0.875em;
+  }
+
+  /* Content sections */
+  .content-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .content-section h2 {
+    margin-top: var(--space-3xl);
+    margin-bottom: var(--space-lg);
+  }
+
+  .content-section h3 {
+    font-size: 1.25rem;
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-md);
+    font-weight: 700;
+  }
+
+  .content-section p {
+    margin-bottom: var(--space-lg);
+    line-height: 1.75;
+  }
+
+  .content-section ul {
+    margin-bottom: var(--space-lg);
+    padding-left: var(--space-xl);
+  }
+
+  .content-section li {
+    margin-bottom: var(--space-sm);
+  }
+
+  .content-section a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .content-section a:hover {
+    color: var(--color-primary-hover);
+  }
+
+  .content-section code {
+    background: var(--color-surface-2);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    font-size: 0.9em;
+    font-family: 'Courier New', monospace;
+  }
+
+  /* Code blocks */
+  pre {
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    overflow-x: auto;
+    margin: var(--space-xl) 0;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  /* Tables */
+  .table-wrapper {
+    overflow-x: auto;
+    margin: var(--space-xl) 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  th, td {
+    padding: var(--space-md) var(--space-lg);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  th {
+    background: var(--color-surface-offset);
+    font-weight: 700;
+    color: var(--color-text);
+    font-size: 0.9375rem;
+  }
+
+  td {
+    font-size: 0.9375rem;
+  }
+
+  td code {
+    font-size: 0.85em;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* FAQ */
+  .faq-section {
+    margin-top: var(--space-4xl);
+  }
+
+  .faq-section h2 {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .faq-item {
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-md);
+    transition: border-color var(--transition-fast);
+  }
+
+  .faq-item:hover {
+    border-color: var(--color-primary);
+  }
+
+  .faq-item summary {
+    padding: var(--space-lg);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item summary::after {
+    content: "+";
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    transition: transform var(--transition-fast);
+  }
+
+  .faq-item[open] summary::after {
+    transform: rotate(45deg);
+  }
+
+  .faq-content {
+    padding: 0 var(--space-lg) var(--space-lg);
+  }
+
+  .faq-content p {
+    margin: 0;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+  }
+
+  .faq-content code {
+    background: var(--color-surface-offset);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    font-size: 0.875em;
+  }
+
+  /* Responsive */
+  @media (min-width: 640px) {
+    .page-container {
+      padding: var(--space-3xl) var(--space-lg) var(--space-4xl);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .summary-box {
+      padding: var(--space-lg);
+    }
+
+    table {
+      font-size: 0.875rem;
+    }
+
+    th, td {
+      padding: var(--space-sm) var(--space-md);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .breadcrumb ol {
+      font-size: 0.8125rem;
+    }
+
+    .faq-item summary {
+      font-size: 1rem;
+      padding: var(--space-md);
+    }
+
+    .faq-content {
+      padding: 0 var(--space-md) var(--space-md);
+    }
+  }
+</style>

@@ -1,0 +1,11 @@
+---
+/**
+ * Redirection 301 : /blog/slug → /slug
+ * Préserve le SEO pour les anciennes URLs
+ */
+
+const { slug } = Astro.params;
+
+// Redirection permanente 301
+return Astro.redirect(`/${slug}`, 301);
+---

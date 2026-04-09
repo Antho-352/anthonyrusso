@@ -1,0 +1,540 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = "PageRank : définition, fonctionnement et impact sur votre SEO";
+const description = "Qui a inventé le PageRank, comment il fonctionne, pourquoi il est encore central aujourd'hui. Guide complet avec schémas, formule et implications concrètes pour votre stratégie de liens.";
+
+// Structured Data
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'PageRank : définition, fonctionnement et impact sur votre SEO',
+  description: 'Guide complet sur le PageRank : origine, formule, fonctionnement, évolutions et implications pour une stratégie de netlinking.',
+  author: {
+    '@type': 'Person',
+    name: 'Anthony Russo',
+    url: 'https://anthonyrusso.fr'
+  },
+  publisher: {
+    '@type': 'Person',
+    name: 'Anthony Russo',
+    url: 'https://anthonyrusso.fr'
+  },
+  mainEntityOfPage: 'https://anthonyrusso.fr/netlinking-sur-mesure/pagerank/'
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Le PageRank existe-t-il encore en 2025 ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Oui. Google a supprimé son affichage public en 2016, mais des documents internes rendus publics en 2024 confirment qu\'il reste un signal de ranking actif.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Quelle est la différence entre PageRank et Domain Authority ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Le PageRank est le signal interne de Google, calculé page par page. Le Domain Authority et le Domain Rating sont des métriques tierces qui l\'approximent — utiles comme indicateurs relatifs, pas identiques au calcul Google.'
+      }
+    }
+  ]
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://anthonyrusso.fr' },
+    { '@type': 'ListItem', position: 2, name: 'Netlinking sur mesure', item: 'https://anthonyrusso.fr/netlinking-sur-mesure/' },
+    { '@type': 'ListItem', position: 3, name: 'PageRank', item: 'https://anthonyrusso.fr/netlinking-sur-mesure/pagerank/' }
+  ]
+};
+
+export const prerender = true;
+---
+
+<BaseLayout title={title} description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <article class="container-narrow section">
+    <h1>PageRank : l'algorithme à l'origine de Google — et qui gouverne encore votre netlinking</h1>
+
+    <div class="intro">
+      <p>Google n'est pas né d'une interface ou d'un design. Il est né d'une idée mathématique sur la valeur des liens. Cette idée s'appelle le PageRank — et elle structure encore aujourd'hui toute stratégie de netlinking sérieuse.</p>
+      <p>Comprendre le PageRank, c'est comprendre pourquoi certains liens valent dix fois plus que d'autres.</p>
+    </div>
+
+    <div class="summary-box">
+      <h2>Ce que vous retenez de cette page :</h2>
+      <ul>
+        <li>Inventé en 1996 par Larry Page et Sergey Brin à Stanford</li>
+        <li>Principe : un lien = un vote, mais tous les votes n'ont pas le même poids</li>
+        <li>Plus une page reçoit de liens autoritaires, plus son PageRank est élevé</li>
+        <li>Le PageRank se transfère et se dilue à chaque lien — c'est la base du "jus de lien"</li>
+        <li>Il n'est plus public depuis 2016 mais reste un signal de ranking actif chez Google</li>
+      </ul>
+    </div>
+
+    <section>
+      <h2>Origine : Stanford, 1996</h2>
+      <p>En 1996, deux doctorants de Stanford — Larry Page et Sergey Brin — travaillent sur un projet de recherche appelé "BackRub". L'idée de départ est simple : mesurer l'importance d'une page web en analysant les liens qui pointent vers elle, exactement comme les chercheurs mesurent l'influence d'un article académique en comptant ses citations.</p>
+
+      <p>Les moteurs de recherche de l'époque classaient les résultats selon la fréquence des mots-clés dans la page. Facile à manipuler, peu fiable. L'approche de Page et Brin change la donne : ce n'est plus ce que dit la page qui compte, c'est ce que le reste du web dit d'elle.</p>
+
+      <p>En 1998, le projet devient Google. Le PageRank est au cœur du moteur.</p>
+
+      <div class="timeline-simple">
+        <p><strong>Chronologie :</strong></p>
+        <ul>
+          <li><strong>1996</strong> → Projet BackRub, Stanford</li>
+          <li><strong>1998</strong> → Lancement de Google, PageRank comme signal central</li>
+          <li><strong>2000</strong> → Google Toolbar affiche le PageRank public (0 à 10)</li>
+          <li><strong>2009</strong> → Matt Cutts explique la fin du PageRank Sculpting</li>
+          <li><strong>2013</strong> → Dernière mise à jour publique du PageRank Toolbar</li>
+          <li><strong>2016</strong> → Disparition définitive du PageRank public</li>
+          <li><strong>2024</strong> → Documents internes Google confirment que le PageRank reste actif</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Comment fonctionne le PageRank</h2>
+
+      <h3>Le principe du vote</h3>
+      <p>Chaque lien pointant vers une page est un vote de confiance. Mais ce vote n'a pas une valeur fixe — il dépend de l'autorité de la page qui vote. Un lien venant d'une page très linkée vaut beaucoup plus qu'un lien venant d'une page inconnue.</p>
+
+      <p>C'est récursif par nature : pour connaître la valeur d'un lien, il faut connaître la valeur de la page qui le donne — qui elle-même dépend des liens qu'elle reçoit.</p>
+
+      <h3>La formule</h3>
+      <pre><code>PR(A) = (1 - d) + d × (PR(T1)/C(T1) + PR(T2)/C(T2) + ... + PR(Tn)/C(Tn))</code></pre>
+
+      <ul>
+        <li><strong>PR(A)</strong> = PageRank de la page A que l'on calcule</li>
+        <li><strong>d</strong> = facteur d'amortissement (0,85 par convention)</li>
+        <li><strong>PR(Ti)</strong> = PageRank de chaque page qui linke vers A</li>
+        <li><strong>C(Ti)</strong> = nombre total de liens sortants de chaque page Ti</li>
+      </ul>
+
+      <p>En clair : une page vous transmet une fraction de son PageRank, divisée par le nombre de liens sortants qu'elle contient.</p>
+
+      <h3>La dilution</h3>
+      <p>Une page avec un PageRank de 100 qui pointe vers 10 autres pages transfère environ 8,5 à chacune (100 × 0,85 / 10). La même page qui ne pointe que vers 2 pages transfère 42,5 à chacune. C'est pourquoi le nombre de liens sortants d'un site donneur compte autant que son autorité brute.</p>
+
+      <div class="code-example">
+        <p><strong>Schéma illustratif :</strong></p>
+        <pre><code>Page A (PR: 100)
+├── → Page B  (reçoit 42,5)   ← 2 liens sortants depuis A
+└── → Page C  (reçoit 42,5)
+
+Page D (PR: 100)
+├── → Page E  (reçoit 8,5)    ← 10 liens sortants depuis D
+├── → Page F  (reçoit 8,5)
+└── → ... (×8 autres pages)</code></pre>
+      </div>
+    </section>
+
+    <section>
+      <h2>Le facteur d'amortissement</h2>
+      <p>Le d = 0,85 modélise le comportement d'un internaute qui naviguerait aléatoirement sur le web. À chaque clic, il y a 15% de chances qu'il abandonne et reparte sur une URL aléatoire — et 85% de chances qu'il suive un lien.</p>
+
+      <p>Ce paramètre a deux effets importants :</p>
+      <ul>
+        <li>Il empêche les pages sans lien entrant de tomber à un PageRank nul</li>
+        <li>Il structure la distribution de l'autorité à l'échelle du web entier</li>
+      </ul>
+
+      <p>Si d était égal à 1, quelques pages très linkées capteraient toute l'autorité. À 0,85, l'autorité se distribue de façon plus équilibrée — mais toujours proportionnellement à la qualité des liens reçus.</p>
+    </section>
+
+    <section>
+      <h2>PageRank interne vs PageRank externe</h2>
+      <p>C'est la distinction que la plupart des praticiens SEO négligent.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Source</th>
+            <th>Ce que ça travaille</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>PageRank externe</td>
+            <td>Liens venant d'autres domaines</td>
+            <td>Autorité globale du domaine aux yeux de Google</td>
+          </tr>
+          <tr>
+            <td>PageRank interne</td>
+            <td>Liens entre pages du même site</td>
+            <td>Distribution de l'autorité vers les pages cibles</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Le netlinking travaille le PageRank externe : on fait entrer de l'autorité dans le domaine. Le maillage interne distribue ensuite cette autorité vers les pages que vous voulez voir se positionner.</p>
+
+      <p>Un lien externe puissant qui pointe vers votre homepage n'a qu'un impact limité sur votre page produit si cette page n'est pas bien reliée en interne. Les deux leviers sont indissociables.</p>
+    </section>
+
+    <section>
+      <h2>Le PageRank Sculpting</h2>
+      <p>Entre 2005 et 2009, certains SEO ont tenté de "sculpter" leur PageRank interne : en ajoutant rel="nofollow" sur certains liens sortants, ils espéraient concentrer le jus vers les pages stratégiques et empêcher qu'il "fuie" vers des pages sans intérêt (mentions légales, login, etc.).</p>
+
+      <p>En 2009, Matt Cutts (Google) a mis fin à cette pratique en expliquant que le mécanisme avait changé :</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Période</th>
+            <th>Comportement du nofollow</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Avant 2009</td>
+            <td>Le PageRank non transmis était conservé et redistribué aux autres liens</td>
+          </tr>
+          <tr>
+            <td>Après 2009</td>
+            <td>Le PageRank non transmis est simplement perdu — pas redistribué</td>
+          </tr>
+          <tr>
+            <td>Aujourd'hui</td>
+            <td>rel="nofollow" est un "hint" (indice), pas une directive absolue</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>La conclusion pratique : le sculpting ne fonctionne plus. Pour distribuer intelligemment votre PageRank interne, travaillez votre maillage interne — pas les attributs nofollow.</p>
+    </section>
+
+    <section>
+      <h2>Le Reasonable Surfer Model</h2>
+      <p>En 2004, Google a déposé un brevet décrivant une évolution du modèle de base : le Reasonable Surfer Model. L'idée : tous les liens d'une page ne sont pas égaux en termes de probabilité de clic — et Google le prend en compte.</p>
+
+      <p>Un lien placé dans le corps éditorial d'un article (contexte pertinent, texte d'ancre descriptif, position visible) transfère plus de PageRank qu'un lien dans le footer, une sidebar ou une liste de liens sans contexte.</p>
+
+      <p>Ce qui change dans la pratique :</p>
+      <ul>
+        <li><strong>Position du lien</strong> — dans le corps du texte > footer > sidebar</li>
+        <li><strong>Texte d'ancre</strong> — descriptif et pertinent > générique ("cliquez ici")</li>
+        <li><strong>Contexte éditorial</strong> — article thématique cohérent > page annuaire</li>
+        <li><strong>Visibilité</strong> — lien visible au-dessus de la ligne de flottaison > lien enfoui</li>
+      </ul>
+
+      <p>C'est une des raisons pour lesquelles les liens éditoriaux dans des articles de fond valent plus que des liens placés en footer sur des dizaines de sites.</p>
+    </section>
+
+    <section>
+      <h2>Le PageRank est-il encore actif en 2025 ?</h2>
+      <p>Google a supprimé l'affichage public du PageRank en 2016. Beaucoup ont conclu qu'il était mort. C'est une erreur.</p>
+
+      <p>En 2024, des documents internes de Google rendus publics lors d'un procès antitrust ont confirmé que le PageRank reste un signal de ranking actif. Il n'est plus visible, mais il fonctionne toujours en arrière-plan — sous des formes plus complexes que la version originale.</p>
+
+      <p>Ce qui a changé :</p>
+      <ul>
+        <li>Le PageRank public (Toolbar) a disparu — les valeurs 0 à 10 n'existent plus</li>
+        <li>Des métriques tierces le remplacent dans les outils : DR (Ahrefs), DA (Moz), TF (Majestic)</li>
+        <li>Ces métriques sont des approximations, pas le vrai PageRank Google</li>
+        <li>Le signal de fond reste : un lien venant d'une page autoritaire vaut toujours plus</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Ce que ça change pour votre stratégie de netlinking</h2>
+      <p>Le PageRank n'est pas une théorie académique. Chaque décision dans une campagne de netlinking s'appuie sur ses mécanismes :</p>
+
+      <ul>
+        <li><strong>Choisir un site donneur</strong> — son autorité (DR, TF) est une approximation de son PageRank</li>
+        <li><strong>Nombre de liens sortants</strong> — un site qui vend des centaines de liens dilue ce qu'il transmet</li>
+        <li><strong>Position du lien dans la page</strong> — éditorial dans un article > footer</li>
+        <li><strong>Cohérence thématique</strong> — le Reasonable Surfer Model pondère la pertinence contextuelle</li>
+        <li><strong>Maillage interne</strong> — distribuer l'autorité entrante vers les bonnes pages cibles</li>
+      </ul>
+
+      <p>C'est pourquoi une campagne de netlinking efficace ne se résume pas à acheter des liens. Elle commence par comprendre comment l'autorité circule — et où elle doit aller.</p>
+
+      <div class="internal-links">
+        <p>→ Voir comment cette logique est appliquée en pratique : <a href="/netlinking-sur-mesure/">Netlinking sur mesure</a></p>
+        <p>→ Comprendre l'audit qui précède chaque campagne : <a href="/audit-netlinking/">Audit Netlinking</a></p>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2>FAQ</h2>
+
+      <details>
+        <summary>Le PageRank existe-t-il encore en 2025 ?</summary>
+        <p>Oui. Google a supprimé son affichage public en 2016, mais des documents internes rendus publics en 2024 confirment qu'il reste un signal de ranking actif. Les métriques tierces comme le Domain Rating d'Ahrefs ou le Trust Flow de Majestic en sont des approximations.</p>
+      </details>
+
+      <details>
+        <summary>Quelle est la différence entre PageRank et Domain Authority ?</summary>
+        <p>Le PageRank est le signal interne de Google, calculé page par page. Le Domain Authority (Moz) et le Domain Rating (Ahrefs) sont des métriques propriétaires créées par des outils tiers pour approximer l'autorité d'un domaine. Elles sont utiles comme indicateurs relatifs mais ne reflètent pas exactement le calcul de Google.</p>
+      </details>
+
+      <details>
+        <summary>Un lien nofollow transmet-il du PageRank ?</summary>
+        <p>Officiellement non — rel="nofollow" indique à Google de ne pas suivre le lien ni de transférer du PageRank. Depuis 2019, Google traite le nofollow comme un "hint" (indice) plutôt qu'une directive absolue, ce qui laisse une marge d'interprétation. Dans la pratique, on considère qu'un lien nofollow ne transmet pas de PageRank direct.</p>
+      </details>
+
+      <details>
+        <summary>Pourquoi le facteur d'amortissement est-il fixé à 0,85 ?</summary>
+        <p>C'est la valeur proposée dans le papier original de Page et Brin. Elle modélise un internaute qui a 85% de chances de suivre un lien et 15% de repartir aléatoirement. D'autres valeurs ont été testées — le résultat sur le classement est peu sensible à de petites variations autour de 0,85.</p>
+      </details>
+
+      <details>
+        <summary>Le PageRank d'une page change-t-il souvent ?</summary>
+        <p>Google recalcule le PageRank en continu lors de ses crawls. Un nouveau lien entrant peut mettre quelques semaines à être pris en compte. La valeur fluctue selon les liens gagnés, les liens perdus et l'évolution du PageRank des pages donneuses.</p>
+      </details>
+
+      <details>
+        <summary>Comment savoir si un site donneur a un bon PageRank ?</summary>
+        <p>Vous ne pouvez pas accéder directement au PageRank Google. Les indicateurs les plus fiables pour l'approximer sont le Trust Flow (Majestic), le Domain Rating (Ahrefs), le trafic organique réel du site et la qualité de son profil de backlinks entrant.</p>
+      </details>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .intro {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    margin-bottom: var(--space-2xl);
+    color: var(--color-text);
+  }
+
+  .summary-box {
+    background: var(--color-surface-2);
+    border-left: 4px solid var(--color-primary);
+    padding: var(--space-xl);
+    margin: var(--space-2xl) 0;
+    border-radius: var(--radius-md);
+  }
+
+  .summary-box h2 {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-md);
+    color: var(--color-text);
+  }
+
+  .summary-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .summary-box li {
+    padding-left: var(--space-lg);
+    margin-bottom: var(--space-sm);
+    position: relative;
+    line-height: 1.7;
+  }
+
+  .summary-box li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--color-success);
+    font-weight: 700;
+  }
+
+  section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  h2 {
+    margin-top: var(--space-3xl);
+    margin-bottom: var(--space-xl);
+    color: var(--color-text);
+  }
+
+  h3 {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-md);
+    font-size: 1.25rem;
+    color: var(--color-text);
+  }
+
+  p {
+    margin-bottom: var(--space-lg);
+    line-height: 1.7;
+  }
+
+  ul, ol {
+    margin-bottom: var(--space-lg);
+    padding-left: var(--space-xl);
+  }
+
+  li {
+    margin-bottom: var(--space-sm);
+    line-height: 1.7;
+  }
+
+  .timeline-simple {
+    background: var(--color-surface-2);
+    padding: var(--space-xl);
+    border-radius: var(--radius-md);
+    margin: var(--space-xl) 0;
+  }
+
+  .timeline-simple ul {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--space-md);
+  }
+
+  .timeline-simple li {
+    padding-left: var(--space-lg);
+    margin-bottom: var(--space-md);
+    border-left: 2px solid var(--color-primary);
+    padding-left: var(--space-lg);
+  }
+
+  pre {
+    background: var(--color-surface-2);
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    margin: var(--space-lg) 0;
+    border: 1px solid var(--color-border);
+  }
+
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .code-example {
+    margin: var(--space-xl) 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-xl) 0;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  thead {
+    background: var(--color-surface-offset);
+  }
+
+  th {
+    padding: var(--space-md) var(--space-lg);
+    text-align: left;
+    font-weight: 700;
+    color: var(--color-text);
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  td {
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  tbody tr:hover {
+    background: var(--color-surface-offset);
+  }
+
+  .internal-links {
+    background: var(--color-primary-highlight);
+    border-left: 4px solid var(--color-primary);
+    padding: var(--space-lg);
+    margin: var(--space-2xl) 0;
+    border-radius: var(--radius-md);
+  }
+
+  .internal-links p {
+    margin-bottom: var(--space-sm);
+    font-weight: 500;
+  }
+
+  .internal-links a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .internal-links a:hover {
+    color: var(--color-primary-hover);
+  }
+
+  .faq {
+    margin-top: var(--space-3xl);
+  }
+
+  .faq h2 {
+    margin-bottom: var(--space-xl);
+  }
+
+  details {
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-md);
+    cursor: pointer;
+  }
+
+  details:hover {
+    border-color: var(--color-primary);
+  }
+
+  summary {
+    font-weight: 700;
+    color: var(--color-text);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  summary::marker {
+    color: var(--color-primary);
+  }
+
+  details[open] summary {
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  details p {
+    margin-bottom: 0;
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 768px) {
+    table {
+      font-size: 0.875rem;
+    }
+
+    th, td {
+      padding: var(--space-sm) var(--space-md);
+    }
+
+    pre {
+      font-size: 0.8rem;
+      padding: var(--space-md);
+    }
+  }
+</style>

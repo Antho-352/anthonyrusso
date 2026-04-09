@@ -1,0 +1,543 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+export const prerender = true;
+
+const title = 'Résultats & Études de Cas Netlinking';
+const description = 'Découvrez les résultats concrets obtenus pour mes clients en netlinking : positions, trafic organique, ROI. Études de cas détaillées.';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Review',
+  itemReviewed: {
+    '@type': 'Service',
+    name: 'Netlinking sur-mesure',
+    provider: {
+      '@type': 'Person',
+      name: 'Anthony Russo',
+    },
+  },
+};
+---
+
+<PageLayout title={title} description={description} schema={schema}>
+  <!-- Hero -->
+  <section class="hero-section">
+    <div class="container-narrow hero-center">
+      <h1>Résultats concrets — Ce que le netlinking bien fait peut faire pour votre site</h1>
+    </div>
+  </section>
+
+  <!-- KPIs globaux -->
+  <section class="section kpis-section">
+    <div class="container">
+      <div class="kpis-grid">
+        <div class="kpi-card">
+          <div class="kpi-value">50+</div>
+          <div class="kpi-label">Clients accompagnés</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value">500+</div>
+          <div class="kpi-label">Backlinks posés avec suivi</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value">85%</div>
+          <div class="kpi-label">Clients avec progression de trafic en 3 mois</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value">+12</div>
+          <div class="kpi-label">Positions gagnées en moyenne sur les mots-clés cibles</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Études de cas -->
+  <section class="section">
+    <div class="container">
+      <h2>Études de cas</h2>
+
+      <!-- Case Study 1 -->
+      <div class="case-study">
+        <div class="case-header">
+          <div class="case-meta">
+            <span class="case-sector">E-commerce Mode</span>
+            <span class="case-duration">4 mois</span>
+          </div>
+        </div>
+
+        <div class="case-content">
+          <div class="case-section">
+            <h3>Contexte</h3>
+            <ul class="case-list">
+              <li><strong>Secteur :</strong> E-commerce mode femme</li>
+              <li><strong>Problème :</strong> Pages catégories bloquées en position 8-15 depuis 8 mois</li>
+              <li><strong>Objectif :</strong> Passer les 3 pages phares en top 5</li>
+            </ul>
+          </div>
+
+          <div class="case-section">
+            <h3>Ce qu'on a fait</h3>
+            <ul class="case-list">
+              <li>Audit off-page initial : profil pauvre (12 RD seulement), ancres trop génériques</li>
+              <li>Campagne de 5 liens/mois sur 4 mois (réseau direct + Linkuma)</li>
+              <li>Sélection : sites mode/lifestyle, TF > 20, trafic GSC vérifié</li>
+              <li>Correction on-page préalable sur 2 des 3 pages cibles</li>
+            </ul>
+          </div>
+
+          <div class="case-section">
+            <h3>Résultats (après 4 mois)</h3>
+            <div class="results-grid">
+              <div class="result-card success">
+                <div class="result-label">Page 1</div>
+                <div class="result-value">Position 14 → 3</div>
+                <div class="result-gain">+11 places</div>
+              </div>
+              <div class="result-card success">
+                <div class="result-label">Page 2</div>
+                <div class="result-value">Position 9 → 4</div>
+                <div class="result-gain">+5 places</div>
+              </div>
+              <div class="result-card">
+                <div class="result-label">Trafic organique total</div>
+                <div class="result-value">+34%</div>
+                <div class="result-gain">sur la période</div>
+              </div>
+              <div class="result-card">
+                <div class="result-label">Indexation</div>
+                <div class="result-value">100%</div>
+                <div class="result-gain">en < 3 semaines</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case Study 2 -->
+      <div class="case-study">
+        <div class="case-header">
+          <div class="case-meta">
+            <span class="case-sector">SaaS B2B</span>
+            <span class="case-duration">6 mois</span>
+          </div>
+        </div>
+
+        <div class="case-content">
+          <div class="case-section">
+            <h3>Contexte</h3>
+            <ul class="case-list">
+              <li><strong>Secteur :</strong> SaaS marketing automation B2B</li>
+              <li><strong>Problème :</strong> Nouveau site, aucun backlink de qualité, DR 8</li>
+              <li><strong>Objectif :</strong> Augmenter l'autorité du domaine et positionner 5 pages clés</li>
+            </ul>
+          </div>
+
+          <div class="case-section">
+            <h3>Ce qu'on a fait</h3>
+            <ul class="case-list">
+              <li>Stratégie progressive : 3 liens/mois les 2 premiers mois, puis 6 liens/mois</li>
+              <li>Focus autorité domaine + pages money (pricing, use cases, comparatifs)</li>
+              <li>Mix : 70% articles contextuels, 30% liens en Home pour booster le DR</li>
+              <li>Thématiques : marketing digital, SaaS, tech B2B</li>
+            </ul>
+          </div>
+
+          <div class="case-section">
+            <h3>Résultats (après 6 mois)</h3>
+            <div class="results-grid">
+              <div class="result-card success">
+                <div class="result-label">Domain Rating</div>
+                <div class="result-value">DR 8 → 28</div>
+                <div class="result-gain">+20 points</div>
+              </div>
+              <div class="result-card success">
+                <div class="result-label">Pages en top 10</div>
+                <div class="result-value">0 → 12 pages</div>
+                <div class="result-gain">dont 4 en top 5</div>
+              </div>
+              <div class="result-card">
+                <div class="result-label">Trafic organique</div>
+                <div class="result-value">+210%</div>
+                <div class="result-gain">sur 6 mois</div>
+              </div>
+              <div class="result-card">
+                <div class="result-label">Leads SEO</div>
+                <div class="result-value">18 leads/mois</div>
+                <div class="result-gain">vs 2 au départ</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case Study 3 -->
+      <div class="case-study">
+        <div class="case-header">
+          <div class="case-meta">
+            <span class="case-sector">Services locaux</span>
+            <span class="case-duration">3 mois</span>
+          </div>
+        </div>
+
+        <div class="case-content">
+          <div class="case-section">
+            <h3>Contexte</h3>
+            <ul class="case-list">
+              <li><strong>Secteur :</strong> Artisan plombier (marché local compétitif)</li>
+              <li><strong>Problème :</strong> Invisible sur les requêtes locales à fort volume</li>
+              <li><strong>Objectif :</strong> Top 3 sur "plombier [ville]" et variantes</li>
+            </ul>
+          </div>
+
+          <div class="case-section">
+            <h3>Ce qu'on a fait</h3>
+            <ul class="case-list">
+              <li>Campagne ciblée : 8 liens sur 3 mois, tous thématique locale/habitat</li>
+              <li>Ancres mixtes : marque + ville, services + ville, URLs nues</li>
+              <li>Sites locaux + blogs habitat généralistes avec section régionale</li>
+              <li>Optimisation on-page parallèle (NAP, schema LocalBusiness)</li>
+            </ul>
+          </div>
+
+          <div class="case-section">
+            <h3>Résultats (après 3 mois)</h3>
+            <div class="results-grid">
+              <div class="result-card success">
+                <div class="result-label">Requête principale</div>
+                <div class="result-value">Position 18 → 2</div>
+                <div class="result-gain">+16 places</div>
+              </div>
+              <div class="result-card success">
+                <div class="result-label">Requêtes top 3</div>
+                <div class="result-value">1 → 7 requêtes</div>
+                <div class="result-gain">locales</div>
+              </div>
+              <div class="result-card">
+                <div class="result-label">Appels entrants</div>
+                <div class="result-value">+120%</div>
+                <div class="result-gain">vs période N-1</div>
+              </div>
+              <div class="result-card">
+                <div class="result-label">ROI campagne</div>
+                <div class="result-value">×4,2</div>
+                <div class="result-gain">en 3 mois</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Témoignages -->
+  <section class="section testimonials-section">
+    <div class="container">
+      <h2>Ce que disent mes clients</h2>
+
+      <div class="testimonials-grid">
+        <div class="card testimonial-card">
+          <div class="testimonial-quote">
+            <p>
+              "Ce que j'apprécie le plus chez Anthony, c'est qu'il vérifie la page cible avant de poser le moindre lien. Il m'a évité de gaspiller 600€ sur une page qu'il fallait d'abord corriger."
+            </p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">SL</div>
+            <div class="author-info">
+              <div class="author-name">Sarah L.</div>
+              <div class="author-role">Responsable Marketing, SaaS B2B</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card testimonial-card">
+          <div class="testimonial-quote">
+            <p>
+              "On lui délègue toute la partie netlinking pour nos clients. Reporting propre, sites de qualité, et il répond vite. Exactement ce qu'on cherchait."
+            </p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">TR</div>
+            <div class="author-info">
+              <div class="author-name">Thomas R.</div>
+              <div class="author-role">Fondateur agence SEO Paris</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card testimonial-card">
+          <div class="testimonial-quote">
+            <p>
+              "Anthony a identifié en 20 minutes les 3 pages qui pouvaient passer en top 5. On a lancé la campagne le mois suivant."
+            </p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">JM</div>
+            <div class="author-info">
+              <div class="author-name">Julien M.</div>
+              <div class="author-role">Directeur e-commerce</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="section cta-section">
+    <div class="container-narrow">
+      <div class="cta-card">
+        <h2>Prêt à obtenir ces résultats pour votre site ?</h2>
+        <p class="text-large">
+          Réservez un audit netlinking. Je vous montre exactement ce qu'on peut faire pour vos pages.
+        </p>
+        <a
+          href="https://calendly.com/anthony-russo-digital/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-primary btn-lg"
+        >
+          Réserver un audit netlinking
+        </a>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  /* Hero */
+  .hero-section {
+    padding: var(--space-4xl) var(--space-lg) var(--space-3xl);
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-surface) 100%);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .hero-center {
+    text-align: center;
+  }
+
+  /* KPIs */
+  .kpis-section {
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .kpis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .kpi-card {
+    text-align: center;
+    padding: var(--space-xl);
+  }
+
+  .kpi-value {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    color: var(--color-primary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .kpi-label {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  /* Case studies */
+  .case-study {
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .case-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .case-meta {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .case-sector {
+    padding: var(--space-sm) var(--space-lg);
+    background: var(--color-primary-highlight);
+    color: var(--color-primary);
+    font-size: 0.875rem;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+  }
+
+  .case-duration {
+    padding: var(--space-sm) var(--space-lg);
+    background: var(--color-surface-offset);
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+  }
+
+  .case-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .case-section h3 {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-md);
+    color: var(--color-text);
+  }
+
+  .case-list {
+    list-style: none;
+    padding-left: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .case-list li {
+    position: relative;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
+  .case-list li::before {
+    content: "→";
+    position: absolute;
+    left: calc(-1 * var(--space-lg));
+    color: var(--color-primary);
+  }
+
+  /* Results grid */
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-lg);
+  }
+
+  .result-card {
+    padding: var(--space-lg);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    text-align: center;
+  }
+
+  .result-card.success {
+    border-color: var(--color-success);
+    background: var(--color-success-highlight);
+  }
+
+  .result-label {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-sm);
+    font-weight: 500;
+  }
+
+  .result-value {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--color-text);
+    margin-bottom: var(--space-xs);
+  }
+
+  .result-card.success .result-value {
+    color: var(--color-success);
+  }
+
+  .result-gain {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  /* Testimonials */
+  .testimonials-section {
+    background: var(--color-surface);
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-xl);
+    margin-top: var(--space-2xl);
+  }
+
+  .testimonial-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .testimonial-quote p {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    font-style: italic;
+    margin: 0;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .author-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: var(--color-primary-highlight);
+    color: var(--color-primary);
+    font-weight: 700;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .author-name {
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .author-role {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
+  }
+
+  .cta-card {
+    text-align: center;
+    padding: var(--space-3xl);
+    background: var(--color-surface-2);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg), var(--glow-primary);
+  }
+
+  .cta-card h2 {
+    margin-bottom: var(--space-lg);
+  }
+
+  .cta-card p {
+    margin-bottom: var(--space-xl);
+    color: var(--color-text-muted);
+  }
+</style>

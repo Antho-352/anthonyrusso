@@ -1,0 +1,508 @@
+---
+export const prerender = true;
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'Comment évaluer un spot netlinking : critères et méthode';
+const description = 'TF, DR, trafic réel, cohérence thématique, footprint… Voici exactement comment je qualifie un spot avant d\'y placer un backlink — et pourquoi les métriques seules ne suffisent pas.';
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Évaluer un spot netlinking : la méthode pour ne jamais placer un lien sur le mauvais site',
+  description: 'Méthode complète pour qualifier un spot netlinking avant placement : métriques, trafic organique, cohérence thématique, qualité éditoriale et signaux d\'alerte.',
+  author: {
+    '@type': 'Person',
+    name: 'Anthony Russo',
+    url: 'https://anthonyrusso.fr'
+  },
+  publisher: {
+    '@type': 'Person',
+    name: 'Anthony Russo',
+    url: 'https://anthonyrusso.fr'
+  },
+  mainEntityOfPage: 'https://anthonyrusso.fr/netlinking-sur-mesure/evaluer-un-spot/'
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Peut-on utiliser un spot avec un faible TF s\'il a du trafic réel ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Oui. Un spot avec un TF de 10 et 5 000 visiteurs mensuels qualifiés dans votre thématique est souvent plus précieux qu\'un spot avec un TF de 35 et 300 visiteurs. Le trafic organique réel prime sur les métriques tierces.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Un forum généraliste peut-il être un bon spot ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Oui, si le contexte de la conversation est pertinent avec la page cible. La cohérence thématique s\'évalue au niveau de la page et du contexte du lien, pas seulement au niveau du domaine entier.'
+      }
+    }
+  ]
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://anthonyrusso.fr' },
+    { '@type': 'ListItem', position: 2, name: 'Netlinking sur mesure', item: 'https://anthonyrusso.fr/netlinking-sur-mesure/' },
+    { '@type': 'ListItem', position: 3, name: 'Évaluer un spot', item: 'https://anthonyrusso.fr/netlinking-sur-mesure/evaluer-un-spot/' }
+  ]
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <div class="page-container">
+    <article class="page-content">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Accueil</a></li>
+          <li><a href="/netlinking-sur-mesure">Netlinking sur mesure</a></li>
+          <li aria-current="page">Évaluer un spot</li>
+        </ol>
+      </nav>
+
+      <!-- Header -->
+      <header class="page-header">
+        <h1>Évaluer un spot netlinking : la méthode pour ne jamais placer un lien sur le mauvais site</h1>
+      </header>
+
+      <!-- Introduction -->
+      <section class="intro">
+        <p>
+          Choisir un spot, ce n'est pas ouvrir un catalogue, filtrer par TF et valider. C'est une analyse en plusieurs couches — parce qu'un mauvais spot ne fait pas que gaspiller du budget. Dans le pire des cas, il nuit activement à votre profil de backlinks.
+        </p>
+        <p>
+          La majorité des erreurs en netlinking viennent de là. Des spots choisis vite, sur la base de métriques flatteuses, sans vérification réelle de ce qu'ils valent.
+        </p>
+      </section>
+
+      <!-- Encadré résumé -->
+      <div class="summary-box">
+        <h2 class="summary-title">Ce que vous retenez de cette page :</h2>
+        <ul>
+          <li>Un bon spot, c'est d'abord une <strong>entité réelle</strong> avec un trafic organique difficile à simuler</li>
+          <li>Les métriques TF, DR et CF sont un premier filtre — <strong>toutes manipulables</strong>, aucune suffisante seule</li>
+          <li>La cohérence thématique compte, mais elle s'apprécie <strong>au niveau de la page et du contexte</strong> — pas seulement du domaine</li>
+          <li>Se démarquer de la concurrence en allant chercher des <strong>spots inaccessibles</strong> est souvent plus précieux que copier ce qu'ils font</li>
+          <li>La sélection manuelle prend du temps — c'est précisément ce qui fait la différence</li>
+        </ul>
+      </div>
+
+      <!-- Content sections -->
+      <section class="content-section">
+        <h2>Pourquoi la sélection d'un spot conditionne tout le reste</h2>
+        <p>
+          Avant de parler d'ancres, de calendrier ou de volume de liens, il y a une décision qui conditionne tout le reste : <strong>sur quel site ce lien va-t-il être placé ?</strong>
+        </p>
+        <p>
+          Un lien sur un mauvais spot, c'est du budget dépensé pour rien. Mais c'est aussi, dans certains cas, un signal négatif pour Google si le spot est identifié comme appartenant à un réseau artificiel. À l'inverse, un seul lien sur un bon spot — même modeste en métriques — peut avoir un impact bien supérieur à dix liens sur des sites sans valeur réelle.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Les métriques : utiles, mais toutes manipulables</h2>
+        <p>
+          Je commence toujours par un premier filtre sur les métriques. TF et ratio TF/CF sur Majestic, DR sur Ahrefs, nombre de domaines référents. Ça permet d'éliminer rapidement les spots manifestement mauvais. Mais je ne m'arrête jamais là.
+        </p>
+        <p>
+          Aujourd'hui, tout se manipule. Le TF, le CF, le Topical Trust Flow, le DA de Moz, le DR d'Ahrefs — et même le trafic organique estimé et les domaines référents. Des réseaux entiers existent pour gonfler ces scores artificiellement. J'ai vu des spots avec un TF à 40 et zéro valeur réelle. J'en ai utilisé avec un TF à 8 qui avaient une pertinence thématique et un trafic authentique incomparables.
+        </p>
+        <p>
+          <strong>Les métriques servent à poser une première hypothèse. Pas à prendre une décision.</strong>
+        </p>
+        <p>
+          → Comprendre en détail pourquoi TF et DR sont manipulables : <a href="/netlinking-sur-mesure/trust-flow-citation-flow/">Trust Flow & Citation Flow</a>
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Le vrai critère : est-ce une entité réelle ?</h2>
+        <p>
+          C'est la question centrale que je me pose devant chaque spot. <strong>Est-ce que ce site existe vraiment</strong> — ou est-ce qu'il a été créé pour vendre des liens ?
+        </p>
+        <p>
+          Une entité réelle, ça se reconnaît. Il y a des auteurs identifiables, une ligne éditoriale cohérente dans le temps, une présence sur les réseaux sociaux, des articles qui génèrent des commentaires ou des partages. Le contenu est rédigé par des humains — ça se sent à la lecture. Le site a une raison d'exister autre que de monétiser des liens.
+        </p>
+        <p>
+          Je vérifie aussi les mots-clés sur lesquels le spot se positionne réellement dans Ahrefs. Pas juste le volume de trafic — les mots-clés eux-mêmes. Est-ce qu'ils sont cohérents avec la thématique affichée ? Est-ce que le site rankait sur ces requêtes il y a deux ans ? La trajectoire d'un site dit beaucoup sur sa nature.
+        </p>
+        <p>
+          Dernier point : est-ce que le lien qu'on va placer peut générer des clics réels ? Un lien sur une page qui a du trafic, dans un contexte éditorial pertinent, va amener des visiteurs. Ces clics produisent des signaux comportementaux que Google mesure — c'est documenté dans les leaks de 2024. Un spot mort éditorialement, même avec un bon DR, ne produira rien.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>La cohérence thématique : plus subtile qu'on ne le croit</h2>
+        <p>
+          On entend souvent qu'un spot doit être "dans la même thématique" que le site cible. C'est vrai dans les grandes lignes — mais c'est plus nuancé que ça.
+        </p>
+        <p>
+          Ce qui compte vraiment, c'est la cohérence au niveau de la page et du contexte du lien, pas nécessairement au niveau du domaine entier. Un forum généraliste qui héberge une conversation sérieuse sur le SEO peut être un très bon spot pour un lien vers une page sur le netlinking — même si le forum couvre d'autres sujets par ailleurs. Le contexte de la conversation crée la pertinence sémantique. Google lit le contenu autour du lien, pas seulement la thématique globale du domaine.
+        </p>
+        <p>
+          Ce qu'il faut éviter, c'est un lien placé dans un article sur la cuisine qui pointe vers une page sur le SEO. Là, il n'y a aucune cohérence contextuelle — et Google le voit.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Regarder ce que font les concurrents — et faire mieux</h2>
+        <p>
+          J'analyse systématiquement les profils de backlinks des concurrents en positionnement. Pas pour les copier — pour comprendre ce qui fonctionne dans le secteur et identifier ce qu'ils n'ont pas.
+        </p>
+        <p>
+          Si tous mes concurrents ont un lien sur un spot précis, c'est que ce spot a de la valeur. Aller le chercher est légitime. Mais un lien que personne d'autre ne peut obtenir — parce qu'il demande une relation directe, une expertise reconnue, ou un contenu vraiment original — vaut souvent bien plus. Ces spots inaccessibles par défaut créent un avantage concurrentiel durable. Ce n'est pas quelque chose qu'on trouve dans un catalogue.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Les signaux qui font immédiatement écarter un spot</h2>
+        <p>
+          Certains patterns m'amènent à écarter un spot sans aller plus loin. Un site référencé simultanément sur plusieurs marketplaces de liens — Rocketlinks, Seedlink, Getfluence et d'autres en même temps — vend ses liens au plus offrant. Google a les moyens d'identifier ces schémas, les leaks de 2024 le confirment.
+        </p>
+        <p>
+          Un trafic organique proche de zéro malgré des métriques élevées est un signal clair de manipulation. Des dizaines de liens sortants vers des thématiques sans aucun rapport entre elles — finance, casino, voyage, jardinage sur le même site — révèlent un footprint de réseau de liens. Un domaine expiré récupéré pour son autorité historique mais dont le contenu actuel n'a aucun rapport avec ce qu'il était avant. Ce sont des spots à éviter systématiquement.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <h2>Le process que j'applique sur chaque spot</h2>
+
+        <pre><code>1. Métriques (filtre rapide)
+   TF, ratio TF/CF, DR, nombre de RD
+   → Manifeste mauvais ? Écarté immédiatement
+
+2. Trafic et trajectoire
+   Trafic organique réel sur Ahrefs ou Semrush
+   Évolution sur 12 mois — tendance stable ou en croissance ?
+   Mots-clés positionnés cohérents avec la thématique ?
+   → Trafic artificiel ou en chute ? Écarté
+
+3. L'entité
+   Auteurs identifiables ? Réseaux sociaux actifs ?
+   Contenu humain, original, régulier ?
+   Liens sortants vers des sites de qualité ?
+   → Pas une entité réelle ? Écarté
+
+4. Cohérence contextuelle
+   La page qui va contenir le lien est-elle pertinente ?
+   Le lien peut-il générer des clics réels ?
+   → Contexte incohérent ? Écarté
+
+5. Positionnement concurrentiel
+   Mes concurrents ont-ils déjà ce lien ?
+   Ce spot offre-t-il un avantage différenciant ?
+   → Spot validé ✓ ou remplacé par mieux</code></pre>
+
+        <p>
+          → Comment ce process s'intègre dans une campagne complète : <a href="/netlinking-sur-mesure/">Netlinking sur mesure</a><br>
+          → L'audit qui précède chaque sélection de spots : <a href="/audit-netlinking/">Audit Netlinking</a>
+        </p>
+      </section>
+
+      <!-- FAQ -->
+      <section class="faq-section">
+        <h2>Questions fréquentes</h2>
+
+        <details class="faq-item">
+          <summary>Combien de temps faut-il pour évaluer un spot correctement ?</summary>
+          <div class="faq-content">
+            <p>
+              Entre 5 et 10 minutes si on suit un process structuré. Sur une campagne de 10 liens par mois, ça représente 1 à 2 heures de sélection. C'est le temps incompressible pour garantir la qualité. Un prestataire qui sélectionne 20 spots en 20 minutes ne fait pas cette analyse.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Peut-on utiliser un spot avec un faible TF s'il a du trafic réel ?</summary>
+          <div class="faq-content">
+            <p>
+              Oui, absolument. Un spot avec un TF de 10 et 5 000 visiteurs mensuels qualifiés dans votre thématique est souvent plus précieux qu'un spot avec un TF de 35 et 300 visiteurs. Le trafic organique réel prime sur les métriques tierces — toujours.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Un forum généraliste peut-il être un bon spot ?</summary>
+          <div class="faq-content">
+            <p>
+              Oui, si le contexte de la conversation est pertinent avec la page cible. La cohérence thématique s'évalue au niveau de la page et du contexte du lien, pas seulement au niveau du domaine entier. Un fil de discussion sérieux sur le SEO dans un forum généraliste peut tout à fait être un bon spot.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Faut-il réévaluer les spots d'une campagne à chaque cycle ?</summary>
+          <div class="faq-content">
+            <p>
+              Pas une évaluation complète à chaque fois, mais un contrôle rapide du trafic et de l'état du site tous les 3 mois est recommandé. Un spot peut se dégrader : perte de trafic, changement de ligne éditoriale, revente du domaine. Un spot excellent au démarrage peut devenir problématique 6 mois plus tard.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Comment vérifier le trafic d'un spot sans abonnement Ahrefs ou Semrush ?</summary>
+          <div class="faq-content">
+            <p>
+              Les alternatives gratuites restent limitées. Ubersuggest donne des estimations approximatives, SimilarWeb fonctionne pour les gros sites. Mais honnêtement, pour faire ce travail sérieusement, un abonnement Ahrefs ou Semrush est indispensable. C'est l'outil de base du métier.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Un spot avec peu de trafic mais une très forte cohérence thématique vaut-il quelque chose ?</summary>
+          <div class="faq-content">
+            <p>
+              Potentiellement oui, si la qualité éditoriale est réelle et le trafic en croissance. Un jeune site sérieux dans une niche précise peut transmettre un signal sémantique fort même avec un volume modeste. C'est un cas à analyser au cas par cas — pas une règle générale.
+            </p>
+          </div>
+        </details>
+      </section>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-container {
+    width: 100%;
+    max-width: var(--max-width-md);
+    margin: 0 auto;
+    padding: var(--space-2xl) var(--space-md) var(--space-4xl);
+  }
+
+  .page-content {
+    width: 100%;
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    margin-bottom: var(--space-xl);
+  }
+
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    list-style: none;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .breadcrumb li:not(:last-child)::after {
+    content: "→";
+    margin-left: var(--space-sm);
+    color: var(--color-text-faint);
+  }
+
+  .breadcrumb a {
+    color: var(--color-text-muted);
+    transition: color var(--transition-fast);
+  }
+
+  .breadcrumb a:hover {
+    color: var(--color-primary);
+  }
+
+  /* Header */
+  .page-header {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .page-header h1 {
+    margin-bottom: 0;
+  }
+
+  /* Introduction */
+  .intro {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--color-text);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .intro p {
+    margin-bottom: var(--space-lg);
+  }
+
+  /* Summary box */
+  .summary-box {
+    background: var(--color-surface-2);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-3xl);
+    box-shadow: var(--shadow-md), var(--glow-primary);
+  }
+
+  .summary-title {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-lg);
+    color: var(--color-primary);
+  }
+
+  .summary-box ul {
+    list-style: none;
+    margin: 0;
+  }
+
+  .summary-box li {
+    padding-left: var(--space-lg);
+    margin-bottom: var(--space-md);
+    position: relative;
+  }
+
+  .summary-box li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  .summary-box li:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Content sections */
+  .content-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .content-section h2 {
+    margin-top: var(--space-3xl);
+    margin-bottom: var(--space-lg);
+  }
+
+  .content-section p {
+    margin-bottom: var(--space-lg);
+    line-height: 1.75;
+  }
+
+  .content-section a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .content-section a:hover {
+    color: var(--color-primary-hover);
+  }
+
+  /* Code blocks */
+  pre {
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    overflow-x: auto;
+    margin: var(--space-xl) 0;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  /* FAQ */
+  .faq-section {
+    margin-top: var(--space-4xl);
+  }
+
+  .faq-section h2 {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .faq-item {
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-md);
+    transition: border-color var(--transition-fast);
+  }
+
+  .faq-item:hover {
+    border-color: var(--color-primary);
+  }
+
+  .faq-item summary {
+    padding: var(--space-lg);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item summary::after {
+    content: "+";
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    transition: transform var(--transition-fast);
+  }
+
+  .faq-item[open] summary::after {
+    transform: rotate(45deg);
+  }
+
+  .faq-content {
+    padding: 0 var(--space-lg) var(--space-lg);
+  }
+
+  .faq-content p {
+    margin: 0;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+  }
+
+  /* Responsive */
+  @media (min-width: 640px) {
+    .page-container {
+      padding: var(--space-3xl) var(--space-lg) var(--space-4xl);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .summary-box {
+      padding: var(--space-lg);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .breadcrumb ol {
+      font-size: 0.8125rem;
+    }
+
+    .faq-item summary {
+      font-size: 1rem;
+      padding: var(--space-md);
+    }
+
+    .faq-content {
+      padding: 0 var(--space-md) var(--space-md);
+    }
+  }
+</style>
