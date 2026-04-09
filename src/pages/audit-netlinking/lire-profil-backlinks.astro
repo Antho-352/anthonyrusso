@@ -1,0 +1,677 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = "Comment lire un profil de backlinks : guide d'analyse complet | Anthony Russo";
+const description = "Domaines référents, ancres, liens perdus, vélocité… Un profil de backlinks se lit comme un bilan de santé. Voici comment l'interpréter correctement — et ce qu'il faut vraiment surveiller.";
+const canonicalURL = "https://anthonyrusso.fr/audit-netlinking/lire-profil-backlinks/";
+
+// Structured data schemas
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Lire un profil de backlinks : ce que les chiffres disent — et ce qu'ils cachent",
+  "description": "Guide complet pour analyser un profil de backlinks : domaines référents, qualité des liens, répartition des ancres, pages alimentées, vélocité. Avec checklist interactive.",
+  "author": {
+    "@type": "Person",
+    "name": "Anthony Russo",
+    "url": "https://anthonyrusso.fr"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Anthony Russo",
+    "url": "https://anthonyrusso.fr"
+  },
+  "mainEntityOfPage": canonicalURL
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Combien de domaines référents faut-il pour bien se positionner ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Il n'y a pas de chiffre universel. Ça dépend de la compétitivité de la SERP, du secteur, de l'âge du domaine et de la qualité des liens existants. La seule façon de le savoir est d'analyser les profils des concurrents positionnés sur votre cible."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Un profil avec beaucoup de liens perdus est-il pénalisé ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non, pas au sens d'une pénalité directe. Mais ça n'envoie pas un bon signal à Google. Un profil qui perd constamment des liens sans en gagner de nouveaux montre une autorité qui s'érode — et les positions peuvent en pâtir progressivement. La perte naturelle de 10 à 20% des liens par an est normale."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment voir si mes concurrents ont de meilleurs backlinks que moi ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ahrefs est l'outil le plus complet pour cette analyse. L'outil \"Link Intersect\" permet de voir quels sites linkent vos concurrents mais pas vous — c'est une source directe de spots potentiels. L'analyse des profils d'ancres concurrents donne également une référence réaliste sur les taux acceptables dans votre SERP."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle différence entre l'analyse dans Ahrefs et dans Majestic ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les deux outils crawlent le web indépendamment et construisent des index différents. Ahrefs est généralement plus complet et plus récent dans sa couverture. Majestic apporte une dimension qualitative supplémentaire via le Trust Flow et le Topical Trust Flow — utile pour l'analyse thématique. Utiliser les deux ensemble donne une lecture plus robuste qu'un seul outil."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "À quelle fréquence faut-il analyser son profil de backlinks ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un contrôle léger une fois par mois, un audit complet tous les 3 à 6 mois, et un contrôle rapide après chaque mise à jour core Google."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Mon profil a beaucoup de liens de forums — est-ce un problème ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non, ce n'est pas un problème en soi. Les liens de forums font partie d'un profil naturel — un site qui est mentionné dans des discussions authentiques sur des forums actifs reçoit des signaux de présence réelle que Google valorise. En revanche, diversifier reste toujours intéressant : un profil qui ne contient que des liens de forums manque de liens éditoriaux, qui sont les plus puissants pour transmettre du PageRank."
+      }
+    }
+  ]
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://anthonyrusso.fr"},
+    {"@type": "ListItem", "position": 2, "name": "Audit Netlinking", "item": "https://anthonyrusso.fr/audit-netlinking/"},
+    {"@type": "ListItem", "position": 3, "name": "Lire un profil de backlinks", "item": canonicalURL}
+  ]
+};
+
+export const prerender = true;
+---
+
+<BaseLayout title={title} description={description}>
+  <Fragment slot="head">
+    <link rel="canonical" href={canonicalURL} />
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <article class="evergreen-article">
+    <header class="article-header">
+      <h1>Lire un profil de backlinks : ce que les chiffres disent — et ce qu'ils cachent</h1>
+    </header>
+
+    <section class="intro">
+      <p>Un profil de backlinks, c'est le bilan de santé SEO d'un site. Savoir le lire, c'est comprendre d'où vient son autorité, pourquoi certaines pages se positionnent mieux que d'autres — et quels risques sont en train de se constituer silencieusement, sans que personne ne s'en aperçoive.</p>
+
+      <p>La plupart des rapports de backlinks qu'on me soumet se résument à un nombre. Tant de liens, tant de domaines référents, un DR. C'est le point de départ d'une analyse — pas son résultat.</p>
+    </section>
+
+    <aside class="key-takeaways">
+      <h3>Ce que vous retenez de cette page :</h3>
+      <ul>
+        <li>Un profil de backlinks se lit sur 5 dimensions : domaines référents, qualité des liens, répartition des ancres, pages alimentées, vélocité d'acquisition</li>
+        <li>La quantité de liens bruts est le signal le moins important</li>
+        <li>Un profil sain est diversifié, progressif et cohérent thématiquement — mais "sain" varie selon la SERP, le secteur et le type de site</li>
+        <li>Les liens perdus disent autant que les liens actifs</li>
+        <li>L'analyse des ancres révèle presque toujours les erreurs de stratégie passées</li>
+      </ul>
+    </aside>
+
+    <section>
+      <h2>Les 5 dimensions d'un profil de backlinks</h2>
+      <p>Un profil ne se résume pas à un volume. Il y a cinq axes à analyser pour avoir une lecture complète — et ignorer l'un d'eux, c'est passer à côté d'une partie du diagnostic. Ce sont ces cinq dimensions que j'analyse systématiquement lors d'un audit.</p>
+    </section>
+
+    <section>
+      <h2>Dimension 1 : les domaines référents</h2>
+      <p>La première chose à regarder n'est pas le nombre de backlinks bruts — c'est le nombre de domaines référents uniques. Mille liens provenant du même domaine ont beaucoup moins de valeur que cent liens provenant de cent domaines différents. Google pondère la contribution de chaque domaine : le premier lien d'un domaine compte énormément, les suivants de moins en moins.</p>
+
+      <p>Ce qu'on regarde dans cette dimension : l'évolution du nombre de RD dans le temps, la diversité thématique et géographique des sources, et la qualité de ces domaines — pas seulement leurs métriques, mais leur trafic réel et leur nature éditoriale. Une courbe de croissance régulière et progressive est le signal d'un profil naturel. Un pic soudain suivi d'un plateau — ou pire, d'une chute — est un signal d'alerte immédiat.</p>
+    </section>
+
+    <section>
+      <h2>Dimension 2 : la qualité des liens</h2>
+      <p>C'est la dimension la plus complexe à évaluer — et la plus importante. Un lien éditorial placé dans le corps d'un article de fond sur un site thématique avec du trafic réel n'a rien à voir avec un lien en footer d'un annuaire généraliste. Mais la frontière entre "bon" et "mauvais" lien n'est pas absolue.</p>
+
+      <p>Elle dépend du contexte. Un lien de forum peut être excellent si la conversation est sérieuse, si la page génère du trafic et si le contexte sémantique est cohérent avec la page cible. Un lien éditorial peut être quasi nul si la page qui le contient n'est jamais indexée ou si le site qui l'héberge a perdu tout trafic. La thématique du spot compte — mais aussi son autorité propre, son maillage interne, la sémantique qui entoure le lien, et la page précise sur laquelle il est placé. Ce sont ces nuances qu'une analyse sérieuse doit prendre en compte.</p>
+
+      <div class="data-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Type de lien</th>
+              <th>Valeur estimée</th>
+              <th>Ce qui peut faire varier</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Éditorial dans article de fond</td>
+              <td>Très élevée</td>
+              <td>Trafic de la page, cohérence thématique</td>
+            </tr>
+            <tr>
+              <td>Guest post thématique</td>
+              <td>Élevée</td>
+              <td>Qualité du contenu, entité réelle derrière le site</td>
+            </tr>
+            <tr>
+              <td>Annuaire de qualité</td>
+              <td>Faible-Moyenne</td>
+              <td>Thématique de l'annuaire, trafic réel</td>
+            </tr>
+            <tr>
+              <td>Forum / commentaire</td>
+              <td>Faible à bonne</td>
+              <td>Contexte de la conversation, trafic du fil</td>
+            </tr>
+            <tr>
+              <td>Footer / sidebar</td>
+              <td>Très faible</td>
+              <td>Quasi invariable</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="internal-link-context">→ Comprendre comment évaluer un spot en profondeur : <a href="/netlinking-sur-mesure/evaluer-un-spot/">Évaluer un spot</a></p>
+    </section>
+
+    <section>
+      <h2>Dimension 3 : la répartition des ancres</h2>
+      <p>C'est souvent ici qu'on trouve les premières erreurs dans un profil existant. Trop d'exact match concentrés sur les mêmes mots-clés, pas assez d'ancres brandées, des ancres génériques qui dominent et n'envoient aucun signal sémantique. L'analyse de la répartition des ancres conditionne directement le plan d'ancres de la campagne suivante — ce qu'on a en trop, on l'évite ; ce qui manque, on le construit.</p>
+
+      <p>Une précision importante : il n'existe pas de répartition idéale universelle. Ce qui est acceptable en termes de taux d'exact match varie significativement d'une SERP à l'autre. Certaines requêtes, dans des secteurs peu compétitifs ou avec un historique de pratiques agressives généralisées, tolèrent des taux d'ancres optimisées plus élevés que la moyenne. Un site EMD (Exact Match Domain) — dont le nom de domaine correspond exactement à la requête cible — bénéficie d'une lecture différente par Google sur ses ancres. Ces nuances ne s'évaluent qu'en comparant le profil du site à ceux des concurrents réels positionnés sur la même SERP.</p>
+
+      <p class="internal-link-context">→ Maîtriser la stratégie d'ancres : <a href="/netlinking-sur-mesure/texte-ancre/">Texte d'ancre</a></p>
+    </section>
+
+    <section>
+      <h2>Dimension 4 : les pages qui reçoivent des liens</h2>
+      <p>Est-ce que les bons liens vont vers les bonnes pages ? C'est une question qu'on pose rarement — et dont la réponse est souvent décevante. Dans la majorité des profils que j'audite, la homepage concentre 70 à 80% des backlinks. Les pages de positionnement cible, les pages de service, les pages produit — celles qui ont le plus besoin d'autorité pour convertir — n'en reçoivent presque aucun.</p>
+
+      <p>C'est un déséquilibre que la campagne doit corriger. Pas en ignorant la homepage — mais en construisant une stratégie de distribution qui alimente les pages qui en ont réellement besoin. Couplé à un maillage interne travaillé, un lien externe vers une page bien connectée peut irriguer tout un cluster de pages secondaires.</p>
+
+      <p class="internal-link-context">→ Comprendre comment le PageRank se distribue : <a href="/netlinking-sur-mesure/pagerank/">PageRank</a></p>
+    </section>
+
+    <section>
+      <h2>Dimension 5 : la vélocité d'acquisition</h2>
+      <p>Combien de liens sont acquis par mois — et est-ce que ce rythme est cohérent dans le temps ? Un profil qui a accumulé 200 liens en deux semaines puis rien pendant six mois n'est pas un profil naturel. Une croissance régulière et progressive est ce que Google s'attend à observer sur un site qui gagne de l'autorité organiquement.</p>
+
+      <p>Les Google Leaks de 2024 confirment l'existence d'un mécanisme de sandboxing pour les domaines qui accumulent des liens trop rapidement — une mise en quarantaine temporaire qui peut retarder les effets d'une campagne de plusieurs mois. La vélocité est un signal que peu d'outils mesurent correctement. SEO Observer est le plus précis pour ce type d'analyse en France.</p>
+
+      <p class="internal-link-context">→ L'erreur de vélocité et ses conséquences : <a href="/netlinking-sur-mesure/erreurs-netlinking/">Erreurs netlinking</a></p>
+    </section>
+
+    <section>
+      <h2>Les liens perdus : un signal sous-estimé</h2>
+      <p>Un lien perdu, c'est de l'autorité qui disparaît silencieusement. Les causes sont multiples : page supprimée, site fermé, éditeur qui retire le lien lors d'une refonte, article dépublié. Sur un profil bien établi, 10 à 20% des liens disparaissent chaque année naturellement. Ce n'est pas un problème en soi — c'est un signal à surveiller.</p>
+
+      <p>Ce que ça n'envoie pas, c'est un bon signal à Google. Un profil qui perd constamment des liens sans en gagner de nouveaux démontre une autorité qui s'érode. Et un profil qui perd massivement des liens dans un temps court — suite à la fermeture d'un réseau de spots par exemple — peut voir ses positions décliner rapidement. Surveiller les liens perdus dans Ahrefs (onglet "Lost backlinks") permet de décider lesquels méritent une action de récupération.</p>
+    </section>
+
+    <section>
+      <h2>Ce que ressemble un profil sain — et pourquoi ça varie</h2>
+      <p>Un profil sain a plusieurs caractéristiques communes : des domaines référents diversifiés en sources et en thématiques, une croissance progressive dans le temps, des ancres équilibrées entre exact match, variantes, brandées et génériques, des liens majoritairement éditoriaux, et des pages cibles correctement alimentées.</p>
+
+      <p>Mais "sain" n'est pas une définition universelle. Ce qui est sain dans un secteur peut être insuffisant dans un autre. Certaines SERPs sont historiquement plus agressives sur les ancres — tout le monde a des taux d'exact match élevés, et Google s'y est adapté. D'autres sont extrêmement sensibles au moindre déséquilibre. Un site EMD bénéficie d'une lecture différente sur ses ancres de marque. Un site très jeune ne peut pas avoir le même profil qu'un site de dix ans sans que ça paraisse artificiel.</p>
+
+      <p>C'est pourquoi la lecture d'un profil ne se fait jamais en isolation. Elle se fait toujours en comparaison avec les concurrents réels positionnés sur les mêmes requêtes.</p>
+    </section>
+
+    <section class="interactive-checklist">
+      <h2>✅ Checklist — Mon profil de backlinks est-il sain ?</h2>
+
+      <form id="backlink-health-checklist" class="checklist-form">
+        <div class="checklist-item">
+          <label>
+            <input type="checkbox" name="check1" />
+            <span class="checkbox-label">Mes domaines référents sont variés — pas plus de 20% de liens issus d'un même domaine</span>
+          </label>
+        </div>
+
+        <div class="checklist-item">
+          <label>
+            <input type="checkbox" name="check2" />
+            <span class="checkbox-label">Mes liens sont majoritairement éditoriaux et placés dans le corps des articles</span>
+          </label>
+        </div>
+
+        <div class="checklist-item">
+          <label>
+            <input type="checkbox" name="check3" />
+            <span class="checkbox-label">Mes ancres sont diversifiées — exact match, variantes, brandées, génériques</span>
+          </label>
+        </div>
+
+        <div class="checklist-item">
+          <label>
+            <input type="checkbox" name="check4" />
+            <span class="checkbox-label">Les pages qui reçoivent le plus de liens sont mes pages de positionnement prioritaires</span>
+          </label>
+        </div>
+
+        <div class="checklist-item">
+          <label>
+            <input type="checkbox" name="check5" />
+            <span class="checkbox-label">Mon profil croît de façon régulière — pas de pics inexpliqués</span>
+          </label>
+        </div>
+
+        <div class="checklist-item">
+          <label>
+            <input type="checkbox" name="check6" />
+            <span class="checkbox-label">Je n'ai pas de perte massive de liens sur les 6 derniers mois</span>
+          </label>
+        </div>
+
+        <div class="checklist-item">
+          <label>
+            <input type="checkbox" name="check7" />
+            <span class="checkbox-label">Mes spots ont du trafic organique réel vérifiable</span>
+          </label>
+        </div>
+
+        <div class="checklist-item">
+          <label>
+            <input type="checkbox" name="check8" />
+            <span class="checkbox-label">Je surveille mon profil au moins une fois par trimestre</span>
+          </label>
+        </div>
+
+        <div id="checklist-result" class="checklist-result" style="display: none;"></div>
+      </form>
+    </section>
+
+    <section>
+      <h2>De la lecture à la stratégie</h2>
+      <p>La lecture du profil existant débouche directement sur les décisions de campagne. Quelles pages ont besoin de liens en priorité ? Quelles ancres sont en sur-représentation et doivent être évitées ? Quels types de spots manquent dans le profil pour diversifier les sources ? Est-ce que la vélocité actuelle est suffisante ou excessive ?</p>
+
+      <p>Un audit sérieux répond à ces questions avant que le premier lien soit placé. C'est ce qui distingue une campagne construite sur des données réelles d'une commande passée au feeling.</p>
+
+      <p class="internal-link-context">→ Voir comment un audit complet est structuré : <a href="/audit-netlinking/">Audit Netlinking</a></p>
+      <p class="internal-link-context">→ Construire la campagne qui suit cet audit : <a href="/netlinking-sur-mesure/">Netlinking sur mesure</a></p>
+    </section>
+
+    <section class="faq-section">
+      <h2>FAQ</h2>
+
+      <div class="faq-item">
+        <h3>Combien de domaines référents faut-il pour bien se positionner ?</h3>
+        <p>Il n'y a pas de chiffre universel — c'est une des questions qui revient le plus souvent, et la réponse honnête est : ça dépend. Ça dépend de la compétitivité de la SERP, du secteur, de l'âge du domaine, de la qualité des liens existants. Un site peut se positionner en première page avec 30 domaines référents sur une requête de niche, et en avoir besoin de 500 sur une requête très concurrentielle. La seule façon de le savoir, c'est d'analyser les profils des concurrents positionnés sur votre cible — pas de regarder un chiffre abstrait.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Un profil avec beaucoup de liens perdus est-il pénalisé ?</h3>
+        <p>Non, pas au sens d'une pénalité directe. Mais ça n'envoie pas un bon signal à Google. Un profil qui perd constamment des liens sans en gagner de nouveaux montre une autorité qui s'érode — et les positions peuvent en pâtir progressivement. La perte naturelle de 10 à 20% des liens par an est normale. Une perte massive et rapide mérite une analyse pour en comprendre l'origine.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Comment voir si mes concurrents ont de meilleurs backlinks que moi ?</h3>
+        <p>Ahrefs est l'outil le plus complet pour cette analyse. L'outil "Link Intersect" permet de voir quels sites linkent vos concurrents mais pas vous — c'est une source directe de spots potentiels. L'analyse des profils d'ancres concurrents donne également une référence réaliste sur les taux acceptables dans votre SERP.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Quelle différence entre l'analyse dans Ahrefs et dans Majestic ?</h3>
+        <p>Les deux outils crawlent le web indépendamment et construisent des index différents. Ahrefs est généralement plus complet et plus récent dans sa couverture. Majestic apporte une dimension qualitative supplémentaire via le Trust Flow et le Topical Trust Flow — utile pour l'analyse thématique. Utiliser les deux ensemble donne une lecture plus robuste qu'un seul outil.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>À quelle fréquence faut-il analyser son profil de backlinks ?</h3>
+        <p>Un contrôle léger une fois par mois — vérifier les nouveaux liens, les liens perdus, et l'évolution des positions. Un audit complet tous les 3 à 6 mois — analyse des ancres, comparaison concurrentielle, ajustement du plan de campagne. Après chaque mise à jour core Google, un contrôle rapide s'impose pour vérifier si le profil a été impacté.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Mon profil a beaucoup de liens de forums — est-ce un problème ?</h3>
+        <p>Non, ce n'est pas un problème en soi. Les liens de forums font partie d'un profil naturel — un site qui est mentionné dans des discussions authentiques sur des forums actifs reçoit des signaux de présence réelle que Google valorise. En revanche, diversifier reste toujours intéressant : un profil qui ne contient que des liens de forums manque de liens éditoriaux, qui sont les plus puissants pour transmettre du PageRank. L'équilibre entre les types de sources renforce l'autorité globale du site aux yeux de Google.</p>
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .evergreen-article {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--space-2xl) var(--space-lg);
+    color: var(--color-text);
+    line-height: 1.7;
+  }
+
+  .article-header {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .article-header h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--color-text);
+    margin-bottom: var(--space-lg);
+  }
+
+  .intro {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .intro p {
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
+  }
+
+  .key-takeaways {
+    background: var(--color-surface-2);
+    border-left: 4px solid var(--color-primary);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+    border-radius: var(--radius-md);
+  }
+
+  .key-takeaways h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+    color: var(--color-text);
+  }
+
+  .key-takeaways ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .key-takeaways li {
+    padding-left: var(--space-lg);
+    margin-bottom: var(--space-sm);
+    position: relative;
+    color: var(--color-text-muted);
+  }
+
+  .key-takeaways li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  section {
+    margin-bottom: var(--space-2xl);
+  }
+
+  h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: var(--space-lg);
+    margin-top: var(--space-2xl);
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: var(--space-md);
+    margin-top: var(--space-xl);
+  }
+
+  p {
+    margin-bottom: var(--space-lg);
+    font-size: 1.0625rem;
+    color: var(--color-text);
+  }
+
+  .data-table {
+    overflow-x: auto;
+    margin: var(--space-xl) 0;
+    border-radius: var(--radius-md);
+    background: var(--color-surface-2);
+    padding: var(--space-md);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+
+  thead {
+    background: var(--color-surface-3);
+  }
+
+  th {
+    padding: var(--space-md);
+    text-align: left;
+    font-weight: 700;
+    color: var(--color-text);
+    border-bottom: 2px solid var(--color-primary);
+  }
+
+  td {
+    padding: var(--space-md);
+    color: var(--color-text-muted);
+    border-bottom: 1px solid var(--color-surface-3);
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .internal-link-context {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    margin-top: var(--space-lg);
+  }
+
+  .internal-link-context a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color var(--transition-base);
+  }
+
+  .internal-link-context a:hover {
+    color: var(--color-primary-hover);
+    text-decoration: underline;
+  }
+
+  /* Interactive Checklist Styles */
+  .interactive-checklist {
+    background: var(--color-surface-2);
+    padding: var(--space-2xl);
+    border-radius: var(--radius-lg);
+    margin: var(--space-3xl) 0;
+    border: 2px solid var(--color-primary);
+  }
+
+  .interactive-checklist h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+  }
+
+  .checklist-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .checklist-item label {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+  }
+
+  .checklist-item label:hover {
+    background: var(--color-surface-3);
+  }
+
+  .checklist-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .checkbox-label {
+    font-size: 1rem;
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  .checklist-result {
+    margin-top: var(--space-xl);
+    padding: var(--space-xl);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .checklist-result.warning {
+    background: rgba(255, 107, 53, 0.1);
+    border: 2px solid #FF6B35;
+    color: #FF6B35;
+  }
+
+  .checklist-result.good {
+    background: rgba(3, 163, 136, 0.1);
+    border: 2px solid #03A388;
+    color: #03A388;
+  }
+
+  .checklist-result p {
+    margin-bottom: var(--space-md);
+    font-size: 1.125rem;
+  }
+
+  .checklist-result a {
+    display: inline-block;
+    margin-top: var(--space-md);
+    padding: var(--space-md) var(--space-xl);
+    background: var(--color-primary-cta);
+    color: #FFFFFF;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    transition: all var(--transition-base);
+    box-shadow: var(--glow-cta);
+  }
+
+  .checklist-result a:hover {
+    background: var(--color-primary-hover);
+    transform: translateY(-2px);
+  }
+
+  /* FAQ Section */
+  .faq-section {
+    margin-top: var(--space-3xl);
+  }
+
+  .faq-item {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--color-surface-3);
+  }
+
+  .faq-item:last-child {
+    border-bottom: none;
+  }
+
+  .faq-item h3 {
+    color: var(--color-primary);
+    font-size: 1.125rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .faq-item p {
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .evergreen-article {
+      padding: var(--space-xl) var(--space-md);
+    }
+
+    .article-header h1 {
+      font-size: 1.75rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    .interactive-checklist {
+      padding: var(--space-xl);
+    }
+
+    .data-table {
+      font-size: 0.875rem;
+    }
+
+    th, td {
+      padding: var(--space-sm);
+    }
+  }
+</style>
+
+<script>
+  // Interactive checklist functionality
+  const form = document.getElementById('backlink-health-checklist') as HTMLFormElement;
+  const resultDiv = document.getElementById('checklist-result') as HTMLDivElement;
+  const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+
+  function updateResult() {
+    const checkedCount = Array.from(checkboxes).filter((cb: HTMLInputElement) => cb.checked).length;
+
+    if (checkedCount === 0) {
+      resultDiv.style.display = 'none';
+      return;
+    }
+
+    resultDiv.style.display = 'block';
+
+    if (checkedCount < 5) {
+      resultDiv.className = 'checklist-result warning';
+      resultDiv.innerHTML = `
+        <p>Score : ${checkedCount}/8 — Un audit s'impose</p>
+        <p style="font-size: 0.9375rem; font-weight: 400; margin-top: var(--space-md);">
+          Votre profil présente des signaux de risque ou d'opportunités non exploitées.
+          Un audit complet permet d'identifier les priorités et de construire un plan d'action sur mesure.
+        </p>
+        <a href="/audit-netlinking/">Demander un audit netlinking</a>
+      `;
+    } else {
+      resultDiv.className = 'checklist-result good';
+      resultDiv.innerHTML = `
+        <p>Score : ${checkedCount}/8 — Profil ${checkedCount === 8 ? 'excellent' : 'sain'}</p>
+        <p style="font-size: 0.9375rem; font-weight: 400; margin-top: var(--space-md);">
+          ${checkedCount === 8
+            ? 'Votre profil respecte les bonnes pratiques essentielles. Continuez ce monitoring régulier.'
+            : 'Votre profil est globalement sain. Les points non cochés méritent une attention particulière lors du prochain audit.'}
+        </p>
+      `;
+    }
+  }
+
+  checkboxes.forEach((checkbox) => {
+    checkbox.addEventListener('change', updateResult);
+  });
+</script>

@@ -1,0 +1,713 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = "Analyser les backlinks de ses concurrents : méthode et outils | Anthony Russo";
+const description = "Regarder ce que font vos concurrents en netlinking, c'est utile. Les copier aveuglément, c'est une erreur. Voici comment analyser leurs backlinks intelligemment — et en tirer un vrai avantage.";
+const canonicalURL = "https://anthonyrusso.fr/audit-netlinking/analyser-concurrents/";
+
+// Structured data schemas
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Analyser les backlinks de ses concurrents : ce qu'on cherche vraiment — et comment s'en démarquer",
+  "description": "Méthode complète pour analyser les backlinks de ses concurrents SEO : Link Gap, vélocité, pages privilégiées, outils et stratégie de différenciation.",
+  "author": {
+    "@type": "Person",
+    "name": "Anthony Russo",
+    "url": "https://anthonyrusso.fr"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Anthony Russo",
+    "url": "https://anthonyrusso.fr"
+  },
+  "mainEntityOfPage": canonicalURL
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Puis-je utiliser exactement les mêmes spots que mes concurrents ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, mais seulement comme point de départ. Obtenir un lien sur un spot déjà présent dans plusieurs profils concurrents vous remet au niveau — ça ne crée pas d'avantage. Pour un écart durable, il faut aller chercher des spots que vos concurrents n'ont pas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "À quelle fréquence faut-il analyser les backlinks de ses concurrents ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un regard approfondi tous les 3 à 6 mois est suffisant pour la plupart des secteurs. Sur des niches très dynamiques ou très concurrentielles, un monitoring mensuel de la vélocité concurrentielle via SEO Observer permet de détecter rapidement si un concurrent accélère sa stratégie de liens."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Que faire si mes concurrents ont des centaines de liens que je n'ai pas ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ne pas essayer de combler le gap en volume. Identifiez les liens les plus qualitatifs de leurs profils, ceux qui ont le plus de trafic réel et la meilleure cohérence thématique, et concentrez l'effort là-dessus. Dix liens sur des spots vraiment solides valent mieux que cent liens de rattrapage sur des spots moyens."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "L'analyse concurrentielle suffit-elle à définir une stratégie de netlinking ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Elle en est un pilier, pas la totalité. Une stratégie complète intègre aussi l'analyse du profil existant, l'identification des pages prioritaires, le plan d'ancres, et la sélection rigoureuse des spots."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment savoir si un concurrent a eu une pénalité suite à ses backlinks ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La plupart des filtres algorithmiques ne sont pas visibles publiquement. Mais une chute brutale de trafic organique visible sur les estimations Ahrefs ou Semrush, corrélée à une mise à jour core Google, est un signal fort. Un profil qui stagne ou décline alors que le site continue de publier régulièrement peut aussi indiquer un filtre en cours."
+      }
+    }
+  ]
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://anthonyrusso.fr"},
+    {"@type": "ListItem", "position": 2, "name": "Audit Netlinking", "item": "https://anthonyrusso.fr/audit-netlinking/"},
+    {"@type": "ListItem", "position": 3, "name": "Analyser les concurrents", "item": canonicalURL}
+  ]
+};
+
+export const prerender = true;
+---
+
+<BaseLayout title={title} description={description}>
+  <Fragment slot="head">
+    <link rel="canonical" href={canonicalURL} />
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <article class="evergreen-article">
+    <header class="article-header">
+      <h1>Analyser les backlinks de ses concurrents : ce qu'on cherche vraiment — et comment s'en démarquer</h1>
+    </header>
+
+    <section class="intro">
+      <p>Analyser les backlinks de ses concurrents est l'une des étapes les plus utiles d'un audit netlinking. C'est aussi l'une des plus mal utilisées.</p>
+
+      <p>La plupart des gens s'arrêtent à "ils ont ce lien, je veux ce lien". La vraie valeur de cette analyse est ailleurs — dans la compréhension des standards de la SERP, dans l'identification des opportunités que personne n'a encore saisies, et dans la construction d'un avantage concurrentiel qui dure.</p>
+    </section>
+
+    <aside class="key-takeaways">
+      <h3>Ce que vous retenez de cette page :</h3>
+      <ul>
+        <li>L'analyse concurrentielle révèle les standards réels de la SERP — volume, types de liens, ancres, vélocité</li>
+        <li>Le Link Gap identifie les spots qui linkent vos concurrents mais pas vous — ce sont vos opportunités prioritaires</li>
+        <li>Copier un profil concurrent lien par lien est une stratégie de rattrapage, pas d'avantage</li>
+        <li>Les pages que les concurrents privilégient pour recevoir des liens révèlent leur stratégie de positionnement</li>
+        <li>Un lien qu'aucun concurrent ne peut obtenir vaut plus que dix liens qu'ils partagent tous</li>
+      </ul>
+    </aside>
+
+    <section>
+      <h2>Pourquoi analyser les backlinks de ses concurrents</h2>
+      <p>Pas pour les copier. Pour avoir une référence réaliste.</p>
+
+      <p>Sans analyse concurrentielle, la stratégie de netlinking repose sur des règles théoriques — des seuils de TF, des ratios d'ancres, des volumes de liens tirés d'articles génériques. Ces règles ne tiennent pas compte de ce qui se passe réellement sur votre SERP. Certaines requêtes sont dominées par des sites avec 50 domaines référents. D'autres nécessitent 500. Certaines tolèrent des taux d'exact match élevés parce que tout le monde le fait. D'autres sont extrêmement sensibles.</p>
+
+      <p>La seule façon de calibrer une campagne correctement, c'est de regarder ce que font les sites qui se positionnent devant vous — et de comprendre pourquoi ça fonctionne pour eux.</p>
+    </section>
+
+    <section>
+      <h2>Identifier ses vrais concurrents SEO</h2>
+      <p>Première subtilité : vos concurrents commerciaux ne sont pas nécessairement vos concurrents SEO. Le site qui se positionne devant vous sur votre requête cible, c'est votre concurrent positionnel — même s'il ne vend pas la même chose que vous, même si vous ne vous connaissez pas.</p>
+
+      <p>Dans Ahrefs, l'outil "Competing Domains" identifie automatiquement les sites qui partagent les mêmes mots-clés que vous. C'est le point de départ. On sélectionne 3 à 5 concurrents directs positionnés sur les requêtes prioritaires — pas les plus gros du secteur, mais ceux qui occupent les places qu'on veut prendre.</p>
+
+      <p>Un concurrent EMD (Exact Match Domain), un site institutionnel et un média ne se positionnent pas avec la même stratégie. Les identifier clairement, c'est comprendre dans quel environnement on évolue.</p>
+    </section>
+
+    <section>
+      <h2>Ce qu'on regarde dans un profil concurrent</h2>
+      <p>L'analyse d'un profil concurrent se fait sur plusieurs niveaux. Le volume brut de domaines référents donne une première référence — combien de sources uniques pour se positionner sur cette SERP. Mais c'est insuffisant seul.</p>
+
+      <p>Ce qui m'intéresse davantage, c'est la nature des liens. Est-ce que les concurrents positionnés ont principalement des liens éditoriaux, des liens de presse, des liens de forums, des annuaires ? Cette composition dit beaucoup sur la façon dont Google évalue cette thématique. Un secteur où tous les leaders ont principalement des liens institutionnels et de presse ne se travaille pas comme un secteur où les liens de blogs thématiques dominent.</p>
+
+      <p>La répartition des ancres des concurrents est une mine d'or. Elle donne la référence réelle pour calibrer le plan d'ancres — taux d'exact match acceptable sur cette SERP, proportion de branded, d'ancres génériques. Ce que les concurrents ont en commun dans leurs ancres, c'est souvent ce que Google s'attend à voir sur cette requête.</p>
+
+      <p>Enfin, la qualité réelle des spots. Pas leurs métriques — leur trafic réel, leur nature éditoriale, leur cohérence thématique. Certains spots d'un concurrent peuvent paraître puissants sur le papier et ne rien valoir réellement. L'analyse se fait avec un œil critique, jamais en recopiant une liste aveuglément.</p>
+
+      <p class="internal-link-context">→ Comment évaluer la qualité réelle d'un spot : <a href="/netlinking-sur-mesure/evaluer-un-spot/">Évaluer un spot</a></p>
+    </section>
+
+    <section>
+      <h2>La vélocité des concurrents : un signal souvent ignoré</h2>
+      <p>Combien de liens vos concurrents acquièrent-ils par mois ? À quel rythme leur profil a-t-il grandi ces 12 derniers mois ? C'est une dimension que peu d'analyses concurrentielles intègrent — et pourtant elle est déterminante.</p>
+
+      <p>Si vos concurrents acquièrent en moyenne 15 à 20 nouveaux domaines référents par mois et que vous êtes à 2, le gap se creuse chaque mois même si vous avez "autant de liens". Si au contraire ils ont stagné depuis 6 mois et que vous progressez régulièrement, vous avez un avantage en train de se construire.</p>
+
+      <p>La vélocité donne aussi une indication sur l'agressivité des pratiques. Un concurrent qui a accumulé 300 domaines référents en 2 mois a probablement utilisé des méthodes risquées — sa position peut être fragile. SEO Observer est l'outil le plus précis pour mesurer la vélocité d'un profil concurrent sur le marché français.</p>
+    </section>
+
+    <section>
+      <h2>Les pages que les concurrents privilégient pour recevoir des liens</h2>
+      <p>C'est une analyse souvent négligée, et pourtant révélatrice. Quelles pages de vos concurrents reçoivent le plus de backlinks ? Est-ce leur homepage, leurs pages de service, leurs articles de blog, leurs pages catégorie ?</p>
+
+      <p>Cette répartition révèle leur stratégie de positionnement. Un concurrent qui concentre ses liens sur une page de service précise essaie de la pousser sur une requête transactionnelle. Un concurrent qui accumule des liens sur ses articles de blog cherche à construire une autorité thématique qui remonte vers ses pages commerciales via le maillage interne.</p>
+
+      <p>Comprendre où ils mettent l'effort vous aide à décider où mettre le vôtre — et à identifier les pages qu'ils négligent, sur lesquelles vous pouvez prendre un avantage plus facilement.</p>
+
+      <p class="internal-link-context">→ Comment le PageRank se distribue entre les pages : <a href="/netlinking-sur-mesure/pagerank/">PageRank</a></p>
+    </section>
+
+    <section>
+      <h2>Le Link Gap : trouver ce qui vous manque</h2>
+      <p>Le Link Gap, c'est l'analyse des sites qui linkent vos concurrents mais pas vous. Dans Ahrefs, l'outil "Link Intersect" permet de croiser les profils de plusieurs concurrents et d'identifier ces opportunités en quelques minutes.</p>
+
+      <p>Un spot qui linke trois de vos cinq concurrents est un spot que Google associe déjà à votre thématique — et sur lequel un lien vers votre site aurait une cohérence naturelle. Ce sont vos opportunités prioritaires.</p>
+
+      <p>Mais la priorisation ne se fait pas sur les métriques du spot. Elle se fait sur sa qualité réelle : trafic organique, cohérence thématique, nature éditoriale, faisabilité d'obtenir un lien. Un spot à DR 50 sans trafic réel est moins intéressant qu'un spot à DR 20 avec 8 000 visiteurs mensuels dans votre thématique.</p>
+    </section>
+
+    <section class="link-gap-tool">
+      <h2>Template — Priorisation des opportunités Link Gap</h2>
+      <p class="tool-description">Ce tableau est un outil de travail — à dupliquer et remplir pour chaque analyse concurrentielle. Les priorités se colorent automatiquement.</p>
+
+      <div class="table-controls">
+        <button id="add-row-btn" class="btn-primary">+ Ajouter une ligne</button>
+        <button id="export-csv-btn" class="btn-secondary">Exporter en CSV</button>
+      </div>
+
+      <div class="table-wrapper">
+        <table id="link-gap-table" class="data-table editable-table">
+          <thead>
+            <tr>
+              <th>Spot</th>
+              <th>DR</th>
+              <th>Trafic est.</th>
+              <th>Nb concurrents</th>
+              <th>Cohérence thématique</th>
+              <th>Faisabilité</th>
+              <th>Priorité</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+            <tr>
+              <td contenteditable="true">exemple-spot.fr</td>
+              <td contenteditable="true">35</td>
+              <td contenteditable="true">12 000/mois</td>
+              <td contenteditable="true">3/5</td>
+              <td contenteditable="true">Forte</td>
+              <td contenteditable="true">Moyenne</td>
+              <td class="priority-cell" data-priority="haute">🟢 Haute</td>
+              <td><button class="btn-delete" onclick="deleteRow(this)">✕</button></td>
+            </tr>
+            <tr>
+              <td contenteditable="true">autre-spot.fr</td>
+              <td contenteditable="true">48</td>
+              <td contenteditable="true">800/mois</td>
+              <td contenteditable="true">4/5</td>
+              <td contenteditable="true">Faible</td>
+              <td contenteditable="true">Facile</td>
+              <td class="priority-cell" data-priority="moyenne">🟡 Moyenne</td>
+              <td><button class="btn-delete" onclick="deleteRow(this)">✕</button></td>
+            </tr>
+            <tr>
+              <td contenteditable="true">spot-niche.fr</td>
+              <td contenteditable="true">18</td>
+              <td contenteditable="true">5 500/mois</td>
+              <td contenteditable="true">2/5</td>
+              <td contenteditable="true">Très forte</td>
+              <td contenteditable="true">Difficile</td>
+              <td class="priority-cell" data-priority="haute">🟢 Haute</td>
+              <td><button class="btn-delete" onclick="deleteRow(this)">✕</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="priority-legend">
+        <p><strong>Légende :</strong></p>
+        <p><span class="priority-badge haute">🟢 Haute</span> — Spot à fort potentiel, à traiter en priorité</p>
+        <p><span class="priority-badge moyenne">🟡 Moyenne</span> — Opportunité secondaire ou à réévaluer</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Se démarquer plutôt que copier</h2>
+      <p>C'est ici que la plupart des stratégies s'arrêtent — et c'est exactement là qu'il faut continuer.</p>
+
+      <p>Un lien que tous vos concurrents ont déjà est un lien de rattrapage. Il vous remet au niveau. Il ne crée pas d'avantage. Et si vous l'obtenez au même moment qu'eux sur les mêmes spots, vous envoyez exactement les mêmes signaux qu'eux à Google — sans vous différencier.</p>
+
+      <p>Ce qui crée un avantage durable, ce sont les liens qu'aucun concurrent ne peut obtenir facilement. Un lien depuis une publication spécialisée qui exige une expertise reconnue. Un partenariat éditorial direct avec un acteur de votre secteur. Une mention dans un forum de niche dont la communauté est authentique et active. Ces spots ne sont pas dans les catalogues. Ils demandent du temps, des relations, parfois du contenu original. C'est précisément pour ça qu'ils valent davantage.</p>
+
+      <p class="internal-link-context">→ Pourquoi les liens hors catalogue ont plus de valeur : <a href="/netlinking-sur-mesure/erreurs-netlinking/">Erreurs netlinking</a></p>
+    </section>
+
+    <section>
+      <h2>Les outils pour cette analyse</h2>
+      <p>Ahrefs reste la référence absolue pour l'analyse concurrentielle. Site Explorer, Competing Domains, Link Intersect — les trois fonctionnalités couvrent l'essentiel de ce qu'on a décrit dans cette page.</p>
+
+      <p>Majestic apporte la dimension thématique via le Topical Trust Flow — utile pour comparer la cohérence thématique des profils concurrents et comprendre dans quelle catégorie Google les positionne.</p>
+
+      <p>SEO Observer est l'outil que j'utilise pour la vélocité. Son monitoring des ancres et de l'évolution des profils dans le temps est le plus précis disponible sur le marché français.</p>
+
+      <p>Google Search Console ne donne pas accès aux données concurrentes — mais reste indispensable pour les données propres, notamment pour croiser les requêtes sur lesquelles vous êtes proche du top 10 avec les profils de liens des concurrents qui vous devancent.</p>
+
+      <p>Semrush peut compléter l'analyse, mais ses données de backlinks sur les petits et moyens sites sont moins fiables qu'Ahrefs. À utiliser avec précaution, jamais comme source principale.</p>
+
+      <p class="internal-link-context">→ Analyser son propre profil avant de regarder les concurrents : <a href="/audit-netlinking/lire-profil-backlinks/">Lire un profil de backlinks</a></p>
+      <p class="internal-link-context">→ Comment l'analyse débouche sur une stratégie : <a href="/audit-netlinking/">Audit Netlinking</a></p>
+      <p class="internal-link-context">→ Construire la campagne après l'analyse : <a href="/netlinking-sur-mesure/">Netlinking sur mesure</a></p>
+    </section>
+
+    <section class="faq-section">
+      <h2>FAQ</h2>
+
+      <div class="faq-item">
+        <h3>Puis-je utiliser exactement les mêmes spots que mes concurrents ?</h3>
+        <p>Oui — mais seulement comme point de départ. Obtenir un lien sur un spot déjà présent dans plusieurs profils concurrents vous remet au niveau. Ça ne vous donne pas d'avantage. Pour créer un écart, il faut aller chercher des spots que vos concurrents n'ont pas — et que Google n'a pas encore associés à tous les acteurs de votre secteur.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>À quelle fréquence faut-il analyser les backlinks de ses concurrents ?</h3>
+        <p>Un regard approfondi tous les 3 à 6 mois est suffisant pour la plupart des secteurs. Sur des niches très dynamiques ou très concurrentielles, un monitoring mensuel de la vélocité concurrentielle via SEO Observer permet de détecter rapidement si un concurrent accélère sa stratégie de liens.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Que faire si mes concurrents ont des centaines de liens que je n'ai pas ?</h3>
+        <p>Ne pas essayer de combler le gap en volume — c'est une course perdue d'avance si vous partez avec du retard. Identifiez les liens les plus qualitatifs de leurs profils, ceux qui ont le plus de trafic réel et la meilleure cohérence thématique, et concentrez l'effort là-dessus. Dix liens sur des spots vraiment solides valent mieux que cent liens de rattrapage sur des spots moyens.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>L'analyse concurrentielle suffit-elle à définir une stratégie de netlinking ?</h3>
+        <p>Non — elle en est un pilier, pas la totalité. Une stratégie complète intègre aussi l'analyse du profil existant du site (A1), l'identification des pages prioritaires à pousser, le plan d'ancres, et la sélection rigoureuse des spots. L'analyse concurrentielle calibre les ambitions et les cibles — elle ne remplace pas les autres dimensions.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Comment savoir si un concurrent a eu une pénalité suite à ses backlinks ?</h3>
+        <p>La plupart des filtres algorithmiques ne sont pas visibles publiquement. Mais une chute brutale de trafic organique visible sur les estimations Ahrefs ou Semrush, corrélée à une mise à jour core Google, est un signal fort. Un profil qui stagne ou décline alors que le site continue de publier régulièrement peut aussi indiquer un filtre en cours. Ces patterns méritent attention — et peuvent être une opportunité pour vous si un concurrent se fragilise.</p>
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .evergreen-article {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--space-2xl) var(--space-lg);
+    color: var(--color-text);
+    line-height: 1.7;
+  }
+
+  .article-header {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .article-header h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--color-text);
+    margin-bottom: var(--space-lg);
+  }
+
+  .intro {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .intro p {
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
+  }
+
+  .key-takeaways {
+    background: var(--color-surface-2);
+    border-left: 4px solid var(--color-primary);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+    border-radius: var(--radius-md);
+  }
+
+  .key-takeaways h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+    color: var(--color-text);
+  }
+
+  .key-takeaways ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .key-takeaways li {
+    padding-left: var(--space-lg);
+    margin-bottom: var(--space-sm);
+    position: relative;
+    color: var(--color-text-muted);
+  }
+
+  .key-takeaways li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  section {
+    margin-bottom: var(--space-2xl);
+  }
+
+  h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: var(--space-lg);
+    margin-top: var(--space-2xl);
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: var(--space-md);
+    margin-top: var(--space-xl);
+  }
+
+  p {
+    margin-bottom: var(--space-lg);
+    font-size: 1.0625rem;
+    color: var(--color-text);
+  }
+
+  .internal-link-context {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    margin-top: var(--space-lg);
+  }
+
+  .internal-link-context a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color var(--transition-base);
+  }
+
+  .internal-link-context a:hover {
+    color: var(--color-primary-hover);
+    text-decoration: underline;
+  }
+
+  /* Link Gap Tool Styles */
+  .link-gap-tool {
+    background: var(--color-surface-2);
+    padding: var(--space-2xl);
+    border-radius: var(--radius-lg);
+    margin: var(--space-3xl) 0;
+    border: 2px solid var(--color-primary);
+  }
+
+  .link-gap-tool h2 {
+    margin-top: 0;
+  }
+
+  .tool-description {
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+    margin-bottom: var(--space-xl);
+  }
+
+  .table-controls {
+    display: flex;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+    flex-wrap: wrap;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--color-primary-cta);
+    color: #FFFFFF;
+    box-shadow: var(--glow-cta);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-primary-hover);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: var(--color-surface-3);
+    color: var(--color-text);
+    border: 1px solid var(--color-primary);
+  }
+
+  .btn-secondary:hover {
+    background: var(--color-primary);
+    color: #FFFFFF;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    margin: var(--space-lg) 0;
+    border-radius: var(--radius-md);
+    background: var(--color-surface-1);
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+
+  .data-table thead {
+    background: var(--color-surface-3);
+  }
+
+  .data-table th {
+    padding: var(--space-md);
+    text-align: left;
+    font-weight: 700;
+    color: var(--color-text);
+    border-bottom: 2px solid var(--color-primary);
+    white-space: nowrap;
+  }
+
+  .data-table td {
+    padding: var(--space-md);
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-surface-3);
+  }
+
+  .data-table tbody tr:hover {
+    background: var(--color-surface-2);
+  }
+
+  .data-table td[contenteditable="true"] {
+    cursor: text;
+  }
+
+  .data-table td[contenteditable="true"]:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -2px;
+    background: var(--color-surface-3);
+  }
+
+  .priority-cell {
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .priority-cell[data-priority="haute"] {
+    color: #03A388;
+  }
+
+  .priority-cell[data-priority="moyenne"] {
+    color: #FF9500;
+  }
+
+  .btn-delete {
+    background: transparent;
+    border: none;
+    color: var(--color-text-muted);
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: var(--space-xs);
+    line-height: 1;
+    transition: color var(--transition-base);
+  }
+
+  .btn-delete:hover {
+    color: #FF6B35;
+  }
+
+  .priority-legend {
+    margin-top: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--color-surface-1);
+    border-radius: var(--radius-md);
+    font-size: 0.9375rem;
+  }
+
+  .priority-legend p {
+    margin-bottom: var(--space-sm);
+  }
+
+  .priority-legend p:first-child {
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+  }
+
+  .priority-badge {
+    display: inline-block;
+    font-weight: 600;
+  }
+
+  .priority-badge.haute {
+    color: #03A388;
+  }
+
+  .priority-badge.moyenne {
+    color: #FF9500;
+  }
+
+  /* FAQ Section */
+  .faq-section {
+    margin-top: var(--space-3xl);
+  }
+
+  .faq-item {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--color-surface-3);
+  }
+
+  .faq-item:last-child {
+    border-bottom: none;
+  }
+
+  .faq-item h3 {
+    color: var(--color-primary);
+    font-size: 1.125rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .faq-item p {
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .evergreen-article {
+      padding: var(--space-xl) var(--space-md);
+    }
+
+    .article-header h1 {
+      font-size: 1.75rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    .link-gap-tool {
+      padding: var(--space-xl);
+    }
+
+    .table-wrapper {
+      font-size: 0.875rem;
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: var(--space-sm);
+    }
+  }
+</style>
+
+<script>
+  // Link Gap table functionality
+  const tableBody = document.getElementById('table-body') as HTMLTableSectionElement;
+  const addRowBtn = document.getElementById('add-row-btn') as HTMLButtonElement;
+  const exportCsvBtn = document.getElementById('export-csv-btn') as HTMLButtonElement;
+
+  // Add new row
+  addRowBtn.addEventListener('click', () => {
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+      <td contenteditable="true">nouveau-spot.fr</td>
+      <td contenteditable="true">0</td>
+      <td contenteditable="true">0/mois</td>
+      <td contenteditable="true">0/5</td>
+      <td contenteditable="true">-</td>
+      <td contenteditable="true">-</td>
+      <td class="priority-cell" data-priority="moyenne">🟡 Moyenne</td>
+      <td><button class="btn-delete" onclick="deleteRow(this)">✕</button></td>
+    `;
+    tableBody.appendChild(newRow);
+  });
+
+  // Delete row function (global scope for inline onclick)
+  (window as any).deleteRow = function(btn: HTMLButtonElement) {
+    const row = btn.closest('tr');
+    if (row && tableBody.children.length > 1) {
+      row.remove();
+    } else if (tableBody.children.length === 1) {
+      alert('Le tableau doit contenir au moins une ligne.');
+    }
+  };
+
+  // Export to CSV
+  exportCsvBtn.addEventListener('click', () => {
+    const table = document.getElementById('link-gap-table') as HTMLTableElement;
+    const rows = table.querySelectorAll('tr');
+    let csv = '';
+
+    rows.forEach((row, index) => {
+      const cells = row.querySelectorAll(index === 0 ? 'th' : 'td');
+      const rowData: string[] = [];
+
+      cells.forEach((cell, cellIndex) => {
+        // Skip last column (delete button)
+        if (cellIndex < cells.length - 1) {
+          let cellText = cell.textContent?.trim() || '';
+          // Escape quotes and wrap in quotes if contains comma
+          if (cellText.includes(',') || cellText.includes('"') || cellText.includes('\n')) {
+            cellText = '"' + cellText.replace(/"/g, '""') + '"';
+          }
+          rowData.push(cellText);
+        }
+      });
+
+      csv += rowData.join(',') + '\n';
+    });
+
+    // Create download
+    const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'link-gap-analysis.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  });
+
+  // Handle priority cell clicks to cycle through values
+  tableBody.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.classList.contains('priority-cell')) {
+      const currentPriority = target.getAttribute('data-priority');
+      if (currentPriority === 'haute') {
+        target.setAttribute('data-priority', 'moyenne');
+        target.textContent = '🟡 Moyenne';
+      } else {
+        target.setAttribute('data-priority', 'haute');
+        target.textContent = '🟢 Haute';
+      }
+    }
+  });
+</script>
