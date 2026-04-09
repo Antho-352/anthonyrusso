@@ -502,8 +502,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   let gameRunning = false;
   let elements: FallingElement[] = [];
   let lastSpawn = 0;
-  let spawnInterval = 1200;
-  let speedMultiplier = 1;
+  let spawnInterval = 1440; // Increased by 20% for easier level 1
+  let speedMultiplier = 0.8; // Reduced by 20% for easier level 1
   let animationId: number;
   let netX = 400; // Center of net
   let mouseX = 400;
@@ -616,7 +616,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     lives = 3;
     level = 1;
     elements = [];
-    speedMultiplier = 1;
+    speedMultiplier = 0.8;
     gameRunning = false;
     lastSpawn = 0;
     netX = canvas.width / 2;
