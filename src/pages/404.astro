@@ -30,20 +30,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
 
       <div class="game-canvas-wrapper">
-        <canvas id="gameCanvas" width="800" height="400"></canvas>
+        <canvas id="gameCanvas" width="800" height="500"></canvas>
         <div id="damageOverlay" class="damage-overlay"></div>
         <div id="scorePopups" class="score-popups"></div>
 
         <!-- Start overlay -->
         <div id="startOverlay" class="start-overlay">
-          <button id="startBtn" class="btn-start">START</button>
+          <div class="start-content">
+            <button id="startBtn" class="btn-start">START</button>
+            <p class="start-hint">Déplace l'épuisette avec ta souris</p>
+          </div>
         </div>
       </div>
 
       <div class="game-instructions">
-        <p><strong>🔗 Lien normal</strong> : +10 pts (ne le laisse pas tomber !)</p>
-        <p><strong>🟢 Lien bonus</strong> : +50 pts (rapide !)</p>
-        <p><strong>🔴 404</strong> : -5 pts (évite-le !)</p>
+        <p><strong>🔗 Liens</strong> : Gros (+5) · Moyen (+10) · Petit (+20)</p>
+        <p><strong>🟢 Bonus</strong> : +50 pts (rapide !)</p>
+        <p><strong>🔴 404</strong> : -20 pts · <strong>📧 SPAM</strong> : -10 pts</p>
       </div>
     </div>
 
@@ -153,7 +156,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     border-radius: 8px;
     border: 2px solid var(--color-border);
     display: block;
-    touch-action: none;
+    cursor: none;
   }
 
   .damage-overlay {
@@ -221,7 +224,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(2, 10, 50, 0.9);
+    background: rgba(2, 10, 50, 0.95);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -231,6 +234,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .start-overlay.hidden {
     display: none;
+  }
+
+  .start-content {
+    text-align: center;
   }
 
   .btn-start {
@@ -243,6 +250,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     border-radius: 12px;
     transition: all 0.2s;
     cursor: pointer;
+    margin-bottom: 1rem;
   }
 
   .btn-start:hover {
@@ -252,6 +260,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .btn-start:active {
     transform: scale(0.95);
+  }
+
+  .start-hint {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
   }
 
   .game-instructions {
@@ -489,9 +502,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   let gameRunning = false;
   let elements: FallingElement[] = [];
   let lastSpawn = 0;
-  let spawnInterval = 1500; // ms
+  let spawnInterval = 1200;
   let speedMultiplier = 1;
   let animationId: number;
+  let netX = 400; // Center of net
+  let mouseX = 400;
 
   // Canvas setup
   const canvas = document.getElementById('gameCanvas') as HTMLCanvasElement;
@@ -512,41 +527,66 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   const restartBtn = document.getElementById('restartBtn')!;
   const leaderboardList = document.getElementById('leaderboardList')!;
 
+  // Net config
+  const NET_WIDTH = canvas.width * 0.10; // 10% of screen width
+  const NET_HEIGHT = 60;
+  const NET_Y = canvas.height - NET_HEIGHT - 10;
+
   // Element types
-  type ElementType = 'normal' | 'error' | 'bonus';
+  type ElementType = 'link-big' | 'link-medium' | 'link-small' | 'bonus' | 'error-404' | 'spam';
 
   interface FallingElement {
     x: number;
     y: number;
-    width: number;
-    height: number;
+    size: number;
     speed: number;
     type: ElementType;
-    text: string;
-    color: string;
+    emoji: string;
+    points: number;
   }
 
   const ELEMENT_CONFIGS = {
-    normal: {
-      texts: ['dofollow-link.com', 'quality-site.fr', 'backlink-juice.io', 'seo-power.net'],
-      color: '#4C75FF',
-      width: 140,
-      height: 32,
-      speedRange: [3, 5],
+    'link-big': {
+      emoji: '🔗',
+      size: 40,
+      speedRange: [1.5, 2.5],
+      points: 5,
+      weight: 0.25,
     },
-    error: {
-      texts: ['404'],
-      color: '#CC3366',
-      width: 60,
-      height: 32,
-      speedRange: [2.5, 4],
+    'link-medium': {
+      emoji: '🔗',
+      size: 30,
+      speedRange: [2.5, 3.5],
+      points: 10,
+      weight: 0.30,
     },
-    bonus: {
-      texts: ['DA90-juice.com', 'PREMIUM-LINK', 'GOLD-SPOT'],
-      color: '#03A388',
-      width: 130,
-      height: 32,
-      speedRange: [6, 9],
+    'link-small': {
+      emoji: '🔗',
+      size: 20,
+      speedRange: [4, 5.5],
+      points: 20,
+      weight: 0.20,
+    },
+    'bonus': {
+      emoji: '🟢',
+      size: 22,
+      speedRange: [6, 8],
+      points: 50,
+      weight: 0.10,
+    },
+    'error-404': {
+      emoji: '🔴',
+      size: 24,
+      speedRange: [5, 7],
+      points: -20,
+      weight: 0.10,
+    },
+    'spam': {
+      emoji: '📧',
+      size: 20,
+      speedRange: [6.5, 8.5],
+      points: -10,
+      weight: 0.05,
     },
   };
 
@@ -556,9 +596,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     lives = 3;
     level = 1;
     elements = [];
-    speedMultiplier = 1.3; // Start harder (old level 2)
+    speedMultiplier = 1;
     gameRunning = false;
     lastSpawn = 0;
+    netX = canvas.width / 2;
 
     updateUI();
     gameOverOverlay.classList.add('hidden');
@@ -579,6 +620,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // Smooth net movement
+    netX += (mouseX - netX) * 0.2;
+
     // Spawn new elements
     if (timestamp - lastSpawn > spawnInterval / speedMultiplier) {
       spawnElement();
@@ -586,24 +630,48 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     }
 
     // Update and draw elements
-    elements.forEach((el, index) => {
+    for (let i = elements.length - 1; i >= 0; i--) {
+      const el = elements[i];
       el.y += el.speed * speedMultiplier;
 
-      // Check if element reached bottom
+      // Check if caught by net
+      if (el.y + el.size >= NET_Y && el.y + el.size <= NET_Y + NET_HEIGHT) {
+        const elCenterX = el.x + el.size / 2;
+        const netLeft = netX - NET_WIDTH / 2;
+        const netRight = netX + NET_WIDTH / 2;
+
+        if (elCenterX >= netLeft && elCenterX <= netRight) {
+          // Element caught!
+          score += el.points;
+          if (el.points < 0 && el.type === 'error-404') {
+            loseLife();
+          }
+          showScorePopup(el.x, el.y, el.points);
+          elements.splice(i, 1);
+          updateUI();
+          continue;
+        }
+      }
+
+      // Check if element passed the net (missed)
       if (el.y > canvas.height) {
-        if (el.type === 'normal') {
+        // Only lose life if it was a good link
+        if (el.points > 0) {
           loseLife();
         }
-        elements.splice(index, 1);
-        return;
+        elements.splice(i, 1);
+        continue;
       }
 
       // Draw element
       drawElement(el);
-    });
+    }
+
+    // Draw net
+    drawNet();
 
     // Level up
-    if (score > 0 && score % 200 === 0 && score !== level * 200) {
+    if (score > 0 && score % 150 === 0 && score !== level * 150) {
       levelUp();
     }
 
@@ -611,92 +679,69 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   function spawnElement() {
-    // Limit simultaneous elements on screen
+    // Limit simultaneous elements
     if (elements.length >= 8) return;
 
-    // Determine element type (weighted random)
+    // Weighted random element type
     const rand = Math.random();
-    let type: ElementType;
-    if (rand < 0.65) type = 'normal';
-    else if (rand < 0.85) type = 'error';
-    else type = 'bonus';
+    let cumulative = 0;
+    let type: ElementType = 'link-medium';
+
+    for (const [key, config] of Object.entries(ELEMENT_CONFIGS)) {
+      cumulative += config.weight;
+      if (rand <= cumulative) {
+        type = key as ElementType;
+        break;
+      }
+    }
 
     const config = ELEMENT_CONFIGS[type];
-    const text = config.texts[Math.floor(Math.random() * config.texts.length)];
-    const width = config.width;
-    const height = config.height;
-    const x = Math.random() * (canvas.width - width);
+    const x = Math.random() * (canvas.width - config.size);
     const speed = config.speedRange[0] + Math.random() * (config.speedRange[1] - config.speedRange[0]);
 
     elements.push({
       x,
-      y: -height,
-      width,
-      height,
+      y: -config.size,
+      size: config.size,
       speed,
       type,
-      text,
-      color: config.color,
+      emoji: config.emoji,
+      points: config.points,
     });
   }
 
   function drawElement(el: FallingElement) {
-    // Shadow
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
-    ctx.shadowBlur = 8;
-    ctx.shadowOffsetY = 4;
-
-    // Background
-    ctx.fillStyle = el.color;
-    ctx.beginPath();
-    ctx.roundRect(el.x, el.y, el.width, el.height, 6);
-    ctx.fill();
-
-    // Reset shadow
-    ctx.shadowColor = 'transparent';
-    ctx.shadowBlur = 0;
-    ctx.shadowOffsetY = 0;
-
-    // Border
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
-    ctx.lineWidth = 1;
-    ctx.stroke();
-
-    // Text
-    ctx.fillStyle = '#fff';
-    ctx.font = el.type === 'error' ? '700 24px Cabinet Grotesk' : '600 14px Satoshi';
+    ctx.font = `${el.size}px Arial`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(el.text, el.x + el.width / 2, el.y + el.height / 2);
+    ctx.fillText(el.emoji, el.x + el.size / 2, el.y + el.size / 2);
   }
 
-  function handleClick(x: number, y: number) {
-    if (!gameRunning) return;
+  function drawNet() {
+    const netLeft = netX - NET_WIDTH / 2;
 
-    for (let i = elements.length - 1; i >= 0; i--) {
-      const el = elements[i];
-      if (x >= el.x && x <= el.x + el.width && y >= el.y && y <= el.y + el.height) {
-        // Element clicked
-        let points = 0;
-        if (el.type === 'normal') {
-          points = 10;
-          score += 10;
-        } else if (el.type === 'bonus') {
-          points = 50;
-          score += 50;
-        } else if (el.type === 'error') {
-          points = -5;
-          score = Math.max(0, score - 5);
-        }
+    // Net shape
+    ctx.fillStyle = 'rgba(76, 117, 255, 0.3)';
+    ctx.strokeStyle = '#4C75FF';
+    ctx.lineWidth = 3;
 
-        // Show score popup
-        showScorePopup(x, y, points);
+    // Triangle/trapezoid net
+    ctx.beginPath();
+    ctx.moveTo(netLeft, NET_Y);
+    ctx.lineTo(netLeft + NET_WIDTH, NET_Y);
+    ctx.lineTo(netLeft + NET_WIDTH * 0.8, NET_Y + NET_HEIGHT);
+    ctx.lineTo(netLeft + NET_WIDTH * 0.2, NET_Y + NET_HEIGHT);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
 
-        elements.splice(i, 1);
-        updateUI();
-        return; // Important: stop after first hit
-      }
-    }
+    // Handle
+    ctx.strokeStyle = '#4C75FF';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(netX, NET_Y + NET_HEIGHT);
+    ctx.lineTo(netX, canvas.height);
+    ctx.stroke();
   }
 
   function showScorePopup(x: number, y: number, points: number) {
@@ -704,7 +749,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     popup.className = `score-popup ${points > 0 ? 'positive' : 'negative'}`;
     popup.textContent = points > 0 ? `+${points}` : `${points}`;
 
-    // Convert canvas coords to popup coords
     const rect = canvas.getBoundingClientRect();
     const scaleX = rect.width / canvas.width;
     const scaleY = rect.height / canvas.height;
@@ -714,7 +758,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     scorePopups.appendChild(popup);
 
-    // Remove after animation
     setTimeout(() => {
       popup.remove();
     }, 1000);
@@ -724,7 +767,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     lives--;
     updateUI();
 
-    // Damage flash
     damageOverlay.classList.add('active');
     setTimeout(() => {
       damageOverlay.classList.remove('active');
@@ -737,8 +779,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   function levelUp() {
     level++;
-    speedMultiplier += 0.2; // Faster progression
-    spawnInterval = Math.max(700, spawnInterval - 120); // 20% faster
+    speedMultiplier += 0.2;
+    spawnInterval = Math.max(600, spawnInterval - 100);
     updateUI();
   }
 
@@ -756,29 +798,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     loadLeaderboard();
   }
 
-  // Event listeners - FIXED click detection
-  canvas.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  // Mouse movement
+  canvas.addEventListener('mousemove', (e) => {
     const rect = canvas.getBoundingClientRect();
     const scaleX = canvas.width / rect.width;
-    const scaleY = canvas.height / rect.height;
-    const x = (e.clientX - rect.left) * scaleX;
-    const y = (e.clientY - rect.top) * scaleY;
-    handleClick(x, y);
-  }, { passive: false });
+    mouseX = (e.clientX - rect.left) * scaleX;
+  });
 
-  // Touch support - FIXED
-  canvas.addEventListener('touchstart', (e) => {
+  // Touch support
+  canvas.addEventListener('touchmove', (e) => {
     e.preventDefault();
-    e.stopPropagation();
     const touch = e.touches[0];
     const rect = canvas.getBoundingClientRect();
     const scaleX = canvas.width / rect.width;
-    const scaleY = canvas.height / rect.height;
-    const x = (touch.clientX - rect.left) * scaleX;
-    const y = (touch.clientY - rect.top) * scaleY;
-    handleClick(x, y);
+    mouseX = (touch.clientX - rect.left) * scaleX;
   }, { passive: false });
 
   startBtn.addEventListener('click', () => {
@@ -795,7 +828,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     const usernameInput = document.getElementById('username') as HTMLInputElement;
     const username = usernameInput.value.trim();
 
-    // Client-side validation
     if (!username || username.length > 20 || !/^[a-zA-Z0-9_-]+$/.test(username)) {
       formError.textContent = 'Pseudo invalide (lettres, chiffres, - et _ uniquement, max 20 caractères)';
       formError.classList.remove('hidden');
@@ -860,23 +892,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     return div.innerHTML;
   }
 
-  // Polyfill for roundRect (Safari < 15.4)
-  if (!CanvasRenderingContext2D.prototype.roundRect) {
-    CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
-      if (w < 2 * r) r = w / 2;
-      if (h < 2 * r) r = h / 2;
-      this.beginPath();
-      this.moveTo(x + r, y);
-      this.arcTo(x + w, y, x + w, y + h, r);
-      this.arcTo(x + w, y + h, x, y + h, r);
-      this.arcTo(x, y + h, x, y, r);
-      this.arcTo(x, y, x + w, y, r);
-      this.closePath();
-      return this;
-    };
-  }
-
-  // Initialize game (don't auto-start)
+  // Initialize game
   init();
   loadLeaderboard();
 </script>
