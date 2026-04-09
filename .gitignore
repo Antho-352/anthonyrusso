@@ -39,3 +39,6 @@ deploy.tar.gz
 
 # Backup
 *.backup
+
+# Game scores
+data/

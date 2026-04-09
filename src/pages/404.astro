@@ -1,0 +1,757 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page introuvable"
+  description="La page que vous cherchez n'existe pas. Profitez-en pour jouer à Attrape les backlinks !"
+  noIndex={true}
+>
+  <div class="game-container">
+    <div class="game-header">
+      <h1>Page introuvable</h1>
+      <p class="subtitle">En attendant, attrape des backlinks 🔗</p>
+    </div>
+
+    <div class="game-ui">
+      <div class="game-stats">
+        <div class="stat">
+          <span class="stat-label">Score</span>
+          <span class="stat-value" id="score">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Vies</span>
+          <span class="stat-value" id="lives">🔗🔗🔗</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Niveau</span>
+          <span class="stat-value" id="level">1</span>
+        </div>
+      </div>
+
+      <div class="game-canvas-wrapper">
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <div id="damageOverlay" class="damage-overlay"></div>
+      </div>
+
+      <div class="game-instructions">
+        <p><strong>🔗 Lien normal</strong> : +10 pts (ne le laisse pas tomber !)</p>
+        <p><strong>🟢 Lien bonus</strong> : +50 pts (rapide !)</p>
+        <p><strong>🔴 404</strong> : -5 pts (évite-le !)</p>
+      </div>
+    </div>
+
+    <!-- Game Over Overlay -->
+    <div id="gameOverOverlay" class="overlay hidden">
+      <div class="overlay-content">
+        <h2>Game over !</h2>
+        <p class="final-score">Score final : <span id="finalScore">0</span> pts</p>
+
+        <form id="scoreForm" class="score-form">
+          <input
+            type="text"
+            id="username"
+            placeholder="Ton pseudo"
+            maxlength="20"
+            pattern="[a-zA-Z0-9_-]+"
+            required
+          />
+          <button type="submit" class="btn-primary">Enregistrer mon score</button>
+          <p id="formError" class="form-error hidden"></p>
+        </form>
+
+        <div class="overlay-actions">
+          <button id="restartBtn" class="btn-secondary">Rejouer</button>
+          <a href="/" class="btn-link">Retour à l'accueil</a>
+        </div>
+
+        <div class="leaderboard">
+          <h3>Top 10</h3>
+          <div id="leaderboardList" class="leaderboard-list">
+            <p class="loading">Chargement...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .game-container {
+    min-height: calc(100vh - 200px);
+    padding: 2rem 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .game-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .game-header h1 {
+    font-family: 'Cabinet Grotesk', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+  }
+
+  .game-ui {
+    background: var(--color-surface-2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+  }
+
+  .game-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-label {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .game-canvas-wrapper {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+
+  #gameCanvas {
+    width: 100%;
+    height: auto;
+    background: var(--color-bg);
+    border-radius: 8px;
+    border: 2px solid var(--color-border);
+    display: block;
+    touch-action: none;
+  }
+
+  .damage-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    border-radius: 8px;
+    opacity: 0;
+    transition: opacity 0.1s;
+  }
+
+  .damage-overlay.active {
+    opacity: 1;
+    box-shadow: inset 0 0 0 8px var(--color-error);
+    animation: damageFlash 0.5s;
+  }
+
+  @keyframes damageFlash {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+
+  .game-instructions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: var(--color-surface);
+    border-radius: 8px;
+    font-size: 0.875rem;
+  }
+
+  .game-instructions p {
+    margin: 0;
+    color: var(--color-text-muted);
+  }
+
+  .game-instructions strong {
+    color: var(--color-text);
+  }
+
+  /* Overlay */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(2, 10, 50, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+    backdrop-filter: blur(8px);
+  }
+
+  .overlay.hidden {
+    display: none;
+  }
+
+  .overlay-content {
+    background: var(--color-surface-2);
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 100%;
+    border: 1px solid var(--color-border);
+  }
+
+  .overlay-content h2 {
+    font-family: 'Cabinet Grotesk', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-text);
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .final-score {
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+
+  .score-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .score-form input {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-size: 1rem;
+  }
+
+  .score-form input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-highlight);
+  }
+
+  .btn-primary, .btn-secondary {
+    padding: 0.875rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s;
+  }
+
+  .btn-primary {
+    background: var(--color-primary-cta);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-primary-hover);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+  }
+
+  .btn-secondary:hover {
+    background: var(--color-surface-offset);
+  }
+
+  .btn-link {
+    display: inline-block;
+    padding: 0.875rem 1.5rem;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    text-decoration: underline;
+  }
+
+  .btn-link:hover {
+    color: var(--color-text);
+  }
+
+  .form-error {
+    color: var(--color-error);
+    font-size: 0.875rem;
+    text-align: center;
+  }
+
+  .form-error.hidden {
+    display: none;
+  }
+
+  .overlay-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .leaderboard {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-divider);
+  }
+
+  .leaderboard h3 {
+    font-family: 'Cabinet Grotesk', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .leaderboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .leaderboard-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--color-surface);
+    border-radius: 6px;
+    border: 1px solid transparent;
+  }
+
+  .leaderboard-item.highlight {
+    border-color: var(--color-primary);
+    background: var(--color-primary-highlight);
+  }
+
+  .leaderboard-rank {
+    font-weight: 700;
+    color: var(--color-primary);
+    min-width: 2rem;
+  }
+
+  .leaderboard-username {
+    flex: 1;
+    color: var(--color-text);
+  }
+
+  .leaderboard-score {
+    font-weight: 600;
+    color: var(--color-success);
+  }
+
+  .leaderboard-date {
+    font-size: 0.75rem;
+    color: var(--color-text-faint);
+    margin-left: 1rem;
+  }
+
+  .loading {
+    text-align: center;
+    color: var(--color-text-muted);
+    padding: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .game-container {
+      padding: 1rem 0.5rem;
+    }
+
+    .game-ui {
+      padding: 1rem;
+    }
+
+    .overlay-content {
+      padding: 1.5rem;
+    }
+
+    .leaderboard-date {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // Game state
+  let score = 0;
+  let lives = 3;
+  let level = 1;
+  let gameRunning = false;
+  let elements: FallingElement[] = [];
+  let lastSpawn = 0;
+  let spawnInterval = 1500; // ms
+  let speedMultiplier = 1;
+  let animationId: number;
+
+  // Canvas setup
+  const canvas = document.getElementById('gameCanvas') as HTMLCanvasElement;
+  const ctx = canvas.getContext('2d')!;
+  const damageOverlay = document.getElementById('damageOverlay')!;
+
+  // UI elements
+  const scoreEl = document.getElementById('score')!;
+  const livesEl = document.getElementById('lives')!;
+  const levelEl = document.getElementById('level')!;
+  const gameOverOverlay = document.getElementById('gameOverOverlay')!;
+  const finalScoreEl = document.getElementById('finalScore')!;
+  const scoreForm = document.getElementById('scoreForm') as HTMLFormElement;
+  const formError = document.getElementById('formError')!;
+  const restartBtn = document.getElementById('restartBtn')!;
+  const leaderboardList = document.getElementById('leaderboardList')!;
+
+  // Element types
+  type ElementType = 'normal' | 'error' | 'bonus';
+
+  interface FallingElement {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    speed: number;
+    type: ElementType;
+    text: string;
+    color: string;
+  }
+
+  const ELEMENT_CONFIGS = {
+    normal: {
+      texts: ['dofollow-link.com', 'quality-site.fr', 'backlink-juice.io', 'seo-power.net'],
+      color: '#4C75FF',
+      width: 180,
+      height: 40,
+      speedRange: [2, 4],
+    },
+    error: {
+      texts: ['404'],
+      color: '#CC3366',
+      width: 80,
+      height: 40,
+      speedRange: [2, 3],
+    },
+    bonus: {
+      texts: ['DA90-juice.com', 'PREMIUM-LINK', 'GOLD-SPOT'],
+      color: '#03A388',
+      width: 160,
+      height: 40,
+      speedRange: [5, 8],
+    },
+  };
+
+  // Initialize game
+  function init() {
+    score = 0;
+    lives = 3;
+    level = 1;
+    elements = [];
+    speedMultiplier = 1;
+    gameRunning = true;
+    lastSpawn = 0;
+
+    updateUI();
+    gameOverOverlay.classList.add('hidden');
+    loadLeaderboard();
+
+    // Start game loop
+    gameLoop(0);
+  }
+
+  function gameLoop(timestamp: number) {
+    if (!gameRunning) return;
+
+    // Clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Spawn new elements
+    if (timestamp - lastSpawn > spawnInterval / speedMultiplier) {
+      spawnElement();
+      lastSpawn = timestamp;
+    }
+
+    // Update and draw elements
+    elements.forEach((el, index) => {
+      el.y += el.speed * speedMultiplier;
+
+      // Check if element reached bottom
+      if (el.y > canvas.height) {
+        if (el.type === 'normal') {
+          loseLife();
+        }
+        elements.splice(index, 1);
+        return;
+      }
+
+      // Draw element
+      drawElement(el);
+    });
+
+    // Level up
+    if (score > 0 && score % 200 === 0 && score !== level * 200) {
+      levelUp();
+    }
+
+    animationId = requestAnimationFrame(gameLoop);
+  }
+
+  function spawnElement() {
+    // Limit simultaneous elements on screen
+    if (elements.length >= 8) return;
+
+    // Determine element type (weighted random)
+    const rand = Math.random();
+    let type: ElementType;
+    if (rand < 0.65) type = 'normal';
+    else if (rand < 0.85) type = 'error';
+    else type = 'bonus';
+
+    const config = ELEMENT_CONFIGS[type];
+    const text = config.texts[Math.floor(Math.random() * config.texts.length)];
+    const width = config.width;
+    const height = config.height;
+    const x = Math.random() * (canvas.width - width);
+    const speed = config.speedRange[0] + Math.random() * (config.speedRange[1] - config.speedRange[0]);
+
+    elements.push({
+      x,
+      y: -height,
+      width,
+      height,
+      speed,
+      type,
+      text,
+      color: config.color,
+    });
+  }
+
+  function drawElement(el: FallingElement) {
+    // Shadow
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+    ctx.shadowBlur = 8;
+    ctx.shadowOffsetY = 4;
+
+    // Background
+    ctx.fillStyle = el.color;
+    ctx.beginPath();
+    ctx.roundRect(el.x, el.y, el.width, el.height, 6);
+    ctx.fill();
+
+    // Reset shadow
+    ctx.shadowColor = 'transparent';
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetY = 0;
+
+    // Border
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // Text
+    ctx.fillStyle = '#fff';
+    ctx.font = el.type === 'error' ? '700 24px Cabinet Grotesk' : '600 14px Satoshi';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(el.text, el.x + el.width / 2, el.y + el.height / 2);
+  }
+
+  function handleClick(x: number, y: number) {
+    if (!gameRunning) return;
+
+    for (let i = elements.length - 1; i >= 0; i--) {
+      const el = elements[i];
+      if (x >= el.x && x <= el.x + el.width && y >= el.y && y <= el.y + el.height) {
+        // Element clicked
+        if (el.type === 'normal') {
+          score += 10;
+        } else if (el.type === 'bonus') {
+          score += 50;
+        } else if (el.type === 'error') {
+          score = Math.max(0, score - 5);
+        }
+
+        elements.splice(i, 1);
+        updateUI();
+        break;
+      }
+    }
+  }
+
+  function loseLife() {
+    lives--;
+    updateUI();
+
+    // Damage flash
+    damageOverlay.classList.add('active');
+    setTimeout(() => {
+      damageOverlay.classList.remove('active');
+    }, 500);
+
+    if (lives <= 0) {
+      endGame();
+    }
+  }
+
+  function levelUp() {
+    level++;
+    speedMultiplier += 0.15;
+    spawnInterval = Math.max(800, spawnInterval - 100);
+    updateUI();
+  }
+
+  function updateUI() {
+    scoreEl.textContent = score.toString();
+    livesEl.textContent = '🔗'.repeat(Math.max(0, lives));
+    levelEl.textContent = level.toString();
+  }
+
+  function endGame() {
+    gameRunning = false;
+    cancelAnimationFrame(animationId);
+    finalScoreEl.textContent = score.toString();
+    gameOverOverlay.classList.remove('hidden');
+    loadLeaderboard();
+  }
+
+  // Event listeners
+  canvas.addEventListener('click', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const x = (e.clientX - rect.left) * scaleX;
+    const y = (e.clientY - rect.top) * scaleY;
+    handleClick(x, y);
+  });
+
+  // Touch support
+  canvas.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const x = (touch.clientX - rect.left) * scaleX;
+    const y = (touch.clientY - rect.top) * scaleY;
+    handleClick(x, y);
+  });
+
+  restartBtn.addEventListener('click', () => {
+    init();
+  });
+
+  // Score submission
+  scoreForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const usernameInput = document.getElementById('username') as HTMLInputElement;
+    const username = usernameInput.value.trim();
+
+    // Client-side validation
+    if (!username || username.length > 20 || !/^[a-zA-Z0-9_-]+$/.test(username)) {
+      formError.textContent = 'Pseudo invalide (lettres, chiffres, - et _ uniquement, max 20 caractères)';
+      formError.classList.remove('hidden');
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/scores', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, score }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erreur lors de l\'enregistrement');
+      }
+
+      formError.classList.add('hidden');
+      usernameInput.value = '';
+      scoreForm.style.display = 'none';
+      loadLeaderboard();
+    } catch (error) {
+      formError.textContent = error instanceof Error ? error.message : 'Erreur réseau';
+      formError.classList.remove('hidden');
+    }
+  });
+
+  // Load leaderboard
+  async function loadLeaderboard() {
+    try {
+      const response = await fetch('/api/scores');
+      const data = await response.json();
+
+      if (!data.scores || data.scores.length === 0) {
+        leaderboardList.innerHTML = '<p class="loading">Aucun score enregistré</p>';
+        return;
+      }
+
+      leaderboardList.innerHTML = data.scores.map((item: any, index: number) => {
+        const isCurrentPlayer = item.score === score && !scoreForm.style.display;
+        const date = new Date(item.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+
+        return `
+          <div class="leaderboard-item ${isCurrentPlayer ? 'highlight' : ''}">
+            <span class="leaderboard-rank">#${index + 1}</span>
+            <span class="leaderboard-username">${escapeHtml(item.username)}</span>
+            <span class="leaderboard-score">${item.score}</span>
+            <span class="leaderboard-date">${date}</span>
+          </div>
+        `;
+      }).join('');
+    } catch (error) {
+      leaderboardList.innerHTML = '<p class="loading">Erreur de chargement</p>';
+    }
+  }
+
+  function escapeHtml(text: string): string {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  // Polyfill for roundRect (Safari < 15.4)
+  if (!CanvasRenderingContext2D.prototype.roundRect) {
+    CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+      if (w < 2 * r) r = w / 2;
+      if (h < 2 * r) r = h / 2;
+      this.beginPath();
+      this.moveTo(x + r, y);
+      this.arcTo(x + w, y, x + w, y + h, r);
+      this.arcTo(x + w, y + h, x, y + h, r);
+      this.arcTo(x, y + h, x, y, r);
+      this.arcTo(x, y, x + w, y, r);
+      this.closePath();
+      return this;
+    };
+  }
+
+  // Start game on page load
+  init();
+</script>
