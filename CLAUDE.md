@@ -22,10 +22,13 @@ npm run dev               # Start dev server (http://localhost:4321)
 npm run build             # Build for production
 npm run preview           # Preview production build locally
 
-# Deployment (production server)
+# Deployment (production server - SSH as anth543)
+cd /home/anth543/anthonyrusso-fr && git pull origin main && npm run build && npx pm2 restart anthonyrusso
+
+# Alternative deployment methods
 ./deploy.sh               # Automated deployment via script
-pm2 restart anthonyrusso  # Restart app after manual deployment
 pm2 logs anthonyrusso     # View production logs
+pm2 status                # Check PM2 status
 ```
 
 ## Architecture

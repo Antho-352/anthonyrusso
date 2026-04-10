@@ -1,0 +1,17 @@
+COMMANDE DE DÉPLOIEMENT RAPIDE
+=================================
+
+SSH en tant que anth543, puis exécuter :
+
+cd /home/anth543/anthonyrusso-fr && git pull origin main && npm run build && npx pm2 restart anthonyrusso
+
+---
+
+Cette commande :
+1. Va dans le répertoire du projet
+2. Récupère les derniers changements depuis GitHub
+3. Build le projet Astro
+4. Redémarre le serveur PM2
+
+Logs : pm2 logs anthonyrusso
+Status : pm2 status
