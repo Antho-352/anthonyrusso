@@ -74,10 +74,14 @@ Layouts use `<slot />` for content and `<slot name="head" />` for page-specific 
 
 Client-side interactivity uses vanilla JavaScript in `<script>` tags within `.astro` files:
 
-- **404 Game** (`src/pages/404.astro`) - Canvas-based catching game with localStorage leaderboard
+- **404 Game** (`src/pages/404.astro`) - Canvas-based catching game with net mechanic
+  - Element types configured in `ELEMENT_CONFIGS` object (link sizes, SPAM, 404, bonus)
+  - Game difficulty: `spawnInterval` (element spawn rate), `speedMultiplier` (falling speed)
+  - Level progression: increases every 150 points, speeds up by 20% per level
+  - Weights determine spawn probability (must sum to 1.0)
 - **API endpoint** (`src/pages/api/scores.ts`) - Rate-limited score submission with JSON file storage
 - **Interactive checklists** (A1, E8 pages) - Vanilla JS for checkboxes, conditional CTAs
-- **Link Gap table** (A2 page) - Editable table with CSV export, no frameworks needed
+- **Link Gap table** (A2 page) - Editable table with CSV export, click priority cells to toggle
 
 **Pattern:** Keep interactivity scoped to individual pages. Use `<script>` tags with TypeScript for type safety. Avoid global state.
 
@@ -107,6 +111,18 @@ Evergreen pages include JSON-LD schemas in `<Fragment slot="head">`:
 - BreadcrumbList schema (navigation hierarchy)
 
 **Pattern:** Define schemas in frontmatter as objects, stringify in `<script type="application/ld+json">`.
+
+### Dynamic Sitemap
+
+Custom sitemap at `/sitemap.xml` (`src/pages/sitemap.xml.ts`) generates XML dynamically:
+- Includes all static/prerendered pages with priority and changefreq
+- Fetches all blog posts from WordPress API with lastmod dates
+- Cached for 1 hour (`Cache-Control: public, max-age=3600`)
+- Updates automatically when new WordPress posts are published
+
+**URL:** https://anthonyrusso.fr/sitemap.xml
+
+**Note:** The built-in @astrojs/sitemap integration is disabled since it can't include SSR blog posts. The custom implementation fetches up to 100 posts per request.
 
 ## Development Patterns
 
